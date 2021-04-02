@@ -1,8 +1,8 @@
 HEARTHSTONE game project backlog:
 
- DEV-001: Fill pom.xml - add all necessary dependencies;
++DEV-001: Fill pom.xml - add all necessary dependencies;+panarina
 
- DEV-002: Add Spring MVC support;
++DEV-002: Add Spring MVC support;+panarina
 
  DEV-003: Add Hibernate support;
 
