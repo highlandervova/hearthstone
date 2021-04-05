@@ -17,10 +17,23 @@ HEARTHSTONE game project backlog:
  DEV-006: Fill main page with data: users online, our nickname, our level, our points, local time. To implement
          users online you shoul implement auto-disconnect user when his session is destroying. To do this auto-
          disconnect you should use interceptor, just try to search query: how to intercept web session
-         destroying;
+         destroying DEP-005;
 
- DEV-007: create card table with id, name, descr, level, pic, type columns, entity and dao with getById, get
-         methods. Also fill this table with 10 creature cards (type='{"cr","1","1"}').
+ DEV-007: Create card table with int id, name, descr, mana, pic, type columns, entity and dao with getById, get
+         methods. Also create cardtype table with int id, int type, int subtype, int damage, int hp columns, entity
+         and dao for it. Fill this table with 10 standart types like 1, 1, 0, 1, 1. Also fill card table with 10
+         creature cards (type=1, 2 etc).
+
+ DEV-008: Create CardController with service, link from main page on card page, page itself, view of card deck of the
+         user on the main page DEP-007;
+
+ DEV-009: Create WaitBattleController to handle battle forming between two players DEP-008;
+
+ DEV-010: Create BattleController with GET battle() method which should create Battle object if it still not exists and
+         place that object to ServletContext collection 'battles', decide if we are player2 in battle - inverse all
+         Battle's params between player1 and player2, then return MAV with battle page. Also create battle.jsp DEP-009
+
+ DEV-011: Create end battle event with calculation and change user's lvl and points DEV-010;
 
  DEV-ADDITIONAL - picture for deck (from 20 to 30 cards) to download from site as png or jpg
  https://www.hearthstonetopdecks.com/card-category/class/
