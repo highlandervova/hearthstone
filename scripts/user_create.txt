@@ -1,0 +1,25 @@
+CREATE TABLE public.user
+
+(
+    id character varying COLLATE pg_catalog."default" NOT NULL,
+    login character varying COLLATE pg_catalog."default",
+    pass character varying COLLATE pg_catalog."default",
+    name character varying COLLATE pg_catalog."default",
+    lastname character varying COLLATE pg_catalog."default",
+    email character varying COLLATE pg_catalog."default",
+    raceid integer  NOT NULL,
+    lvl  integer  NOT NULL,
+    points integer  NOT NULL,
+    money integer  NOT NULL,
+    gold integer  NOT NULL,
+    cards character varying COLLATE pg_catalog."default",
+    deck character varying COLLATE pg_catalog."default",
+    creationdate TIMESTAMP  NOT NULL,
+    deckdate  TIMESTAMP  NOT null,
+    CONSTRAINT user_pkey PRIMARY KEY (id)
+)
+
+    TABLESPACE pg_default;
+
+ ALTER TABLE public.user
+    OWNER to postgres;
