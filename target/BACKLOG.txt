@@ -1,14 +1,15 @@
 HEARTHSTONE game project backlog:
 
- DEV-001: Fill pom.xml - add all necessary dependencies;
++DEV-001: Fill pom.xml - add all necessary dependencies; +panarina
 
- DEV-002: Add Spring MVC support;
++DEV-002: Add Spring MVC support; +panarina
 
- DEV-003: Add Hibernate support;
++DEV-003: Add Hibernate support;+panarina
 
- DEV-004: Create user table with id, login, password, name, lastname, raceid, int lvl, int points, cards,
++DEV-004: Create user table with id, login, password, name, lastname, raceid, int lvl, int points, cards,
          deck, money, gold, email, creationdate, deckdate columns, entity and dao with getByLogin, add,
-         update, delete methods. Add hibernate mapping; Create UserService with all necessary methods DEP-003;
+         update, delete methods. Add hibernate mapping; Create UserService with all necessary methods DEP-003;+panarina
+         Add: deck - while only 1 deck of 30(20) cards
 
  DEV-005: Create login and registration pages - jsps, controllers and all necessary service methods. Add mapping
          in web.xml. Also create test main page with controller without any data DEP-004;
@@ -20,3 +21,6 @@ HEARTHSTONE game project backlog:
 
  DEV-007: create card table with id, name, descr, level, pic, type columns, entity and dao with getById, get
          methods. Also fill this table with 10 creature cards (type='{"cr","1","1"}').
+
+ DEV-ADDITIONAL - picture for deck (from 20 to 30 cards) to download from site as png or jpg
+ https://www.hearthstonetopdecks.com/card-category/class/
