@@ -1,0 +1,29 @@
+CREATE TABLE public.race
+(
+    id integer NOT NULL,
+    name character varying COLLATE pg_catalog."default",
+    pictype character varying COLLATE pg_catalog."default",
+    avatar bytea,
+
+    CONSTRAINT race_pkey PRIMARY KEY (id)
+)
+
+    TABLESPACE pg_default;
+
+ALTER TABLE public.race
+    OWNER to postgres;
+
+
+   INSERT INTO public.race (id,"name") VALUES
+(1,'Warrior'),
+(2,'Magician'),
+(3,'Shaman'),
+(4,'Hunter');
+
+
+
+update public.race set avatar = pg_read_binary_file('c:\Users\Public\Pictures\avatar_foto\war.png') ,
+pictype ='image/png'
+where race.id =1 --(1 -Warrior, 2 Magician, 3 Shaman, 4 Hunter)
+
+

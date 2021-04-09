@@ -15,7 +15,9 @@ public interface UserDao {
     void remove(User user);
     User getByLogin(String login) ;
     boolean add(User u);
+    User getById(String id);
     void updateUser(User u );
+     String getByLoginString(String login) ;
     void updateUserPassword(String login, String pass); //updates all fields (login,pass,city,phone,email) except ads
 
 
