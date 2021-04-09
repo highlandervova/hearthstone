@@ -9,10 +9,10 @@ HEARTHSTONE game project backlog:
 +DEV-004: Create user table with id, login, password, name, lastname, raceid, int lvl, int points, cards,
          deck, money, gold, email, creationdate, deckdate columns, entity and dao with getByLogin, add,
          update, delete methods. Add hibernate mapping; Create UserService with all necessary methods DEP-003;+panarina
-         Add: deck - while only 1 deck of 30(20) cards
+         Add: deck - while only 1 deck of 30(20) cards +panarina
 
- DEV-005: Create login and registration pages - jsps, controllers and all necessary service methods. Add mapping
-         in web.xml. Also create test main page with controller without any data DEP-004;
+ +DEV-005: Create login and registration pages - jsps, controllers and all necessary service methods. Add mapping
+         in web.xml. Also create test main page with controller without any data DEP-004;+panarina
 
  DEV-006: Fill main page with data: users online, our nickname, our level, our points, local time. To implement
          users online you shoul implement auto-disconnect user when his session is destroying. To do this auto-
@@ -35,5 +35,5 @@ HEARTHSTONE game project backlog:
 
  DEV-011: Create end battle event with calculation and change user's lvl and points DEV-010;
 
- DEV-ADDITIONAL - picture for deck (from 20 to 30 cards) to download from site as png or jpg
- https://www.hearthstonetopdecks.com/card-category/class/
++ DEV-ADDITIONAL - picture for deck (from 20 to 30 cards) to download from site as png or jpg
+ https://www.hearthstonetopdecks.com/card-category/class/ +panarina 20 cards(minion +spell)

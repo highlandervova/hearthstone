@@ -12,6 +12,8 @@ import java.util.Collection;
 public class UserDaoImpl implements UserDao{
 
 
+
+
  @Override
     public Collection<User> get() {
             Session s = HibernateUtil.getSession();
@@ -47,6 +49,23 @@ public class UserDaoImpl implements UserDao{
         s.close();
         return u;
     }
+    @Override
+    public User getById(String id) {
+        Session s = HibernateUtil.getSession();
+        User u = (User) s.createQuery(String.format("FROM User WHERE id='%s'", id)).uniqueResult();
+        s.close();
+        return u;
+    }
+
+
+    @Override
+    public String  getByLoginString(String login) {
+        Session s = HibernateUtil.getSession();
+
+          String   u =(String) s.createQuery(String.format("select login FROM User WHERE login='%s'", login)).uniqueResult();
+         s.close();
+        return u;
+            }
 
 
     @Override
