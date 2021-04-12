@@ -12,26 +12,23 @@ import java.util.*;
 public class UserOnlineService {
 
 
-    public List<User> usOnline = new ArrayList<User>();
+    private static List<User> usOnline = new ArrayList<>();
 
 
-
-    public void  add(User user) {
-        usOnline.add(user);
-        LocalDate date = LocalDate.now();
-        String dateStr = new SimpleDateFormat("dd:MM:yyyy HH:mm").format(Calendar.getInstance().getTime());
+    public static void add(User user) {
+        if (!usOnline.contains(user)) {
+            usOnline.add(user);
+        }
     }
 
 
-
-
-    public Collection<User> getOnlineFalse(HttpServletRequest req ) {
-        Collection<User> out2 = new ArrayList();
+    public Collection<User> getOnlineFalse(HttpServletRequest req) {
+        Collection<User> out2 = new ArrayList<>();
 
         for (User user : usOnline) {
             User userFromSession = (User) req.getSession(false).getAttribute(user.getId());
 
-           if ((req.getSession(false)!=null) &&( (User) req.getSession(false).getAttribute(user.getId())!=null)){
+            if ((req.getSession(false) != null) && ((User) req.getSession(false).getAttribute(user.getId()) != null)) {
                 out2.add(user);
             }
         }
@@ -40,14 +37,15 @@ public class UserOnlineService {
     }
 
 
-     public void  remove(User userCur) {
-        Iterator<User> userIterator = usOnline.iterator();
-        while(userIterator.hasNext()){
-           if( userIterator.next().getId() ==userCur.getId())
-            userIterator.remove();
-         }
-     int i = usOnline.size();
+    public static void remove(User userCur) {
+        usOnline.remove(userCur);
     }
 
+    public static int getUsOnlineCount() {
+        return usOnline.size();
+    }
 
+    public static List<User> getUsOnline() {
+        return usOnline;
+    }
 }
