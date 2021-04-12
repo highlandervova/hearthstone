@@ -14,10 +14,8 @@ HEARTHSTONE game project backlog:
  +DEV-005: Create login and registration pages - jsps, controllers and all necessary service methods. Add mapping
          in web.xml. Also create test main page with controller without any data DEP-004;+panarina
 
- DEV-006: Fill main page with data: users online, our nickname, our level, our points, local time. To implement
-         users online you shoul implement auto-disconnect user when his session is destroying. To do this auto-
-         disconnect you should use interceptor, just try to search query: how to intercept web session
-         destroying DEP-005;
+ +DEV-006: Fill main page with data: users online, our nickname, our level, our points, local time. To implement
+         users online; +panarina
 
  DEV-007: Create card table with int id, name, descr, mana, pic, type columns, entity and dao with getById, get
          methods. Also create cardtype table with int id, int type, int subtype, int damage, int hp columns, entity
@@ -37,3 +35,7 @@ HEARTHSTONE game project backlog:
 
 + DEV-ADDITIONAL - picture for deck (from 20 to 30 cards) to download from site as png or jpg
  https://www.hearthstonetopdecks.com/card-category/class/ +panarina 20 cards(minion +spell)
+
+ +DEV-ADDITIONAL you shoul implement auto-disconnect user when his session is destroying. To do this
+  auto-disconnect you should use interceptor, just try to search query: how to intercept web session
+ destroying DEP-005;
