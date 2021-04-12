@@ -17,8 +17,8 @@
 <body>
 <form  method='POST'>
     <%User user = (User) session.getAttribute(AUTHENTICATED.getValue());%>
-    Enter Login: <input type='text' required value="<%=user.getLogin()%>" required name='login'>
-    Enter current password:  &nbsp <input type='password' name='curPass'>
+    Your Login: &nbsp;<b><%=user.getLogin()%></b> <input type='hidden' required value="<%=user.getLogin()%>" required name='login'>
+    <br/>Enter current password:  &nbsp <input type='password' name='curPass'>
     <br/> <br/>
     Enter new password: <input type='password' name='pass1'>
     Enter new password again: <input type='password' name='pass2'>

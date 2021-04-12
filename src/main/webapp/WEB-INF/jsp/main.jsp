@@ -5,30 +5,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style type='text/css'>
-        body {background: #b0e0e6 url(fon.png) top;  }
-</style>
+
+
         <title>${title}</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <style> <%@include file="/WEB-INF/jsp/css/style.css"%>
+     </style>
+
 </head>
-<body>
-<center>
+<body class ="first">
+    <div class = "first">
+  <center>
     <h1>WELCOME &nbsp;<b>${Login}</b> </h1>
     <br/>
     <c:if test="${not empty sessionScope.authenticated}">
-        DO YOU READY START GAME?
 
 
-
-                 <c:choose>
-                <c:when test="${deck=='0'}">
+        DO YOU READY START GAME?<br/>
+<br/>
+        <c:choose>
+            <c:when test="${deck=='0'}">
                 CREATE YOUR DECK
 
                 <form action=${pathDeck} method='GET' >
-                    <input type='submit'    class='buttonEnabled' name='logoff' value='Create DECK'/>
+                    <input type='submit'    class='buttonEnabled' name='createDeck' value='Create DECK'/>
                 </form>
 
             </c:when>
-                 </c:choose>
+        </c:choose>
+        <br/>
+        <br/>
+
+            <table width="80%"  align="center">
+                <th><center>
+                    <img src="${pathHead}/adImage/imageDisplay?id=${idUser}" width="240" height="280"/>
+                </center></th><b>
+                    <th align="left">
+                        <b>YOUR GOLD &nbsp ${gold} <br/>
+                    YOUR LEVEL &nbsp ${lvl} <br/>${dateNow}</b>
+                    <br/><br/>
+                        <form action=${pathEditUser} method='GET' >
+                            <input type='submit' id='bold4'   class='buttonEnabled' value='Edit Account'/>
+                        </form>
+                    <br/><br/>
+                        <form action=${pathMain} method='GET' >
+                            <input type='submit'   name='logoff' value='Log off'/>
+                        </form>
+                        <br/>
+                    </th>
+
+
+            </table>
+
+
+        <br/>
+
+
+
 
 
 
@@ -48,7 +81,7 @@
                     </form>
                     </th>
                     <th><form action=${pathDeck} method='GET' >
-                        <input type='submit'    class='buttonEnabled' name='logoff' value='CHANGE DECK'/>
+                        <input type='submit'    class='buttonEnabled' name='' value='CHANGE DECK'/>
                     </form>
                     </th>
 
@@ -62,6 +95,9 @@
 
 
  </center>
+
+
+
 
 <c:if test="${empty sessionScope.authenticated}">
     <table width="80%"  align="center">
@@ -81,31 +117,28 @@
 
 
 
-<c:if test="${not empty sessionScope.authenticated}">
-    <table width="80%"  align="center">
-<tr><center>
-            <img src="${pathHead}/adImage/imageDisplay?id=${idUser}" width="240" height="280"/>
-</center>
-
-        </tr>
-
-
-        <tr>
-
-
-            <th><form action=${pathEditUser} method='GET' >
-                <input type='submit' id='bold4'   class='buttonEnabled' value='Edit Account'/>
-            </form>
-            </th>
-            <th><form action=${pathMain} method='GET' >
-                <input type='submit'   name='logoff' value='Log off'/>
-            </form>
-            </th>
-
-        </tr>
-    </table>
-</c:if>
-
-
+        <c:choose>
+        <c:when test="${yesOnlineUser > '0'}">
+        <table width="80%"  align="left">
+            <tr><b>User's wating for you </b><br/></tr>
+            <tr><th>ONLINE</th><th>NAME</th>
+                <th>GOLD</th><th>LEVEL</th>
+                <th>LOCAL TIME</th>
+            </tr>
+<c:forEach items="${userOnline}" var="usOnline">
+    <tr><th>YES
+    </th><th>
+    ${usOnline.login}<br/>
+    <img src="${pathHead}/adImage/imageDisplay?id=${usOnline.id}" width="100" height="120"/><br/></th>
+    <th>${usOnline.gold}<br/></th>
+        <th>${usOnline.lvl}<br/></th><th>${dateNow}</th></tr>
+      <br/>
+</c:forEach>
+        </table>
+        </c:when>
+        </c:choose>
+</div>
+<div class = "first">
+</div>
 </body>
 </html>
