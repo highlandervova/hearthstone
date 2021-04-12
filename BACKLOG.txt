@@ -34,8 +34,8 @@ HEARTHSTONE game project backlog:
  DEV-011: Create end battle event with calculation and change user's lvl and points DEV-010;
 
 + DEV-ADDITIONAL - picture for deck (from 20 to 30 cards) to download from site as png or jpg
- https://www.hearthstonetopdecks.com/card-category/class/ +panarina 20 cards(minion +spell)
+         https://www.hearthstonetopdecks.com/card-category/class/ +panarina 20 cards(minion +spell)
 
- !DEV-ADDITIONAL you shoul implement auto-disconnect user when his session is destroying. To do this
-  auto-disconnect you should use interceptor, just try to search query: how to intercept web session
- destroying DEP-005;
++DEV-012 you should implement auto-disconnect user when his session is destroying. To do this
+         auto-disconnect you should use interceptor, just try to search query: how to intercept web session
+         destroying DEP-005;

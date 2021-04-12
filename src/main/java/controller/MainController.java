@@ -78,7 +78,7 @@ public class MainController  implements HttpSessionListener
         LocalDate date = LocalDate.now();
               String dateStr = new SimpleDateFormat("dd:MM:yyyy HH:mm").format(Calendar.getInstance().getTime());
         out.addObject("dateNow", dateStr);
-        out.addObject("yesOnlineUser", String.valueOf(userOnlineService.usOnline.size()));
+        out.addObject("yesOnlineUser", String.valueOf(userOnlineService.getUsOnlineCount()));
         out.addObject("deck", 1);
         if ((req.getSession().getAttribute(AUTHENTICATED.getValue())) != null) {
             User user = (User) req.getSession().getAttribute(AUTHENTICATED.getValue());
@@ -94,11 +94,11 @@ public class MainController  implements HttpSessionListener
             User user = (User) req.getSession().getAttribute(AUTHENTICATED.getValue());
             userOnlineService.remove(user);
             req.getSession().invalidate();
-            int i = userOnlineService.usOnline.size();
+            int i = userOnlineService.getUsOnlineCount();
             out.addObject("Login", "");
             out.addObject("yesOnlineUser", String.valueOf(i));
         }
-                 out.addObject("userOnline", userOnlineService.usOnline);
+                 out.addObject("userOnline", userOnlineService.getUsOnline());
 
             return out;
         }
