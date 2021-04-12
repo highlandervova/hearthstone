@@ -86,9 +86,9 @@ public class EditUserController {
             out.addObject("status", status.getValue());
             user = (User) req.getSession().getAttribute(AUTHENTICATED.getValue());
             out.addObject("allRace", raceService.getRaces());
-
+            int raceId2 = user.getRaceid();
             out.addObject("raceIdUser", user.getRaceid());
-            out.addObject("otherRaces", raceService.getOtherRaces(raceId));
+            out.addObject("otherRaces", raceService.getOtherRaces(raceId2));
             return out;
 
         } else {

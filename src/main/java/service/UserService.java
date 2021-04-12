@@ -2,8 +2,6 @@ package service;
 
 import dao.UserDao;
 import data.User;
-import hibernate.HibernateUtil;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -12,14 +10,43 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.UUID;
 
+
+
 @Service
 public class UserService {
 
+/*
+    private ValidationService validationService;
+    private final UserService userService;
+    private UserOnlineService userOnlineService;
 
     @Autowired
+    public AuthController(
+            final   UserService userService,
+            ValidationService validationService,
+            UserOnlineService userOnlineService
+
+    ) {
+        super();
+        this.userOnlineService = userOnlineService;
+        this.validationService = validationService;
+        this.userService = userService;
+    }
+
+ */
     private UserDao userDao;
+    private UserOnlineService userOnlineService;
 
+    @Autowired
+    public UserService(
+            final UserDao userDao,
+            UserOnlineService userOnlineService
+                        )
+    {
 
+        this.userDao = userDao;
+        this.userOnlineService = userOnlineService;
+    }
 
 
     public  String md5Apache(String pass){
@@ -73,20 +100,25 @@ public class UserService {
         return u != null && u.getPass().equals(md5Apache(pass));
     }
 
-    public boolean updateUserWithPassword(User user){
+    public boolean updateUserWithPassword(User user, User userCurrent){
         if (user!=null){
+            userOnlineService.remove(userCurrent);
             userDao.updateUser(user);
+            userOnlineService.add(user);
             return true;
         }
         return false;
     }
-    public boolean updateUserWithoutPassword(User user){
+    public boolean updateUserWithoutPassword(User user, User userCurrent){
         if (user!=null){
+            userOnlineService.remove(userCurrent);
             userDao.updateUser(user);
+            userOnlineService.add(user);
             return true;
         }
         return false;
     }
+
 
 
 }

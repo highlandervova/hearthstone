@@ -39,6 +39,20 @@
 
 <br/>
 <br/>
+<table width="80%"  align="center">
 
+    <tr>
+
+        <th><form action=${pathMain} method='GET' >
+            <input type='submit' id='bold6'   class='buttonEnabled'  value='Main page'/>
+        </form>
+        </th>
+        <th><form action=${pathReg} method='GET' >
+            <input type='submit' id='bold4'   class='buttonEnabled' value='Register user'/>
+        </form>
+        </th>
+
+    </tr>
+</table>
 </body>
 </html>

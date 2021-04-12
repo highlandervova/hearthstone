@@ -53,7 +53,7 @@ public class EditUserService {
                 updateUser.setCreationdate(curUser.getCreationdate());
 
 
-                return userService.updateUserWithPassword(updateUser);
+                return userService.updateUserWithPassword(updateUser,curUser);
             case CHANGES_SAVED:
             User updateWithoutPassUser = new User();
                 updateWithoutPassUser.setId(curUser.getId());
@@ -69,7 +69,7 @@ public class EditUserService {
                 updateWithoutPassUser.setMoney(curUser.getMoney());
                 updateWithoutPassUser.setGold(curUser.getGold());
                 updateWithoutPassUser.setCreationdate(curUser.getCreationdate());
-                return userService.updateUserWithoutPassword(updateWithoutPassUser);
+                return userService.updateUserWithoutPassword(updateWithoutPassUser, curUser);
             default:
                 return false;
         }
