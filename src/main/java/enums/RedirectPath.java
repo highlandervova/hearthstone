@@ -6,8 +6,13 @@ public enum RedirectPath {
     MAIN_REDIRECT("main"),
     LOGIN_PAGE("/hearthstone_war/auth"),
     REG_PAGE("/hearthstone_war/reg"),
-    EDIT_USER("/hearthstone_war/editUser");
-    //UPLOAD_PAGE("/olx_war/uploadAd");
+    EDIT_USER("/hearthstone_war/editUser"),
+    DECKBOTTOM_PAGE("/hearthstone_war/deckBottom"),
+    DECKMAIN_PAGE("/hearthstone_war/deckMain"),
+    DECKUSER_PAGE("/hearthstone_war/deckUser"),
+    DECKCREATE_PAGE("/hearthstone_war/deck");
+
+
 
 
     private RedirectPath(String value) {

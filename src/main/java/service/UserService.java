@@ -14,26 +14,6 @@ import java.util.UUID;
 
 @Service
 public class UserService {
-
-/*
-    private ValidationService validationService;
-    private final UserService userService;
-    private UserOnlineService userOnlineService;
-
-    @Autowired
-    public AuthController(
-            final   UserService userService,
-            ValidationService validationService,
-            UserOnlineService userOnlineService
-
-    ) {
-        super();
-        this.userOnlineService = userOnlineService;
-        this.validationService = validationService;
-        this.userService = userService;
-    }
-
- */
     private UserDao userDao;
     private UserOnlineService userOnlineService;
 
@@ -72,6 +52,10 @@ public class UserService {
     }
 
 
+    public void update(User u){
+        userDao.updateUser(u);
+    }
+
     public User getByLogin(String login) {
            User u = userDao.getByLogin(login);
         return  u;
@@ -95,6 +79,7 @@ public class UserService {
         User u = userDao.getById(id);
         return u;
     }
+
 
     public boolean checkUserPassword(User u, String pass) {
         return u != null && u.getPass().equals(md5Apache(pass));

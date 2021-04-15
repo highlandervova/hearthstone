@@ -44,6 +44,7 @@ public class MainController  implements HttpSessionListener
     private final RaceService raceService;
     private final UserService userService;
     private final UserOnlineService userOnlineService;
+    private final UserDeckService userDeckService;
 
     //private final TimerTask timerTask;
 
@@ -52,13 +53,15 @@ public class MainController  implements HttpSessionListener
     public MainController(
             final RaceService raceService,
             final UserService userService,
-            final UserOnlineService userOnlineService
+            final UserOnlineService userOnlineService,
+            final UserDeckService userDeckService
    )
 
     {
         this.raceService = raceService;
         this.userService = userService;
         this.userOnlineService = userOnlineService;
+        this.userDeckService = userDeckService;
 
 
     }
@@ -67,6 +70,8 @@ public class MainController  implements HttpSessionListener
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView mainGet(HttpServletRequest req, HttpServletResponse resp) {
         ModelAndView out = new ModelAndView("main");
+        userDeckService.createUsMainDeck();
+        userDeckService.clearUsOwnDeck();
         out.addObject("title", "HearthStone");
         out.addObject("pathEditUser", RedirectPath.EDIT_USER.getValue());
         out.addObject("pathHead", RedirectPath.HEAD_PATH.getValue());
@@ -78,6 +83,7 @@ public class MainController  implements HttpSessionListener
         LocalDate date = LocalDate.now();
               String dateStr = new SimpleDateFormat("dd:MM:yyyy HH:mm").format(Calendar.getInstance().getTime());
         out.addObject("dateNow", dateStr);
+        out.addObject("pathCreateDeck", RedirectPath.DECKCREATE_PAGE.getValue());
         out.addObject("yesOnlineUser", String.valueOf(userOnlineService.getUsOnlineCount()));
         out.addObject("deck", 1);
         if ((req.getSession().getAttribute(AUTHENTICATED.getValue())) != null) {

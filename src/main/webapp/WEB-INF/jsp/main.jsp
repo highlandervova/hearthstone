@@ -23,11 +23,34 @@
 
             DO YOU READY START GAME?<br/>
             <br/>
+
+            <c:choose>
+                <c:when test="${deck > '0'}">
+                    <table width="80%" align="center">
+                        <tr>
+
+
+                                <form action=${start} method='GET'>
+                                    <input type='submit' class='buttonEnabled' value='START GAME'/>
+                                </form>
+
+                        </tr>
+                    </table>
+                </c:when>
+            </c:choose>
+
+
+
+
+
+
+
+
             <c:choose>
                 <c:when test="${deck=='0'}">
                     CREATE YOUR DECK
 
-                    <form action=${pathDeck} method='GET'>
+                    <form action=${pathCreateDeck} method='GET'>
                         <input type='submit' class='buttonEnabled' name='createDeck' value='Create DECK'/>
                     </form>
 
@@ -55,35 +78,28 @@
                             <input type='submit' name='logoff' value='Log off'/>
                         </form>
                         <br/>
+
+
+                    <c:choose>
+                    <c:when test="${deck > '0'}">
+
+                    <br/>
+
+                                <form action=${pathCreateDeck} method='GET'>
+                                    <input type='submit' class='buttonEnabled' name='' value='CHANGE DECK'/>
+                                </form>
+
+
+
+                    </c:when>
+                    </c:choose>
+
                     </th>
-
-
             </table>
 
 
             <br/>
 
-
-            <c:choose>
-                <c:when test="${deck > '0'}">
-                    <table width="80%" align="center">
-                        <tr>
-
-                            <th>
-                                <form action=${start} method='GET'>
-                                    <input type='submit' class='buttonEnabled' value='START GAME'/>
-                                </form>
-                            </th>
-                            <th>
-                                <form action=${pathDeck} method='GET'>
-                                    <input type='submit' class='buttonEnabled' name='' value='CHANGE DECK'/>
-                                </form>
-                            </th>
-
-                        </tr>
-                    </table>
-                </c:when>
-            </c:choose>
 
         </c:if>
 
