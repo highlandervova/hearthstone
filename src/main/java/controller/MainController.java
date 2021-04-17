@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionListener;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -68,7 +69,7 @@ public class MainController  implements HttpSessionListener
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView mainGet(HttpServletRequest req, HttpServletResponse resp) {
+    public ModelAndView mainGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ModelAndView out = new ModelAndView("main");
         userDeckService.createUsMainDeck();
         userDeckService.clearUsOwnDeck();
@@ -83,7 +84,6 @@ public class MainController  implements HttpSessionListener
         LocalDate date = LocalDate.now();
               String dateStr = new SimpleDateFormat("dd:MM:yyyy HH:mm").format(Calendar.getInstance().getTime());
         out.addObject("dateNow", dateStr);
-        out.addObject("pathCreateDeck", RedirectPath.DECKCREATE_PAGE.getValue());
         out.addObject("yesOnlineUser", String.valueOf(userOnlineService.getUsOnlineCount()));
         out.addObject("deck", 1);
         if ((req.getSession().getAttribute(AUTHENTICATED.getValue())) != null) {
@@ -104,7 +104,15 @@ public class MainController  implements HttpSessionListener
             out.addObject("Login", "");
             out.addObject("yesOnlineUser", String.valueOf(i));
         }
-                 out.addObject("userOnline", userOnlineService.getUsOnline());
+
+        if (req.getParameter(RequestParameter.DECK.getValue()) != null) {
+
+            //resp.sendRedirect(RedirectPath.LOGIN_PAGE.getValue());
+            resp.sendRedirect("deckUs?id=all");
+        }
+
+
+        out.addObject("userOnline", userOnlineService.getUsOnline());
 
             return out;
         }

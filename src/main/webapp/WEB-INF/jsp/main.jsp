@@ -50,7 +50,7 @@
                 <c:when test="${deck=='0'}">
                     CREATE YOUR DECK
 
-                    <form action=${pathCreateDeck} method='GET'>
+                    <form action="${pathCreateDeck}" method='GET'>
                         <input type='submit' class='buttonEnabled' name='createDeck' value='Create DECK'/>
                     </form>
 
@@ -85,8 +85,8 @@
 
                     <br/>
 
-                                <form action=${pathCreateDeck} method='GET'>
-                                    <input type='submit' class='buttonEnabled' name='' value='CHANGE DECK'/>
+                                <form  method='GET'>
+                                    <input type='submit' class='buttonEnabled' name='deck' value='CHANGE DECK'/>
                                 </form>
 
 

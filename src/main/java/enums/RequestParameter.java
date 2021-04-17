@@ -28,6 +28,7 @@ public enum RequestParameter {
     PIC("pic"),
     PICUSERREMOVE("picuserremove"),
     SAVEDECK("savedeck"),
+    DECK("deck"),
     CREATEDECK("createdeck");
 
 
