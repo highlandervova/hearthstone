@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionListener;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -44,6 +45,7 @@ public class MainController  implements HttpSessionListener
     private final RaceService raceService;
     private final UserService userService;
     private final UserOnlineService userOnlineService;
+    private final UserDeckService userDeckService;
 
     //private final TimerTask timerTask;
 
@@ -52,21 +54,25 @@ public class MainController  implements HttpSessionListener
     public MainController(
             final RaceService raceService,
             final UserService userService,
-            final UserOnlineService userOnlineService
+            final UserOnlineService userOnlineService,
+            final UserDeckService userDeckService
    )
 
     {
         this.raceService = raceService;
         this.userService = userService;
         this.userOnlineService = userOnlineService;
+        this.userDeckService = userDeckService;
 
 
     }
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView mainGet(HttpServletRequest req, HttpServletResponse resp) {
+    public ModelAndView mainGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ModelAndView out = new ModelAndView("main");
+        userDeckService.createUsMainDeck();
+        userDeckService.clearUsOwnDeck();
         out.addObject("title", "HearthStone");
         out.addObject("pathEditUser", RedirectPath.EDIT_USER.getValue());
         out.addObject("pathHead", RedirectPath.HEAD_PATH.getValue());
@@ -98,7 +104,15 @@ public class MainController  implements HttpSessionListener
             out.addObject("Login", "");
             out.addObject("yesOnlineUser", String.valueOf(i));
         }
-                 out.addObject("userOnline", userOnlineService.getUsOnline());
+
+        if (req.getParameter(RequestParameter.DECK.getValue()) != null) {
+
+            //resp.sendRedirect(RedirectPath.LOGIN_PAGE.getValue());
+            resp.sendRedirect("deckUs?id=all");
+        }
+
+
+        out.addObject("userOnline", userOnlineService.getUsOnline());
 
             return out;
         }

@@ -22,8 +22,8 @@ HEARTHSTONE game project backlog:
          and dao for it. Fill this table with 10 standart types like 1, 1, 0, 1, 1. Also fill card table with 10
          creature cards (type=1, 2 etc).+panarina
 
- DEV-008: Create CardController with service, link from main page on card page, page itself, view of card deck of the
-         user on the main page DEP-007;
+ +DEV-008: Create CardController with service, link from main page on card page, page itself, view of card deck of the
+         user on the main page DEP-007; +panarina
 
  DEV-009: Create WaitBattleController to handle battle forming between two players DEP-008;
 

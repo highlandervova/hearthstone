@@ -1,0 +1,35 @@
+
+.first, .first2{
+     background: #b0e0e6 url("../image/fon.jpg");
+}
+/* #b0e0e6 background-image: url('fon.png') ; background-image:url('css/fon.png');}*/
+/*<%--    #b0e0e6  style type='text/css' --%>*/
+
+
+
+.tableDeck{
+     width: 235px;}
+table {
+     border: 1px solid black;
+     width: 100px;
+}
+
+th,td{
+     width:100px;
+     border: 1px solid black;
+
+}
+th,td {
+     width: 100px;
+     border: 1px solid black;
+}
+
+thead>tr{
+     position:relative;
+     display: block;
+}
+tbody{
+     display: block;
+     height: 80px;
+     owerflow: auto;
+}
