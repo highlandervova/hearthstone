@@ -7,7 +7,8 @@ public enum RedirectPath {
     LOGIN_PAGE("/hearthstone_war/auth"),
     REG_PAGE("/hearthstone_war/reg"),
     EDIT_USER("/hearthstone_war/editUser"),
-    DECKMAIN_PAGE("/hearthstone_war/deckUs");
+    DECKMAIN_PAGE("/hearthstone_war/deckUs"),
+    WAITBATTLE_PAGE("/hearthstone_war/waitBattle");
 
 
     private RedirectPath(String value) {

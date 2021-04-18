@@ -30,7 +30,7 @@
                         <tr>
 
 
-                                <form action=${start} method='GET'>
+                                <form action=${pathWaitBattle} method='GET'>
                                     <input type='submit' class='buttonEnabled' value='START GAME'/>
                                 </form>
 

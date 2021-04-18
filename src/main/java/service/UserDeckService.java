@@ -60,16 +60,12 @@ public class UserDeckService {
     public void addForUsMainDeck(Card card) {
         usMainDeck.add(card);
         usOwnDeck.remove(card);
-        usMainDeck.size();
-        usOwnDeck.size();
-    }
+           }
 
     public void addForUsOwnDeck(Card card) {
         usOwnDeck.add(card);
         usMainDeck.remove(card);
-        usMainDeck.size();
-        usOwnDeck.size();
-    }
+           }
 
 
     public void setUsOwnDeck(User user) {
