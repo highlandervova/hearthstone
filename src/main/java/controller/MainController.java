@@ -81,6 +81,7 @@ public class MainController  implements HttpSessionListener
         out.addObject("pathHead", RedirectPath.HEAD_PATH.getValue());
         out.addObject("pathMain", RedirectPath.MAIN_PAGE.getValue());
         out.addObject("pathAuth", RedirectPath.LOGIN_PAGE.getValue());
+        out.addObject("pathWaitBattle", RedirectPath.WAITBATTLE_PAGE.getValue());
         LocalDate date = LocalDate.now();
               String dateStr = new SimpleDateFormat("dd:MM:yyyy HH:mm").format(Calendar.getInstance().getTime());
         out.addObject("dateNow", dateStr);
