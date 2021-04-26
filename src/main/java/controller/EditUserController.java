@@ -64,7 +64,9 @@ public class EditUserController {
 
         HttpSession session = req.getSession(false);
         if (session != null) {
-            User user = (User) session.getAttribute(SessionAttribute.AUTHENTICATED.getValue());
+            User user = (User) req.getSession().getAttribute(AUTHENTICATED.getValue());
+            //User user = (User) session.getAttribute(SessionAttribute.AUTHENTICATED.getValue());
+
             User editedUser = new User( );
             editedUser.setId(user.getId());
             editedUser.setLogin(login);
@@ -73,14 +75,25 @@ public class EditUserController {
             editedUser.setLastname(lastname);
             editedUser.setRaceid(raceId);
             editedUser.setEmail(email);
+          /*  editedUser.setPoints(user.getPoints());
+            editedUser.setGold(user.getGold());
+            editedUser.setDeck(user.getDeck());
+            editedUser.setLvl(user.getLvl());
+            editedUser.setDeckdate(user.getDeckdate());
+            editedUser.setCreationdate(user.getCreationdate());*/
+
 
 
             UserStatus status = editUserService.checkPasswordFields(user, curPass, pass1, pass2);
             if (editUserService.editUser(user, editedUser, status)) {
                 if (status.equals(UserStatus.CHANGES_SAVED)) { //that's basically hack to update authorized User in session without query to DB
                     editedUser.setPass(user.getPass());
+                    req.getSession().setAttribute(AUTHENTICATED.getValue(), userService.getByLogin(login));
+                     user = (User) req.getSession().getAttribute(AUTHENTICATED.getValue());
+                   // req.getSession().setAttribute(SessionAttribute.AUTHENTICATED.getValue(), user);
                 }
-                req.getSession().setAttribute(SessionAttribute.AUTHENTICATED.getValue(), editedUser);
+                req.getSession().setAttribute(AUTHENTICATED.getValue(), userService.getByLogin(login));
+              //  req.getSession().setAttribute(SessionAttribute.AUTHENTICATED.getValue(), editedUser);
                 status=UserStatus.CHANGES_SAVED;
             }
             out.addObject("status", status.getValue());

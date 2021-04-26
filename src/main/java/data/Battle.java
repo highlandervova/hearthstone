@@ -1,7 +1,10 @@
 package data;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -23,6 +26,12 @@ public class Battle {
     private Integer goldHero1;
     private String handHero1;
     private String deckHero1;
+    @Transient
+    private List<Integer> deckCollectionHero1;
+    @Transient
+    private List<Integer> handCollectionHero1;
+    @Transient
+    private List<Integer> tableCollectionHero1;
     private String tableHero1;
     private String idUserHero2;
     private String loginHero2;
@@ -38,7 +47,14 @@ public class Battle {
     private Integer goldHero2;
     private String handHero2;
     private String deckHero2;
+    @Transient
+    private List<Integer> deckCollectionHero2;
+    @Transient
+    private List<Integer> handCollectionHero2;
+    @Transient
+    private List<Integer> tableCollectionHero2;
     private String tableHero2;
+
 
     public Battle() {}
 
@@ -75,6 +91,58 @@ public class Battle {
         this.deckHero2 = deckHero2;
         this.tableHero2 = tableHero2;
     }
+
+    public List<Integer> getDeckCollectionHero1() {
+        return deckCollectionHero1;
+    }
+
+    public void setDeckCollectionHero1(List<Integer> deckCollectionHero1) {
+        this.deckCollectionHero1 = deckCollectionHero1;
+    }
+
+
+    public List<Integer> getDeckCollectionHero2() {
+        return deckCollectionHero2;
+    }
+
+    public void setDeckCollectionHero2(List<Integer> deckCollectionHero2) {
+        this.deckCollectionHero2 = deckCollectionHero2;
+    }
+
+    public List<Integer> getHandCollectionHero1() {
+        return handCollectionHero1;
+    }
+
+    public void setHandCollectionHero1(List<Integer> handCollectionHero1) {
+        this.handCollectionHero1 = handCollectionHero1;
+    }
+
+
+    public List<Integer> getHandCollectionHero2() {
+        return handCollectionHero2;
+    }
+
+    public void setHandCollectionHero2(List<Integer> handCollectionHero2) {
+        this.handCollectionHero2 = handCollectionHero2;
+    }
+
+    public List<Integer> getTableCollectionHero1() {
+        return tableCollectionHero1;
+    }
+
+    public void setTableCollectionHero1(List<Integer> tableCollectionHero1) {
+        this.tableCollectionHero1 = tableCollectionHero1;
+    }
+
+
+    public List<Integer> getTableCollectionHero2() {
+        return tableCollectionHero2;
+    }
+
+    public void setTableCollectionHero2(List<Integer> tableCollectionHero2) {
+        this.tableCollectionHero2 = tableCollectionHero2;
+    }
+
 
     public String getIdBattle() {
         return idBattle;

@@ -49,9 +49,8 @@
             <c:choose>
                 <c:when test="${deck=='0'}">
                     CREATE YOUR DECK
-
-                    <form action="${pathCreateDeck}" method='GET'>
-                        <input type='submit' class='buttonEnabled' name='createDeck' value='Create DECK'/>
+                    <form  method='GET'>
+                        <input type='submit' class='buttonEnabled' name='deck' value='Create DECK'/>
                     </form>
 
                 </c:when>

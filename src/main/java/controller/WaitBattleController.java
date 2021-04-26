@@ -24,16 +24,19 @@ public class WaitBattleController {
     private ValidationService validationService;
     private final UserService userService;
     final UsWaitBattService usWaitBattService;
+    final BattleService battleService;
 
 
     @Autowired
     public WaitBattleController(
-            final   UserService userService,
+            final UserService userService,
             UsWaitBattService usWaitBattService,
-            ValidationService validationService) {
+            ValidationService validationService,
+            BattleService battleService
+    ) {
 
         super();
-
+        this.battleService = battleService;
         this.validationService = validationService;
         this.usWaitBattService = usWaitBattService;
         this.userService = userService;
@@ -53,24 +56,34 @@ public class WaitBattleController {
         User userFromSession = (User) req.getSession(false).getAttribute(AUTHENTICATED.getValue());
         if (userFromSession != null) {
 
+            String idBattle = usWaitBattService.getBattleIdForUser(userFromSession.getId());
+            if (idBattle != null) { //my user already has waited for Battle
+                resp.sendRedirect("battle?id=" + idBattle);
+            } else {
 
-            if (usWaitBattService.waitBattleEmpty()) {
-              usWaitBattService.addWaitBattle(userFromSession.getId(),userFromSession);
+                if (usWaitBattService.waitBattleEmpty()) {
+                    usWaitBattService.addWaitBattle(userFromSession.getId(), userFromSession); //  waiting battle
 
-            }else{
-                User user2 = usWaitBattService.getUserFromMapAsPlayer2();
-                String idBattle = usWaitBattService.addPrepareForBattle(userFromSession, user2);
-                resp.sendRedirect("battle?id="+idBattle);
+                } else {
+
+                    if (usWaitBattService.findUser(userFromSession.getId()))  //its not my user
+                    {
+
+                        User user2 = usWaitBattService.getUserFromMapAsPlayer2();
+                        idBattle = usWaitBattService.addPrepareForBattle(userFromSession, user2);
+
+                        resp.sendRedirect("battle?id=" + idBattle);    //already battle
+                    }
+
+                }
             }
-
-        }else{
+        } else {
             resp.sendRedirect(RedirectPath.LOGIN_PAGE.getValue());
         }
 
 
         return out;
     }
-
 
 
 }

@@ -16,6 +16,7 @@
 
 
     </style>
+    <meta http-equiv="Refresh" content="5" />
     <title>${title}</title>
     <br/>
     <h2>Wait Battle page</h2>

@@ -12,7 +12,7 @@ import java.util.Objects;
 @Table(name = "public.race")
 public class Race implements Serializable {
     @Id
-    private String id;
+    private Integer id;
     private String name;
     @Column(name = "avatar")
     private byte[] avatar;
@@ -23,14 +23,14 @@ public class Race implements Serializable {
     }
 
 
-    public Race(String id, String name, byte[] avatar, String pictype) {
+    public Race(Integer id, String name, byte[] avatar, String pictype) {
         this.id = id;
         this.name = name;
         this.avatar = avatar;
         this.pictype = pictype;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -46,7 +46,7 @@ public class Race implements Serializable {
         return pictype;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

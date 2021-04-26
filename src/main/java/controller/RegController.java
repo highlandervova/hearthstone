@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import service.RaceService;
+import service.UserOnlineService;
 import service.UserService;
 import service.ValidationService;
 
@@ -30,12 +31,14 @@ public class RegController {
     private ValidationService validationService;
     private final UserService userService;
     private final RaceService raceService;
+    private UserOnlineService userOnlineService;
 
     @Autowired
     public RegController(
             final   UserService userService,
             ValidationService validationService,
-            RaceService raceService
+            RaceService raceService,
+            UserOnlineService userOnlineService
 
     ) {
         super();
@@ -43,6 +46,7 @@ public class RegController {
         this.validationService = validationService;
         this.userService = userService;
         this.raceService = raceService;
+        this.userOnlineService = userOnlineService;
     }
 
 
@@ -75,6 +79,7 @@ public class RegController {
         if (validationService.validateRegistration(login, pass1, pass2)) {
              userService.addNewUser(login, pass1, name, lastname , race, email);
             req.getSession().setAttribute(AUTHENTICATED.getValue(), userService.getByLogin(login));
+            userOnlineService.add(userService.getByLogin(login));
             resp.sendRedirect(RedirectPath.MAIN_REDIRECT.getValue());
             }
         UserStatus status = UserStatus.PASSWORD_FIELDS_MISMATCH;
