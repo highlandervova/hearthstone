@@ -85,20 +85,20 @@ public class UserService {
         return u != null && u.getPass().equals(md5Apache(pass));
     }
 
-    public boolean updateUserWithPassword(User user, User userCurrent){
-        if (user!=null){
+    public boolean updateUserWithPassword(User updateUser, User userCurrent){
+        if (updateUser!=null){
             userOnlineService.remove(userCurrent);
-            userDao.updateUser(user);
-            userOnlineService.add(user);
+            userDao.updateUser(updateUser);
+            userOnlineService.add(updateUser);
             return true;
         }
         return false;
     }
-    public boolean updateUserWithoutPassword(User user, User userCurrent){
-        if (user!=null){
+    public boolean updateUserWithoutPassword(User updateWithoutPassUser, User userCurrent){
+        if (updateWithoutPassUser!=null){
             userOnlineService.remove(userCurrent);
-            userDao.updateUser(user);
-            userOnlineService.add(user);
+            userDao.updateUser(updateWithoutPassUser);
+            userOnlineService.add(updateWithoutPassUser);
             return true;
         }
         return false;

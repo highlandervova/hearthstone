@@ -33,7 +33,13 @@ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
 (9,'QuickShot', 'Deal damage 3 and draw card in hand',2,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\quickshot.png' ));
 INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
 (10,'River Crocolisk', 'Deal damage 2',2,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\river-crocolisk.png' ));
-
+-------------
+INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+(-1,'mana', 'mana',0,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\shirt\mana.png'));
+INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+(0,'shirtDeck', 'shirtDeck',0,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\shirt\shirtDeck.png'));
+INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+(-2,'shirt', 'shirt',0,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\shirt\shirt.png'));
 
 
 

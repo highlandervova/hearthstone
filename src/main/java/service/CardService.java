@@ -43,5 +43,9 @@ public class CardService {
         return c;
     }
 
+     public int getByMana(int cardId){
+        int howMana = cardDao.getMana(cardId);
+        return howMana;
+     }
 
 }

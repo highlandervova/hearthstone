@@ -11,6 +11,7 @@ public interface CardDao {
 
         Card getById(int id);
         Collection<Card> get();
+        int getMana(int id);
 
 
 

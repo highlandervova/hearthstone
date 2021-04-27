@@ -50,6 +50,7 @@ public class EditUserService {
                 updateUser.setPoints(curUser.getPoints());
                 updateUser.setMoney(curUser.getMoney());
                 updateUser.setGold(curUser.getGold());
+                updateUser.setDeck(curUser.getDeck());
                 updateUser.setCreationdate(curUser.getCreationdate());
 
 
@@ -64,12 +65,13 @@ public class EditUserService {
                 updateWithoutPassUser.setEmail(editedUser.getEmail());
                 updateWithoutPassUser.setLastname(editedUser.getLastname());
                 updateWithoutPassUser.setLvl(curUser.getLvl());
+                updateWithoutPassUser.setDeck(curUser.getDeck());
                 updateWithoutPassUser.setDeckdate(curUser.getDeckdate());
                 updateWithoutPassUser.setPoints(curUser.getPoints());
                 updateWithoutPassUser.setMoney(curUser.getMoney());
                 updateWithoutPassUser.setGold(curUser.getGold());
                 updateWithoutPassUser.setCreationdate(curUser.getCreationdate());
-                return userService.updateUserWithoutPassword(updateWithoutPassUser, curUser);
+                return userService.updateUserWithoutPassword( updateWithoutPassUser,curUser);
             default:
                 return false;
         }

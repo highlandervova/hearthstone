@@ -38,13 +38,15 @@ public class UserDeckService {
 
     public Set<Card> createUsMainDeck() {
         Collection<Card> out = cardService.get();
-        for (Card card : out) usMainDeck.add(card);
+        for (Card card : out){
+            if (card.getId()!=0&&card.getId()!=-1){  // remove from deck shirt &mana
+                usMainDeck.add(card);
+            }}
         return usMainDeck;
     }
 
     public Set<Card> getUsMainDeck() {
-        usMainDeck.size();
-        return usMainDeck;
+         return usMainDeck;
     }
 
     public Set<Card> getUsOwnDeck() {
@@ -69,7 +71,7 @@ public class UserDeckService {
 
 
     public void setUsOwnDeck(User user) {
-        String s = "[{";
+        String s = "{'id':'";
         int i = 0;
         Collection<Card> in = getUsOwnDeck();
         if (getUsOwnDeckCount() == 10) {
@@ -77,7 +79,7 @@ public class UserDeckService {
                 if (i < 9) {
                     s = s + card.getId() + ",";
                 } else {
-                    s = s + card.getId() + "}]";
+                    s = s + card.getId() + "'}";
                 }
                 i++;
             }
