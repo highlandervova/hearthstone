@@ -34,4 +34,8 @@ INSERT INTO public.cardtype (id, typecard, subtype, damage,hp) values --spell 1,
 INSERT INTO public.cardtype (id, typecard, subtype, damage,hp) values --spell 1, minion 2
 (10,2, 0,2, 3 );
 
+-------------------
+update  public.cardtype set subtype = 1;
+
+
 

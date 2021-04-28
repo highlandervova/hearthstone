@@ -2,6 +2,7 @@ package service;
 
 
 import dao.CardTypeDao;
+import data.CardType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,19 @@ public class CardTypeService {
     public int getByTypeCard(int cardId) {
         int cardType = cardTypeDao.getByType(cardId);
         return cardType;
+    }
+
+
+    public int getBySubTypeCard(int cardId) {
+        int cardSubType = cardTypeDao.getBySubType(cardId);
+        return cardSubType;
+    }
+
+
+
+    public CardType getByCardType (int cardId) {
+        CardType ct = cardTypeDao.getByCardType(cardId);
+        return  ct;
     }
 
 

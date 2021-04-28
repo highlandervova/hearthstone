@@ -2,10 +2,8 @@ package data;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import javax.smartcardio.Card;
+import java.util.*;
 
 
 @Entity
@@ -31,7 +29,7 @@ public class Battle {
     @Transient
     private List<Integer> handCollectionHero1;
     @Transient
-    private List<Integer> tableCollectionHero1;
+    private ArrayList<CardType> tableCollectionHero1;
     private String tableHero1;
     private String idUserHero2;
     private String loginHero2;
@@ -52,7 +50,7 @@ public class Battle {
     @Transient
     private List<Integer> handCollectionHero2;
     @Transient
-    private List<Integer> tableCollectionHero2;
+    private ArrayList<CardType> tableCollectionHero2;
     private String tableHero2;
 
 
@@ -126,20 +124,20 @@ public class Battle {
         this.handCollectionHero2 = handCollectionHero2;
     }
 
-    public List<Integer> getTableCollectionHero1() {
+    public ArrayList<CardType> getTableCollectionHero1() {
         return tableCollectionHero1;
     }
 
-    public void setTableCollectionHero1(List<Integer> tableCollectionHero1) {
+    public void setTableCollectionHero1(ArrayList<CardType> tableCollectionHero1) {
         this.tableCollectionHero1 = tableCollectionHero1;
     }
 
 
-    public List<Integer> getTableCollectionHero2() {
+    public ArrayList<CardType> getTableCollectionHero2() {
         return tableCollectionHero2;
     }
 
-    public void setTableCollectionHero2(List<Integer> tableCollectionHero2) {
+    public void setTableCollectionHero2(ArrayList<CardType> tableCollectionHero2) {
         this.tableCollectionHero2 = tableCollectionHero2;
     }
 

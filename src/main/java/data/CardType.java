@@ -3,6 +3,7 @@ package data;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Objects;
 
 @Entity
@@ -11,9 +12,13 @@ public class CardType {
     @Id
     private Integer id;
     private Integer typecard;
-    private Integer subtype;
-    private Integer damage;
+    private Integer subtype; // 0: attack only hero; 1:attack target ;  2: attack target+ near minions; 3: all target minions ; 8:cure;9:cure all our minion
+    private Integer damage;    // 4: attack target+draw card (if hand-empty)
     private Integer  hp;
+    @Transient
+    private boolean active;
+
+
 
     public CardType() {
     }
@@ -65,6 +70,16 @@ public class CardType {
     public void setHp(Integer hp) {
         this.hp = hp;
     }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {

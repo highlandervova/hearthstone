@@ -39,7 +39,7 @@ public class UserDeckService {
     public Set<Card> createUsMainDeck() {
         Collection<Card> out = cardService.get();
         for (Card card : out){
-            if (card.getId()!=0&&card.getId()!=-1){  // remove from deck shirt &mana
+            if (card.getId()!=0&&card.getId()!=-1&&card.getId()!=-2){  // remove from deck shirt &mana& shirtDeck
                 usMainDeck.add(card);
             }}
         return usMainDeck;

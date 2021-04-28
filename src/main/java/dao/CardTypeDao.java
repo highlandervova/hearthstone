@@ -1,14 +1,19 @@
 package dao;
 
+import data.CardType;
+
 import java.util.Collection;
 
 public interface CardTypeDao {
 
 
     int getByType(int id);
-    Collection<CardTypeDao> get();
 
+    int getBySubType(int id);
 
+    Collection<CardType> get();
+
+    CardType getByCardType(int id);
 
 
 }

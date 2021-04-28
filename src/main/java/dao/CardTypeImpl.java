@@ -19,14 +19,40 @@ public class CardTypeImpl implements CardTypeDao {
         return cardType;
     }
 
+    public int getBySubType(int id) {
+        Session s = HibernateUtil.getSession();
+        CardType out = (CardType) s.createQuery(String.format("FROM CardType WHERE id='%d'", id)).uniqueResult();
+        int cardSubType = out.getSubtype();
+        s.close();
+        return cardSubType;
+    }
+
+//    @Override
+//    public boolean getActiveCard(int id) {
+//        Session s = HibernateUtil.getSession();
+//        CardType out = (CardType) s.createQuery(String.format("FROM CardType WHERE id='%d'", id)).uniqueResult();
+//        boolean active = out.isActive();
+//        s.close();
+//        return active;
+//    }
+
+
     @Override
-    public Collection<CardTypeDao> get() {
+    public Collection<CardType> get() { //
 
         Session s = HibernateUtil.getSession();
-        Collection<CardTypeDao> out = s.createQuery("FROM Card").list();
+        Collection<CardType> out = s.createQuery("FROM CardType").list();
         s.close();
         return out;
 
 
+    }
+
+    @Override
+    public CardType getByCardType(int id) {
+        Session s = HibernateUtil.getSession();
+        CardType out = (CardType) s.createQuery(String.format("FROM CardType WHERE id='%d'", id)).uniqueResult();
+        s.close();
+        return out;
     }
 }
