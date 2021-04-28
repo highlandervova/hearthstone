@@ -19,6 +19,7 @@ public class Battle {
     private Integer hpHero1;
     private Integer maxHpHero1;
     private Integer attackHero1;
+    private boolean activeHero1;
     private Integer pointsHero1;
     private Integer moneyHero1;
     private Integer goldHero1;
@@ -40,6 +41,7 @@ public class Battle {
     private Integer hpHero2;
     private Integer maxHpHero2;
     private Integer attackHero2;
+    private boolean activeHero2;
     private Integer pointsHero2;
     private Integer moneyHero2;
     private Integer goldHero2;
@@ -88,6 +90,22 @@ public class Battle {
         this.handHero2 = handHero2;
         this.deckHero2 = deckHero2;
         this.tableHero2 = tableHero2;
+    }
+
+    public boolean isActiveHero1() {
+        return activeHero1;
+    }
+
+    public void setActiveHero1(boolean activeHero1) {
+        this.activeHero1 = activeHero1;
+    }
+
+    public boolean isActiveHero2() {
+        return activeHero2;
+    }
+
+    public void setActiveHero2(boolean activeHero2) {
+        this.activeHero2 = activeHero2;
     }
 
     public List<Integer> getDeckCollectionHero1() {

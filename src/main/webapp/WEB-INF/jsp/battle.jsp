@@ -47,10 +47,23 @@
                 <td width="400px" height="110px">
                     <center>
                         <b>${idUser2Login}</b>
+                        <c:choose>
+                        <c:when test="${whoTurn==1}">
+
                         <a href="${pathBattle}?id=${idBattle}tgHero2">
+
+                            </c:when>
+                            </c:choose>
+
                             <img src="${pathHead}/adImage/imageDisplay?id=${idUser2}" width="90" height="110px"
                                  style="border-radius:100%"/>
+                            <c:choose>
+                            <c:when test="${whoTurn==1}">
+
                         </a>
+                        </c:when>
+                        </c:choose>
+
                         <br/>
 
                         <b>Attack:&nbsp; ${attackHero2}&nbsp; </b> <b>HP:&nbsp; ${hpHero2}&nbsp; </b>
@@ -88,10 +101,23 @@
 
 
                     <td>
+
+                        <c:choose>
+                        <c:when test="${whoTurn==1}">
+
                         <a href="${pathBattle}?id=${idBattle}target2${cardForTable2.id}">
+                            </c:when>
+                            </c:choose>
+
                             <img src="${pathHead}/adImage/imageDisplay?id=${cardForTable2.id}" width="140"
                                  height="180"/>
+                            <c:choose>
+                            <c:when test="${whoTurn==1}">
+
                         </a>
+                        </c:when>
+                        </c:choose>
+
                         <br/>
                         <b>Attack:&nbsp; ${cardForTable2.damage}&nbsp; </b> <b>HP:&nbsp; ${cardForTable2.hp}&nbsp; </b>
                     </td>
@@ -121,11 +147,24 @@
                 <td width="400px" height="110px">
                     <center>
                         <b>${idUser1Login}</b>
+
+                        <c:choose>
+                        <c:when test="${whoTurn==2}">
+
                         <a href="${pathBattle}?id=${idBattle}tgHero1">
+                            </c:when>
+                            </c:choose>
+
 
                             <img src="${pathHead}/adImage/imageDisplay?id=${idUser1}" width="90" height="110px"
                                  style="border-radius:100%"/>
+                            <c:choose>
+                            <c:when test="${whoTurn==2}">
+
                         </a>
+                        </c:when>
+                        </c:choose>
+
                         <br/>
 
                         <b>Attack:&nbsp; ${attackHero1}&nbsp; </b> <b>HP:&nbsp; ${hpHero1}&nbsp; </b>
@@ -164,10 +203,24 @@
 
                     <td>
 
-                        <a href="${pathBattle}?id=${idBattle}target1${cardForTable1.id}">
+                        <c:choose>
+                            <c:when test="${whoTurn==2}">
+
+                            <a href="${pathBattle}?id=${idBattle}target1${cardForTable1.id}">
+                            </c:when>
+                        </c:choose>
+
+
+
                             <img src="${pathHead}/adImage/imageDisplay?id=${cardForTable1.id}" width="140"
                                  height="180"/>
+                            <c:choose>
+                            <c:when test="${whoTurn==2}">
+
                         </a>
+                        </c:when>
+                        </c:choose>
+
                         <br/>
                         <b>Attack:&nbsp; ${cardForTable1.damage}&nbsp; </b> <b>HP:&nbsp; ${cardForTable1.hp}&nbsp; </b>
                     </td>
@@ -186,7 +239,7 @@
     <tr>
         <td width="400px"></td>
         <td width="400px"></td>
-        <td width="400px"><h2>Now turn ${turnLogin}</h2>  </td>
+        <td width="400px"><h2>Now turn ${turnLogin}</h2></td>
         <c:choose>
             <c:when test="${whoIs==1}">
                 <c:choose>
@@ -369,7 +422,7 @@
                         <c:choose>
                         <c:when test="${whoTurn==2}">
 
-                        <a href="${pathBattle}?id=${idBattle}table1${cardForTable2.id}">
+                        <a href="${pathBattle}?id=${idBattle}table2${cardForTable2.id}">
 
                             </c:when>
                             </c:choose>
@@ -408,10 +461,24 @@
                 <td width="400px" height="110px">
                     <center>
                         <b>${idUser2Login}</b>
+                        <c:choose>
+                            <c:when test="${whoTurn==2}">
                         <a href="${pathBattle}?id=${idBattle}avatarHero2">
+
+
+                            </c:when>
+                        </c:choose>
+
                             <img src="${pathHead}/adImage/imageDisplay?id=${idUser2}" width="90" height="110px"
                                  style="border-radius:100%"/>
-                        </a> <br/>
+                            <c:choose>
+                            <c:when test="${whoTurn==2}">
+                        </a>
+
+
+                        </c:when>
+                        </c:choose>
+                        <br/>
 
                         <b>Attack:&nbsp; ${attackHero2}&nbsp; </b> <b>HP:&nbsp; ${hpHero2}&nbsp; </b>
                     </center>

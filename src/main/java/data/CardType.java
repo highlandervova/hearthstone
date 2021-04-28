@@ -12,7 +12,7 @@ public class CardType {
     @Id
     private Integer id;
     private Integer typecard;
-    private Integer subtype; // 0: attack only hero; 1:attack target ;  2: attack target+ near minions; 3: all target minions ; 8:cure;9:cure all our minion
+    private Integer subtype; // 0: attack only hero; 1:attack target ;  2: attack target+ near minions; 3: all target minions ; 8:cure;9:cure all our minion ,
     private Integer damage;    // 4: attack target+draw card (if hand-empty)
     private Integer  hp;
     @Transient

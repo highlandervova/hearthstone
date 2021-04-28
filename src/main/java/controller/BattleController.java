@@ -75,19 +75,20 @@ public class BattleController {
                 idBattle = usWaitBattService.getBattleIdForUser(idUser);
                 Battle b = usWaitBattService.getBattleId(idBattle);
                 whoTurn = whoTurn == 1 ? 2 : 1;
-                mess="";
-                int win = battleService.prepeareTable(whoTurn,idBattle); //clean Table and active Minions
-                 if (win >0 ) {
-                     //end Of Game
-                 }
-                 cardOneId = 0;
-                if (whoTurn == 1) {  // countMana
+                mess = "";
+                int win = battleService.prepeareTable(whoTurn, idBattle); //clean Table and active Minions
+                if (win > 0) {
+                    //end Of Game
+                }
+                cardOneId = 0;
+                if (whoTurn == 1) {  // countMana and activeHero:true
                     if ((b.getMannaHero1() + 1) < 10) {
                         b.setMannaHero1(b.getMannaHero1() + 1);
                     } else {
                         b.setMannaHero1(10);
                     }
                     b.setCurrentMannaHero1(b.getMannaHero1());
+                    b.setActiveHero1(true);
                     if (b.getDeckCollectionHero1().size() > 0) {
                         battleService.deckHeroFromDeckToHand(b.getDeckCollectionHero1(), b.getHandCollectionHero1(), idUser, 1);
                     }
@@ -98,6 +99,7 @@ public class BattleController {
                         b.setMannaHero2(10);
                     }
                     b.setCurrentMannaHero2(b.getMannaHero2());
+                    b.setActiveHero2(true);
                     if (b.getDeckCollectionHero2().size() > 0) {
                         battleService.deckHeroFromDeckToHand(b.getDeckCollectionHero2(), b.getHandCollectionHero2(), idUser, 2);
                     }
@@ -186,12 +188,14 @@ public class BattleController {
                     b.setMannaHero1(1);
                     b.setCurrentMannaHero2(0);
                     b.setMannaHero2(0);
+                    b.setActiveHero1(true);
                 } else {
                     battleService.deckHeroFromDeckToHand(b.getDeckCollectionHero2(), b.getHandCollectionHero2(), b.getIdUserHero2(), 2);
                     b.setCurrentMannaHero2(1);
                     b.setMannaHero2(1);
                     b.setCurrentMannaHero1(0);
                     b.setMannaHero1(0);
+                    b.setActiveHero2(true);
                 }
                 firstTurn = 1;
             }
@@ -230,10 +234,26 @@ public class BattleController {
                     String batId = usWaitBattService.getBattleIdForUser(idUser);
                     int numberOfHero = Integer.valueOf(id.substring(id.length() - 1, id.length()));
 
-                    if (cardOneId == 0) {  //who is attack
-                        mess = "choose a target";
-                        cardOneId = -1; //hero
-                        //cardTargetId = 0;
+
+                    if (cardOneId == 0) {
+                        if ( numberOfHero == 1) {
+                            if (b.isActiveHero1()){
+                                mess = "choose a target";
+                                cardOneId = -1; //hero
+                            } else {
+                                mess = "hero is not active! Try one more...";
+                                cardOneId = 0;
+                            }
+                        }else {
+                            if (b.isActiveHero2()) {
+                                mess = "choose a target";
+                                cardOneId = -1; //hero
+                            } else {
+                                mess = "hero is not active! Try one more...";
+                                cardOneId = 0;
+                            }
+                        }
+
                     } else { //chek Hero1 hero2
                         switch (cardOneId == -1 ? 10 : cardTypeService.getBySubTypeCard(cardOneId)) { // who is target, - hero not is cure
                             case 8:
@@ -268,22 +288,23 @@ public class BattleController {
                         mess = "Error! Try one more!";
                         //  cardTargetId = 0;
                     } else {
-                        switch (cardOneId == -1 ? 9 : cardTypeService.getBySubTypeCard(cardOneId)) { // who is target, - hero not is fight
-                            case 8:
-                            case 9:
+                        switch (cardOneId == -1 ? -1 : cardTypeService.getBySubTypeCard(cardOneId)) { // who is target, - hero or target
+                            case -1:
+                                battleService.perfom(-1, -2, whoTurn, batId); // case 101 target opponentHero
+                                cardOneId = 0;
+                                mess = "Attack";
+                                break;
+                            case 1:
+                                battleService.perfom(cardOneId, -2, whoTurn, batId); //  case 104 target opponentHero
+                                cardOneId = 0;
+                                mess = "Attack";
+                                break;
+                            default:
                                 cardOneId = 0;
                                 mess = "Target erorr! Try one more!";
                                 break;
-                            default:
-                                battleService.perfom(cardOneId, -2, whoTurn,batId); // target opponentHero
-                                cardOneId = 0;
-                                mess = "Next target!";
-                                break;
-
-
                         }
                     }
-
 
                     if (numberOfHero == 1) {
                         //cardOneId!=null else mess choose who attack!  // Hp Hero - attack //cardOneId=-1 for hand spell(2)
@@ -309,7 +330,9 @@ public class BattleController {
                                 battleService.fromHandToTable(b.getHandCollectionHero1(), b.getTableCollectionHero1(), idCard, idUser, numberOfHero);
 
                                 b.setCurrentMannaHero1((b.getCurrentMannaHero1() - cardService.getByMana(idCard))); //How is mana,  current -mana
-                            }else { mess = "not enough mana";}
+                            } else {
+                                mess = "not enough mana";
+                            }
                         }
 
                     } else {  //Hero==2
@@ -317,7 +340,9 @@ public class BattleController {
                             if ((b.getCurrentMannaHero2() - cardService.getByMana(idCard)) > -1) {
                                 battleService.fromHandToTable(b.getHandCollectionHero2(), b.getTableCollectionHero2(), idCard, idUser, numberOfHero);
                                 b.setCurrentMannaHero2((b.getCurrentMannaHero2() - cardService.getByMana(idCard)));
-                            }else { mess = "not enough mana";}
+                            } else {
+                                mess = "not enough mana";
+                            }
                         }
                     }
                     resp.sendRedirect("battle?id=" + batId);
@@ -329,17 +354,17 @@ public class BattleController {
                     String batId = usWaitBattService.getBattleIdForUser(idUser);
                     int numberOfHero = Integer.valueOf(id.substring(41, 42));
                     int idCard = Integer.parseInt(id.substring(42, id.length()));
-                    if (battleService.getByActiveCard(idBattle,idCard,whoTurn)) { //spell 1, minion 2
+                    if (battleService.getByActiveCard(idBattle, idCard, whoTurn)) { // active card ?
                         if (cardOneId == 0) {  //who is attack
                             mess = "choose a target";
                             cardOneId = idCard;
                             //cardTargetId = 0;
                         } else {
-                            switch (cardOneId == -1 ? 10 : cardTypeService.getBySubTypeCard(cardOneId)) { // who is target, - hero not is cure
+                            switch (cardOneId == -1 ? 10 : cardTypeService.getBySubTypeCard(cardOneId)) { // who is target cure?, - hero not is cure
 
                                 case 8:
                                 case 9:
-                                    battleService.perfom(cardOneId, idCard, whoTurn,batId);
+                                    battleService.perfom(cardOneId, idCard, whoTurn, batId);
                                     cardOneId = 0;
                                     mess = "Next target!";
                                     break;
@@ -371,19 +396,21 @@ public class BattleController {
                         mess = "Error! Try one more!";
                         cardOneId = 0;
                         //cardTargetId = 0;
-                    }else {
-                        switch (cardOneId == -1 ? 9 : cardTypeService.getBySubTypeCard(cardOneId)) { // who is target
+                    } else {
+                        switch (cardOneId == -1 ? 8 : cardTypeService.getBySubTypeCard(cardOneId)) { // who is target
                             case 8:
-                            case 9:
+                                battleService.perfom(-1, idCard, whoTurn, batId); //case 105
                                 cardOneId = 0;
-                                //  cardTargetId = 0;
-                                mess = "Target error! Try one more!";
+                                mess = "Attack!";
+                                break;
+                            case 1:
+                                battleService.perfom(cardOneId, idCard, whoTurn, batId); // case 1
+                                cardOneId = 0;
+                                mess = "Attack!";
                                 break;
                             default:
-                                battleService.perfom(cardOneId, idCard, whoTurn,batId);
                                 cardOneId = 0;
-                                // cardTargetId = 0;
-                                mess = "Attack!";
+                                mess = "Target error! Try one more!";
                                 break;
                         }
                     }
