@@ -86,6 +86,8 @@ public class UsWaitBattService {
         battle.setHandCollectionHero2(new ArrayList<Integer>());
         battle.setTableCollectionHero1(new ArrayList<CardType>());
         battle.setTableCollectionHero2(new ArrayList<CardType>());
+        battle.setFalseActiveHero1(false);
+        battle.setFalseActiveHero2(false);
         usBattle.add(battle);
         removeWaitBattle(user1.getId());
         removeWaitBattle(user2.getId());

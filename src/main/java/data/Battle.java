@@ -20,6 +20,7 @@ public class Battle {
     private Integer maxHpHero1;
     private Integer attackHero1;
     private boolean activeHero1;
+    private boolean FalseActiveHero1;
     private Integer pointsHero1;
     private Integer moneyHero1;
     private Integer goldHero1;
@@ -42,6 +43,7 @@ public class Battle {
     private Integer maxHpHero2;
     private Integer attackHero2;
     private boolean activeHero2;
+    private boolean FalseActiveHero2;
     private Integer pointsHero2;
     private Integer moneyHero2;
     private Integer goldHero2;
@@ -58,7 +60,68 @@ public class Battle {
 
     public Battle() {}
 
-    public Battle(String idBattle, String idUserHero1, String loginHero1, String nameHero1, Integer raceidHero1, Integer mannaHero1, Integer currentMannaHero1, Integer hpHero1, Integer maxHpHero1, Integer attackHero1, Integer pointsHero1, Integer moneyHero1, Integer goldHero1, String handHero1, String deckHero1, String tableHero1, String idUserHero2, String loginHero2, String nameHero2, Integer raceIdHero2, Integer mannaHero2, Integer currentMannaHero2, Integer hpHero2, Integer maxHpHero2, Integer attackHero2, Integer pointsHero2, Integer moneyHero2, Integer goldHero2, String handHero2, String deckHero2, String tableHero2) {
+
+    public boolean isActiveHero1() {
+        return activeHero1;
+    }
+
+    public void setActiveHero1(boolean activeHero1) {
+        this.activeHero1 = activeHero1;
+    }
+
+    public boolean isActiveHero2() {
+        return activeHero2;
+    }
+
+    public void setActiveHero2(boolean activeHero2) {
+        this.activeHero2 = activeHero2;
+    }
+
+    public boolean isFalseActiveHero1() {
+        return FalseActiveHero1;
+    }
+
+    public void setFalseActiveHero1(boolean falseActiveHero1) {
+        FalseActiveHero1 = falseActiveHero1;
+    }
+
+    public boolean isFalseActiveHero2() {
+        return FalseActiveHero2;
+    }
+
+    public void setFalseActiveHero2(boolean falseActiveHero2) {
+        FalseActiveHero2 = falseActiveHero2;
+    }
+
+
+    public List<Integer> getDeckCollectionHero1() {
+        return deckCollectionHero1;
+    }
+
+    public void setDeckCollectionHero1(List<Integer> deckCollectionHero1) {
+        this.deckCollectionHero1 = deckCollectionHero1;
+    }
+
+
+    public List<Integer> getDeckCollectionHero2() {
+        return deckCollectionHero2;
+    }
+
+    public void setDeckCollectionHero2(List<Integer> deckCollectionHero2) {
+        this.deckCollectionHero2 = deckCollectionHero2;
+    }
+
+    public List<Integer> getHandCollectionHero1() {
+        return handCollectionHero1;
+    }
+
+    public Battle(String idBattle, String idUserHero1, String loginHero1, String nameHero1,
+                  Integer raceidHero1, Integer mannaHero1, Integer currentMannaHero1, Integer hpHero1,
+                  Integer maxHpHero1, Integer attackHero1, Integer pointsHero1, Integer moneyHero1, Integer goldHero1,
+                  String handHero1, String deckHero1, String tableHero1, String idUserHero2, String loginHero2, String nameHero2,
+                  Integer raceIdHero2, Integer mannaHero2, Integer currentMannaHero2, Integer hpHero2, Integer maxHpHero2, Integer attackHero2,
+                  Integer pointsHero2, Integer moneyHero2, Integer goldHero2, String handHero2, String deckHero2,
+                   String tableHero2) {
         this.idBattle = idBattle;
         this.idUserHero1 = idUserHero1;
         this.loginHero1 = loginHero1;
@@ -90,43 +153,6 @@ public class Battle {
         this.handHero2 = handHero2;
         this.deckHero2 = deckHero2;
         this.tableHero2 = tableHero2;
-    }
-
-    public boolean isActiveHero1() {
-        return activeHero1;
-    }
-
-    public void setActiveHero1(boolean activeHero1) {
-        this.activeHero1 = activeHero1;
-    }
-
-    public boolean isActiveHero2() {
-        return activeHero2;
-    }
-
-    public void setActiveHero2(boolean activeHero2) {
-        this.activeHero2 = activeHero2;
-    }
-
-    public List<Integer> getDeckCollectionHero1() {
-        return deckCollectionHero1;
-    }
-
-    public void setDeckCollectionHero1(List<Integer> deckCollectionHero1) {
-        this.deckCollectionHero1 = deckCollectionHero1;
-    }
-
-
-    public List<Integer> getDeckCollectionHero2() {
-        return deckCollectionHero2;
-    }
-
-    public void setDeckCollectionHero2(List<Integer> deckCollectionHero2) {
-        this.deckCollectionHero2 = deckCollectionHero2;
-    }
-
-    public List<Integer> getHandCollectionHero1() {
-        return handCollectionHero1;
     }
 
     public void setHandCollectionHero1(List<Integer> handCollectionHero1) {

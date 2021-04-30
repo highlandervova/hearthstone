@@ -39,6 +39,9 @@ public class CardTypeService {
         return cardSubType;
     }
 
+    public int getByCardDamage(int cardId){
+        return cardTypeDao.getCardDamage(cardId);
+    }
 
 
     public CardType getByCardType (int cardId) {

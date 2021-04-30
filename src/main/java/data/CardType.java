@@ -12,9 +12,13 @@ public class CardType {
     @Id
     private Integer id;
     private Integer typecard;
-    private Integer subtype; // 0: attack only hero; 1:attack target ;  2: attack target+ near minions; 3: all target minions ; 8:cure;9:cure all our minion ,
-    private Integer damage;    // 4: attack target+draw card (if hand-empty)
+    private Integer subtype;
+    private Integer damage;
     private Integer  hp;
+    private Integer damageadd;
+    private Integer  hpadd;
+    @Transient
+    private Integer activate;
     @Transient
     private boolean active;
 
@@ -23,12 +27,40 @@ public class CardType {
     public CardType() {
     }
 
-    public CardType(Integer id, Integer typecard, Integer subtype, Integer damage, Integer hp) {
+    public CardType(Integer id, Integer typecard, Integer subtype, Integer damage, Integer hp, Integer damageadd, Integer hpadd, Integer activate, boolean active) {
         this.id = id;
         this.typecard = typecard;
         this.subtype = subtype;
         this.damage = damage;
         this.hp = hp;
+        this.damageadd = damageadd;
+        this.hpadd = hpadd;
+        this.active = active;
+        this.activate = activate; // for hand control
+    }
+
+    public Integer getDamageadd() {
+        return damageadd;
+    }
+
+    public void setDamageadd(Integer damageadd) {
+        this.damageadd = damageadd;
+    }
+
+    public Integer getHpadd() {
+        return hpadd;
+    }
+
+    public void setHpadd(Integer hpadd) {
+        this.hpadd = hpadd;
+    }
+
+    public Integer getActivate() {
+        return activate;
+    }
+
+    public void setActivate(Integer activate) {
+        this.activate = activate;
     }
 
     public Integer getId() {
