@@ -2,10 +2,8 @@ package data;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import javax.smartcardio.Card;
+import java.util.*;
 
 
 @Entity
@@ -21,6 +19,7 @@ public class Battle {
     private Integer hpHero1;
     private Integer maxHpHero1;
     private Integer attackHero1;
+    private boolean activeHero1;
     private Integer pointsHero1;
     private Integer moneyHero1;
     private Integer goldHero1;
@@ -31,7 +30,7 @@ public class Battle {
     @Transient
     private List<Integer> handCollectionHero1;
     @Transient
-    private List<Integer> tableCollectionHero1;
+    private ArrayList<CardType> tableCollectionHero1;
     private String tableHero1;
     private String idUserHero2;
     private String loginHero2;
@@ -42,6 +41,7 @@ public class Battle {
     private Integer hpHero2;
     private Integer maxHpHero2;
     private Integer attackHero2;
+    private boolean activeHero2;
     private Integer pointsHero2;
     private Integer moneyHero2;
     private Integer goldHero2;
@@ -52,7 +52,7 @@ public class Battle {
     @Transient
     private List<Integer> handCollectionHero2;
     @Transient
-    private List<Integer> tableCollectionHero2;
+    private ArrayList<CardType> tableCollectionHero2;
     private String tableHero2;
 
 
@@ -92,6 +92,22 @@ public class Battle {
         this.tableHero2 = tableHero2;
     }
 
+    public boolean isActiveHero1() {
+        return activeHero1;
+    }
+
+    public void setActiveHero1(boolean activeHero1) {
+        this.activeHero1 = activeHero1;
+    }
+
+    public boolean isActiveHero2() {
+        return activeHero2;
+    }
+
+    public void setActiveHero2(boolean activeHero2) {
+        this.activeHero2 = activeHero2;
+    }
+
     public List<Integer> getDeckCollectionHero1() {
         return deckCollectionHero1;
     }
@@ -126,20 +142,20 @@ public class Battle {
         this.handCollectionHero2 = handCollectionHero2;
     }
 
-    public List<Integer> getTableCollectionHero1() {
+    public ArrayList<CardType> getTableCollectionHero1() {
         return tableCollectionHero1;
     }
 
-    public void setTableCollectionHero1(List<Integer> tableCollectionHero1) {
+    public void setTableCollectionHero1(ArrayList<CardType> tableCollectionHero1) {
         this.tableCollectionHero1 = tableCollectionHero1;
     }
 
 
-    public List<Integer> getTableCollectionHero2() {
+    public ArrayList<CardType> getTableCollectionHero2() {
         return tableCollectionHero2;
     }
 
-    public void setTableCollectionHero2(List<Integer> tableCollectionHero2) {
+    public void setTableCollectionHero2(ArrayList<CardType> tableCollectionHero2) {
         this.tableCollectionHero2 = tableCollectionHero2;
     }
 

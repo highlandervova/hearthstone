@@ -37,7 +37,7 @@ public class UserOnlineService {
 
     public static void remove(User userCur) {
         usOnline.remove(userCur);
-    }
+    }   //
 
     public static int getUsOnlineCount() {
         return usOnline.size();

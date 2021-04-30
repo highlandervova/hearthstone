@@ -1,6 +1,7 @@
 package controller;
 
 import data.Battle;
+import data.CardType;
 import data.User;
 import enums.RedirectPath;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static enums.SessionAttribute.AUTHENTICATED;
@@ -30,6 +32,9 @@ public class BattleController {
     private final UserService userService;
     private final CardTypeService cardTypeService;
     String currentHeroId = null;
+    int cardOneId = 0;
+    //int cardTargetId = 0;
+    String mess = null;
     int firstTurn = 0;
     int whoTurn = 0;
 
@@ -61,6 +66,7 @@ public class BattleController {
         out.addObject("pathReg", RedirectPath.REG_PAGE.getValue());
         out.addObject("pathHead", RedirectPath.HEAD_PATH.getValue());
         out.addObject("pathBattle", RedirectPath.BATTLE_PAGE.getValue());
+        out.addObject("mess", mess);
         User userFromSession = (User) req.getSession(false).getAttribute(AUTHENTICATED.getValue());
         if (userFromSession != null) {
             String idBattle = null;
@@ -69,37 +75,35 @@ public class BattleController {
                 idBattle = usWaitBattService.getBattleIdForUser(idUser);
                 Battle b = usWaitBattService.getBattleId(idBattle);
                 whoTurn = whoTurn == 1 ? 2 : 1;
-                if (whoTurn == 1) {
-
+                mess = "";
+                int win = battleService.prepeareTable(whoTurn, idBattle); //clean Table and active Minions
+                if (win > 0) {
+                    //end Of Game
+                }
+                cardOneId = 0;
+                if (whoTurn == 1) {  // countMana and activeHero:true
                     if ((b.getMannaHero1() + 1) < 10) {
                         b.setMannaHero1(b.getMannaHero1() + 1);
                     } else {
                         b.setMannaHero1(10);
                     }
                     b.setCurrentMannaHero1(b.getMannaHero1());
-
-
-
+                    b.setActiveHero1(true);
                     if (b.getDeckCollectionHero1().size() > 0) {
                         battleService.deckHeroFromDeckToHand(b.getDeckCollectionHero1(), b.getHandCollectionHero1(), idUser, 1);
                     }
                 } else { //whoTurn==2
-
-
                     if ((b.getMannaHero2() + 1) < 10) {
                         b.setMannaHero2(b.getMannaHero2() + 1);
-                                            } else {
+                    } else {
                         b.setMannaHero2(10);
                     }
-
                     b.setCurrentMannaHero2(b.getMannaHero2());
-
-
+                    b.setActiveHero2(true);
                     if (b.getDeckCollectionHero2().size() > 0) {
                         battleService.deckHeroFromDeckToHand(b.getDeckCollectionHero2(), b.getHandCollectionHero2(), idUser, 2);
                     }
                 }
-
                 resp.sendRedirect("battle?id=" + idBattle);
             }
 
@@ -137,7 +141,7 @@ public class BattleController {
             int deckCardHero1 = battleService.deckHeroForBattleCount(b.getDeckCollectionHero1());
             List<Integer> deckCollectionHero1 = b.getDeckCollectionHero1();
             List<Integer> handCollectionHero1 = b.getHandCollectionHero1();
-            List<Integer> tableCollectionHero1 = b.getTableCollectionHero1();
+            ArrayList<CardType> tableCollectionHero1 = b.getTableCollectionHero1();
 
             String getIdUserHero2 = b.getIdUserHero2();
             String getIdUser2Login = b.getLoginHero2();
@@ -149,7 +153,7 @@ public class BattleController {
             int deckCardHero2 = battleService.deckHeroForBattleCount(b.getDeckCollectionHero2());
             List<Integer> deckCollectionHero2 = b.getDeckCollectionHero2();
             List<Integer> handCollectionHero2 = b.getHandCollectionHero2();
-            List<Integer> tableCollectionHero2 = b.getTableCollectionHero2();
+            ArrayList<CardType> tableCollectionHero2 = b.getTableCollectionHero2();
 
             out.addObject("idUser1", getIdUserHero1);
             out.addObject("idUser1Login", getIdUser1Login);
@@ -180,8 +184,18 @@ public class BattleController {
 
                 if (whoTurn == 1) {
                     battleService.deckHeroFromDeckToHand(b.getDeckCollectionHero1(), b.getHandCollectionHero1(), b.getIdUserHero1(), 1);
+                    b.setCurrentMannaHero1(1);
+                    b.setMannaHero1(1);
+                    b.setCurrentMannaHero2(0);
+                    b.setMannaHero2(0);
+                    b.setActiveHero1(true);
                 } else {
                     battleService.deckHeroFromDeckToHand(b.getDeckCollectionHero2(), b.getHandCollectionHero2(), b.getIdUserHero2(), 2);
+                    b.setCurrentMannaHero2(1);
+                    b.setMannaHero2(1);
+                    b.setCurrentMannaHero1(0);
+                    b.setMannaHero1(0);
+                    b.setActiveHero2(true);
                 }
                 firstTurn = 1;
             }
@@ -219,12 +233,87 @@ public class BattleController {
                     String idUser = userFromSession.getId();
                     String batId = usWaitBattService.getBattleIdForUser(idUser);
                     int numberOfHero = Integer.valueOf(id.substring(id.length() - 1, id.length()));
+
+
+                    if (cardOneId == 0) {
+                        if ( numberOfHero == 1) {
+                            if (b.isActiveHero1()){
+                                mess = "choose a target";
+                                cardOneId = -1; //hero
+                            } else {
+                                mess = "hero is not active! Try one more...";
+                                cardOneId = 0;
+                            }
+                        }else {
+                            if (b.isActiveHero2()) {
+                                mess = "choose a target";
+                                cardOneId = -1; //hero
+                            } else {
+                                mess = "hero is not active! Try one more...";
+                                cardOneId = 0;
+                            }
+                        }
+
+                    } else { //chek Hero1 hero2
+                        switch (cardOneId == -1 ? 10 : cardTypeService.getBySubTypeCard(cardOneId)) { // who is target, - hero not is cure
+                            case 8:
+                            case 9:
+                                battleService.perfom(cardOneId, -1, whoTurn, batId); //hero
+                                cardOneId = 0;
+                                //        cardTargetId = 0;
+                                mess = "Cure!";
+                                break;
+                            default:
+                                cardOneId = 0;
+                                mess = "Target error! Try one more!";
+                                break;
+                        }
+                    }
+
+
                     if (numberOfHero == 1) {
                     } else {
 
                     }
                     resp.sendRedirect("battle?id=" + batId);
                 }
+
+                if ("tgHero".equals(id.substring(36, id.length() - 1))) {   //to Return
+                    String idUser = userFromSession.getId();
+                    String batId = usWaitBattService.getBattleIdForUser(idUser);
+                    int numberOfHero = Integer.valueOf(id.substring(id.length() - 1, id.length()));
+
+                    if (cardOneId == 0) {  //who is attack
+                        cardOneId = 0;
+                        mess = "Error! Try one more!";
+                        //  cardTargetId = 0;
+                    } else {
+                        switch (cardOneId == -1 ? -1 : cardTypeService.getBySubTypeCard(cardOneId)) { // who is target, - hero or target
+                            case -1:
+                                battleService.perfom(-1, -2, whoTurn, batId); // case 101 target opponentHero
+                                cardOneId = 0;
+                                mess = "Attack";
+                                break;
+                            case 1:
+                                battleService.perfom(cardOneId, -2, whoTurn, batId); //  case 104 target opponentHero
+                                cardOneId = 0;
+                                mess = "Attack";
+                                break;
+                            default:
+                                cardOneId = 0;
+                                mess = "Target erorr! Try one more!";
+                                break;
+                        }
+                    }
+
+                    if (numberOfHero == 1) {
+                        //cardOneId!=null else mess choose who attack!  // Hp Hero - attack //cardOneId=-1 for hand spell(2)
+                    } else {
+
+                    }
+                    resp.sendRedirect("battle?id=" + batId);
+                }
+
             }
 
             // 52932b68-2 4d4-4c9a-9 eb0-8cf414 51975dhand 18
@@ -237,27 +326,100 @@ public class BattleController {
                     int cardType = cardTypeService.getByTypeCard(idCard); //spell 1, minion 2
                     if (numberOfHero == 1) {
                         if (cardType == 2) { //if minion
-                            if ((b.getCurrentMannaHero1() - cardService.getByMana(idCard))>-1) {
+                            if ((b.getCurrentMannaHero1() - cardService.getByMana(idCard)) > -1) {
                                 battleService.fromHandToTable(b.getHandCollectionHero1(), b.getTableCollectionHero1(), idCard, idUser, numberOfHero);
 
                                 b.setCurrentMannaHero1((b.getCurrentMannaHero1() - cardService.getByMana(idCard))); //How is mana,  current -mana
+                            } else {
+                                mess = "not enough mana";
                             }
                         }
 
                     } else {  //Hero==2
                         if (cardType == 2) { //if minion
-                            if ((b.getCurrentMannaHero2() - cardService.getByMana(idCard))>-1) {
+                            if ((b.getCurrentMannaHero2() - cardService.getByMana(idCard)) > -1) {
                                 battleService.fromHandToTable(b.getHandCollectionHero2(), b.getTableCollectionHero2(), idCard, idUser, numberOfHero);
                                 b.setCurrentMannaHero2((b.getCurrentMannaHero2() - cardService.getByMana(idCard)));
+                            } else {
+                                mess = "not enough mana";
                             }
                         }
                     }
                     resp.sendRedirect("battle?id=" + batId);
                 }
+
+
+                if ("table".equals(id.substring(36, 41))) {
+                    String idUser = userFromSession.getId();
+                    String batId = usWaitBattService.getBattleIdForUser(idUser);
+                    int numberOfHero = Integer.valueOf(id.substring(41, 42));
+                    int idCard = Integer.parseInt(id.substring(42, id.length()));
+                    if (battleService.getByActiveCard(idBattle, idCard, whoTurn)) { // active card ?
+                        if (cardOneId == 0) {  //who is attack
+                            mess = "choose a target";
+                            cardOneId = idCard;
+                            //cardTargetId = 0;
+                        } else {
+                            switch (cardOneId == -1 ? 10 : cardTypeService.getBySubTypeCard(cardOneId)) { // who is target cure?, - hero not is cure
+
+                                case 8:
+                                case 9:
+                                    battleService.perfom(cardOneId, idCard, whoTurn, batId);
+                                    cardOneId = 0;
+                                    mess = "Next target!";
+                                    break;
+                                default:
+                                    cardOneId = 0;
+                                    mess = "Target error! Try one more!";
+                                    break;
+                            }
+                        }
+                        if (numberOfHero == 1) {
+
+                        } else {  //Hero==2
+                        }
+                    } else {
+                        mess = "card is not Active";
+                    }
+                    resp.sendRedirect("battle?id=" + batId);
+                }
+
+
+                if ("target".equals(id.substring(36, 42))) {
+                    String idUser = userFromSession.getId();
+                    String batId = usWaitBattService.getBattleIdForUser(idUser);
+                    int numberOfHero = Integer.valueOf(id.substring(42, 43));
+                    int idCard = Integer.parseInt(id.substring(43, id.length()));
+                    // int cardType = cardTypeService.getByTypeCard(idCard); //spell 1, minion 2
+
+                    if (cardOneId == 0) {  //who is attack
+                        mess = "Error! Try one more!";
+                        cardOneId = 0;
+                        //cardTargetId = 0;
+                    } else {
+                        switch (cardOneId == -1 ? 8 : cardTypeService.getBySubTypeCard(cardOneId)) { // who is target
+                            case 8:
+                                battleService.perfom(-1, idCard, whoTurn, batId); //case 105
+                                cardOneId = 0;
+                                mess = "Attack!";
+                                break;
+                            case 1:
+                                battleService.perfom(cardOneId, idCard, whoTurn, batId); // case 1
+                                cardOneId = 0;
+                                mess = "Attack!";
+                                break;
+                            default:
+                                cardOneId = 0;
+                                mess = "Target error! Try one more!";
+                                break;
+                        }
+                    }
+                    if (numberOfHero == 1) { //
+                    } else {
+                    }
+                    resp.sendRedirect("battle?id=" + batId);
+                }
             }
-            //http://localhost:8080/hearthstone_war/battle?id=RETURN
-
-
         } else {
             resp.sendRedirect(RedirectPath.LOGIN_PAGE.getValue());
         }

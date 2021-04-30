@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import data.Battle;
 import data.Card;
+import data.CardType;
 import data.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,8 +84,8 @@ public class UsWaitBattService {
         battle.setDeckCollectionHero2(createDeckHeroBattle(user2.getDeck()));
         battle.setHandCollectionHero1(new ArrayList<Integer>());
         battle.setHandCollectionHero2(new ArrayList<Integer>());
-        battle.setTableCollectionHero1(new ArrayList<Integer>());
-        battle.setTableCollectionHero2(new ArrayList<Integer>());
+        battle.setTableCollectionHero1(new ArrayList<CardType>());
+        battle.setTableCollectionHero2(new ArrayList<CardType>());
         usBattle.add(battle);
         removeWaitBattle(user1.getId());
         removeWaitBattle(user2.getId());
