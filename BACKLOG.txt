@@ -27,9 +27,9 @@ HEARTHSTONE game project backlog:
 
  +DEV-009: Create WaitBattleController to handle battle forming between two players DEP-008;+panarina
 
- DEV-010: Create BattleController with GET battle() method which should create Battle object if it still not exists and
+ +DEV-010: Create BattleController with GET battle() method which should create Battle object if it still not exists and
          place that object to ServletContext collection 'battles', decide if we are player2 in battle - inverse all
-         Battle's params between player1 and player2, then return MAV with battle page. Also create battle.jsp DEP-009
+         Battle's params between player1 and player2, then return MAV with battle page. Also create battle.jsp DEP-009+panarina
 
  DEV-011: Create end battle event with calculation and change user's lvl and points DEV-010;
 

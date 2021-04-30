@@ -27,19 +27,9 @@ public class CardTypeImpl implements CardTypeDao {
         return cardSubType;
     }
 
-//    @Override
-//    public boolean getActiveCard(int id) {
-//        Session s = HibernateUtil.getSession();
-//        CardType out = (CardType) s.createQuery(String.format("FROM CardType WHERE id='%d'", id)).uniqueResult();
-//        boolean active = out.isActive();
-//        s.close();
-//        return active;
-//    }
-
 
     @Override
     public Collection<CardType> get() { //
-
         Session s = HibernateUtil.getSession();
         Collection<CardType> out = s.createQuery("FROM CardType").list();
         s.close();
@@ -55,4 +45,13 @@ public class CardTypeImpl implements CardTypeDao {
         s.close();
         return out;
     }
+
+    @Override
+    public int getCardDamage(int id) {
+        Session s = HibernateUtil.getSession();
+        CardType out = (CardType) s.createQuery(String.format("FROM CardType WHERE id='%d'", id)).uniqueResult();
+        int damage = out.getDamage();
+        s.close();
+        return damage;
+        }
 }

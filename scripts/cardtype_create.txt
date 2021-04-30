@@ -36,6 +36,53 @@ INSERT INTO public.cardtype (id, typecard, subtype, damage,hp) values --spell 1,
 
 -------------------
 update  public.cardtype set subtype = 1;
+---------------------
+ALTER TABLE public.cardtype ADD COLUMN damageadd integer;
+ALTER TABLE public.cardtype ADD COLUMN hpadd integer;
+-------------------------
+update  public.cardtype set damageadd = 1;
+update  public.cardtype set hpadd = 1;
+---
+UPDATE public.cardtype
+SET typecard=2, subtype=1, damage=4, hp=5, damageadd=1, hpadd=1
+WHERE id=2;
+
+UPDATE public.cardtype
+SET typecard=2, subtype=1, damage=2, hp=3, damageadd=1, hpadd=1
+WHERE id=10;
+
+UPDATE public.cardtype
+SET typecard=2, subtype=1, damage=2, hp=2, damageadd=1, hpadd=1
+WHERE id=5;
+
+UPDATE public.cardtype
+SET typecard=2, subtype=1, damage=1, hp=3, damageadd=1, hpadd=1
+WHERE id=3;
+
+UPDATE public.cardtype
+SET typecard=2, subtype=311, damage=2, hp=1, damageadd=1, hpadd=1
+WHERE id=6;
+
+UPDATE public.cardtype
+SET typecard=2, subtype=311, damage=1, hp=1, damageadd=-1, hpadd=0
+WHERE id=4;
+
+UPDATE public.cardtype
+SET typecard=1, subtype=312, damage=2, hp=0, damageadd=0, hpadd=0
+WHERE id=1;
+
+UPDATE public.cardtype
+SET typecard=1, subtype=314, damage=3, hp=0, damageadd=0, hpadd=0
+WHERE id=9;
+
+UPDATE public.cardtype
+SET typecard=1, subtype=312, damage=6, hp=0, damageadd=0, hpadd=0
+WHERE id=7;
+
+UPDATE public.cardtype
+SET typecard=1, subtype=315, damage=3, hp=0, damageadd=0, hpadd=0
+WHERE id=8;
+
 
 
 

@@ -14,6 +14,6 @@ public interface CardTypeDao {
     Collection<CardType> get();
 
     CardType getByCardType(int id);
-
+    int getCardDamage(int id);
 
 }
