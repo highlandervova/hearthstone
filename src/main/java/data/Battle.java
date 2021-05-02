@@ -2,7 +2,6 @@ package data;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
-import javax.smartcardio.Card;
 import java.util.*;
 
 
@@ -56,6 +55,7 @@ public class Battle {
     @Transient
     private ArrayList<CardType> tableCollectionHero2;
     private String tableHero2;
+    private int Win;
 
 
     public Battle() {}
@@ -63,6 +63,14 @@ public class Battle {
 
     public boolean isActiveHero1() {
         return activeHero1;
+    }
+
+    public int getWin() {
+        return Win;
+    }
+
+    public void setWin(int win) {
+        Win = win;
     }
 
     public void setActiveHero1(boolean activeHero1) {

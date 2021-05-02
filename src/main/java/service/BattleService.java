@@ -3,10 +3,13 @@ package service;
 import data.Battle;
 
 import data.CardType;
+import data.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+
+import static java.lang.Math.abs;
 
 @Service
 public class BattleService {
@@ -16,6 +19,7 @@ public class BattleService {
     private UserOnlineService userOnlineService;
     private UsWaitBattService usWaitBattService;
     private CardTypeService cardTypeService;
+    final EndOfBattleService endOfBattleService;
 
 
     @Autowired
@@ -23,12 +27,14 @@ public class BattleService {
             final UsWaitBattService usWaitBattService,
             final UserService userService,
             UserOnlineService userOnlineService,
-            CardTypeService cardTypeService
+            CardTypeService cardTypeService,
+            EndOfBattleService endOfBattleService
     ) {
         this.usWaitBattService = usWaitBattService;
         this.userService = userService;
         this.userOnlineService = userOnlineService;
         this.cardTypeService = cardTypeService;
+        this.endOfBattleService = endOfBattleService;
     }
 
 
@@ -44,10 +50,13 @@ public class BattleService {
         b.setTableCollectionHero1(cleanTable(b.getTableCollectionHero1()));
         b.setTableCollectionHero2(cleanTable(b.getTableCollectionHero2()));
         if (b.getHpHero1() < 1) {
-            i = 1; //endOfGame Win Hero1
+            b.setWin(1);
+            b.setPointsHero1(abs(b.getHpHero1()));//endOfGame Win Hero1
+
         }
         if (b.getHpHero2() < 1) {
-            i = 2; //endOfGame Win Hero2
+            b.setWin(2);
+            b.setPointsHero2(abs(b.getHpHero2()));//endOfGame Win Hero2
         }
         if (whoTurn == 1) {
             //b.setTableCollectionHero1(activeMinions(b.getTableCollectionHero1()));
@@ -404,16 +413,21 @@ public class BattleService {
                 heroHp = heroHp - targetHeroAttack;
                 targetHeroHp = targetHeroHp - heroAttack;
 
-                if (whoTurn == 1) {
-                    setHeroHp(heroHp, battleId, 1);
-                    setHeroHp(targetHeroHp, battleId, 2);
-                    setActiveFalseHero(battleId, 1);
-
+                if (heroHp < 0 && heroHp == targetHeroHp ) {
+                    perfomDeadHeat(battleId,heroHp);
                 } else {
-                    setHeroHp(heroHp, battleId, 2);
-                    setHeroHp(targetHeroHp, battleId, 1);
-                    setActiveFalseHero(battleId, 2);
 
+                    if (whoTurn == 1) {
+                        setHeroHp(heroHp, battleId, 1);
+                        setHeroHp(targetHeroHp, battleId, 2);
+                        setActiveFalseHero(battleId, 1);
+
+                    } else {
+                        setHeroHp(heroHp, battleId, 2);
+                        setHeroHp(targetHeroHp, battleId, 1);
+                        setActiveFalseHero(battleId, 2);
+
+                    }
                 }
 
 
@@ -500,8 +514,9 @@ public class BattleService {
                     setHeroHp(targetHeroHp, battleId, 2);
                     removeHandCard(cardOneId, battleId, 1);
                     if (sizeHand(battleId, 1) < 1) {
-                        if (sizeHand(battleId,1)>0){
-                        deckHeroFromDeckToHand(battleId, 1);}
+                        if (sizeDeck(battleId, 1) > 0) {
+                            deckHeroFromDeckToHand(battleId, 1);
+                        }
                     }
 
 
@@ -509,8 +524,9 @@ public class BattleService {
                     setHeroHp(targetHeroHp, battleId, 1);
                     removeHandCard(cardOneId, battleId, 2);
                     if (sizeHand(battleId, 2) < 1) {
-                        if (sizeHand(battleId,2)>0){
-                            deckHeroFromDeckToHand(battleId, 2);}
+                        if (sizeDeck(battleId, 2) > 0) {
+                            deckHeroFromDeckToHand(battleId, 2);
+                        }
                     }
                 }
                 break;
@@ -577,15 +593,22 @@ public class BattleService {
                     settingMinionHp(targetMinionHp, cardTargetId, battleId, 2);
                     removeHandCard(cardOneId, battleId, 1);
                     if (sizeHand(battleId, 1) < 1) {
-                        deckHeroFromDeckToHand(battleId, 1);
+                        if (sizeDeck(battleId, 1) > 0) {
+                            deckHeroFromDeckToHand(battleId, 1);
+                        }
                     }
+
 
                 } else {
                     settingMinionHp(targetMinionHp, cardTargetId, battleId, 1);
                     removeHandCard(cardOneId, battleId, 2);
+                    removeHandCard(cardOneId, battleId, 1);
                     if (sizeHand(battleId, 2) < 1) {
-                        deckHeroFromDeckToHand(battleId, 2);
+                        if (sizeDeck(battleId, 2) > 0) {
+                            deckHeroFromDeckToHand(battleId, 2);
+                        }
                     }
+
 
                 }
                 break;
@@ -638,19 +661,48 @@ public class BattleService {
 
 
     private void setHeroHp(int heroHp, String battleId, int numberOfHero) {
-        Battle battle = usWaitBattService.getBattleId(battleId);
+        Battle b = usWaitBattService.getBattleId(battleId);
         if (heroHp > 0) {
-
             if (numberOfHero == 1) {
-
-                battle.setHpHero1(heroHp);
+                b.setHpHero1(heroHp);
             } else {
-                battle.setHpHero2(heroHp);
+                b.setHpHero2(heroHp);
+            }
+        } else {
+            int point = abs(heroHp);
+            if (numberOfHero == 2) {  //inverse Hero - Winner, looser - setting HeroHp
+                b.setWin(1);
+                b.setPointsHero1(point);
+                endOfBattleService.addListFinalBattle(battleId, b.getIdUserHero1(), b.getLoginHero1(), b.getNameHero1(), b.getRaceidHero1(), b.getPointsHero1() + point, b.getGoldHero1() + 1,
+                        b.getIdUserHero2(), b.getLoginHero2(), b.getNameHero2(), b.getRaceIdHero2(), b.getPointsHero2(), b.getGoldHero2(), b.getWin());
+                User user1 = userService.getById(b.getIdUserHero1());
+                user1.setGold(user1.getGold() + 1);
+                user1.setPoints(user1.getPoints() + point);
+                userService.update(user1);
+            } else {
+                b.setPointsHero2(point);
+                b.setWin(2);
+                endOfBattleService.addListFinalBattle(battleId, b.getIdUserHero1(), b.getLoginHero1(), b.getNameHero1(), b.getRaceidHero1(), b.getPointsHero1(), b.getGoldHero1(),
+                        b.getIdUserHero2(), b.getLoginHero2(), b.getNameHero2(), b.getRaceIdHero2(), b.getPointsHero2() + point, b.getGoldHero2() + 1, b.getWin());
+                User user2 = userService.getById(b.getIdUserHero2());
+                user2.setGold(user2.getGold() + 1);
+                user2.setPoints(user2.getPoints() + point);
+                userService.update(user2);
             }
 
-        } else {
-            // perfom EndOfGames
         }
+
+    }
+
+    private void perfomDeadHeat(String battleId, int heroHp) {
+        Battle b = usWaitBattService.getBattleId(battleId);
+        int point = abs(heroHp);
+
+        b.setWin(4);// deadHeat
+        endOfBattleService.addListFinalBattle(battleId, b.getIdUserHero1(), b.getLoginHero1(), b.getNameHero1(), b.getRaceidHero1(), b.getPointsHero1(), b.getGoldHero1(),
+                b.getIdUserHero2(), b.getLoginHero2(), b.getNameHero2(), b.getRaceIdHero2(), b.getPointsHero2(), b.getGoldHero2(), b.getWin());
+
+
 
     }
 
@@ -663,6 +715,18 @@ public class BattleService {
             return array.size();
         } else {
             array = battle.getHandCollectionHero2();
+            return array.size();
+        }
+    }
+
+    private int sizeDeck(String battleId, int numberOfHero) {
+        Battle battle = usWaitBattService.getBattleId(battleId);
+        List<Integer> array = new ArrayList<>();
+        if (numberOfHero == 1) {
+            array = battle.getDeckCollectionHero1();
+            return array.size();
+        } else {
+            array = battle.getDeckCollectionHero2();
             return array.size();
         }
     }
@@ -705,7 +769,7 @@ public class BattleService {
             for (CardType ct : array) {
                 if (ct.getId() == cardId)
                     ct.setActivate(0);
-                    ct.setActive(false);
+                ct.setActive(false);
             }
         }
 

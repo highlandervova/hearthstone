@@ -31,12 +31,14 @@ public class BattleController {
     private final UsWaitBattService usWaitBattService;
     private final UserService userService;
     private final CardTypeService cardTypeService;
+    private final EndOfBattleService endOfBattleService;
     String currentHeroId = null;
     int cardOneId = 0;
-    //int cardTargetId = 0;
+    int onlyOneTime = 0;
     String mess = null;
     int firstTurn = 0;
     int whoTurn = 0;
+    int win = 0;
 
 
     @Autowired
@@ -46,7 +48,8 @@ public class BattleController {
             final UserOnlineService userOnlineService,
             final BattleService battleService,
             final UsWaitBattService usWaitBattService,
-            final UserService userService
+            final UserService userService,
+            final EndOfBattleService endOfBattleService
     ) {
         this.cardService = cardService;
         this.userOnlineService = userOnlineService;
@@ -54,6 +57,7 @@ public class BattleController {
         this.usWaitBattService = usWaitBattService;
         this.userService = userService;
         this.cardTypeService = cardTypeService;
+        this.endOfBattleService = endOfBattleService;
     }
 
 
@@ -72,16 +76,48 @@ public class BattleController {
         if (userFromSession != null) {
             String idBattle = null;
             String massive = "";
+
+            idBattle = usWaitBattService.getBattleIdForUser(userFromSession.getId());
+            Battle b = usWaitBattService.getBattleId(idBattle);
+             win = b.getWin();
+            if (win > 0) {
+                 if (onlyOneTime == 0) { //  for remove only time
+                usWaitBattService.removeUsBattle(idBattle);
+                     onlyOneTime =1;}
+                resp.sendRedirect("endOfBattle?id=" + idBattle);    //win
+
+                return out;
+            }
+
+
             if (id.equals("RETURN")) {
+
                 String idUser = userFromSession.getId();
                 idBattle = usWaitBattService.getBattleIdForUser(idUser);
-                Battle b = usWaitBattService.getBattleId(idBattle);
+                b = usWaitBattService.getBattleId(idBattle);
                 whoTurn = whoTurn == 1 ? 2 : 1;
                 mess = "";
-                int win = battleService.prepeareTable(whoTurn, idBattle); //clean Table and active Minions
+                battleService.prepeareTable(whoTurn, idBattle); //clean Table and active Minions
+                win = b.getWin();
                 if (win > 0) {
-                    //end Of Game
+
+//                    if (win == 1) {
+//                        User user1 = userService.getById(b.getIdUserHero1());
+//                        user1.setPoints((user1.getPoints() + b.getPointsHero1())); //set point Winner
+//                        user1.setGold((user1.getGold() + 1));  //set Gold+1 for Winner
+//                    } else {
+//                        User user2 = userService.getById(b.getIdUserHero2());
+//                        user2.setPoints((user2.getPoints() + b.getPointsHero2())); //set point Winner
+//                        user2.setGold((user2.getGold() + 1));  //set Gold+1 for Winner
+//                    }
+
+                    if (onlyOneTime == 0) { //  for remove only time
+                        usWaitBattService.removeUsBattle(idBattle);
+                        onlyOneTime =1;}
+                    resp.sendRedirect("endOfBattle?id=" + idBattle);    //win
+                    return out;
                 }
+
                 cardOneId = 0;
                 if (whoTurn == 1) {  // countMana and activeHero:true
                     if ((b.getMannaHero1() + 1) < 10) {
@@ -121,6 +157,7 @@ public class BattleController {
 
 
                 resp.sendRedirect("battle?id=" + idBattle);
+
             }
 
 
@@ -135,9 +172,7 @@ public class BattleController {
             }
 
             out.addObject("idBattle", idBattle);
-            //out.addObject("cardFromMain", cardService.get());
-
-            Battle b = usWaitBattService.getBattleId(idBattle);
+             b = usWaitBattService.getBattleId(idBattle);
             int whoIs = 0;
             if (b.getIdUserHero1() == userFromSession.getId()) {
                 whoIs = 1;
@@ -311,9 +346,9 @@ public class BattleController {
                                 battleService.perfom(cardOneId, -1, whoTurn, batId, subCase); // minion attack thHero
                                 mess = "attack";
                                 if (whoTurn == 1) {
-                                    b.setCurrentMannaHero1((b.getCurrentMannaHero1() - cardService.getByMana(cardOneId))); //How is mana,  current -mana
+                                    b.setCurrentMannaHero1((b.getCurrentMannaHero1() - cardService.getByMana(cardOneId))); //  current -mana
                                 } else {
-                                    b.setCurrentMannaHero2((b.getCurrentMannaHero2() - cardService.getByMana(cardOneId))); //How is mana,  current -mana
+                                    b.setCurrentMannaHero2((b.getCurrentMannaHero2() - cardService.getByMana(cardOneId))); //  current -mana
                                 }
                                 cardOneId = 0;
                                 break;
@@ -325,13 +360,32 @@ public class BattleController {
                         //cardOneId!=null else mess choose who attack!  // Hp Hero - attack //cardOneId=-1 for hand spell(2)
                     } else {
 
+
+                    }
+
+                     win = b.getWin();
+                    if (win > 0) {
+//
+//                        if (win == 1) {
+//                            User user1 = userService.getById(b.getIdUserHero1());
+//                            user1.setPoints((user1.getPoints() + b.getPointsHero1())); //set point Winner
+//                            user1.setGold((user1.getGold() + 1));  //set Gold+1 for Winner
+//                        } else {
+//                            User user2 = userService.getById(b.getIdUserHero2());
+//                            user2.setPoints((user2.getPoints() + b.getPointsHero2())); //set point Winner
+//                            user2.setGold((user2.getGold() + 1));  //set Gold+1 for Winner
+//                        }
+                        if (onlyOneTime == 0) { //  for remove only time
+                            usWaitBattService.removeUsBattle(idBattle);
+                            onlyOneTime =1;}
+                        resp.sendRedirect("endOfBattle?id=" + batId);    //win
+                        return out;
                     }
                     resp.sendRedirect("battle?id=" + batId);
                 }
 
             }
 
-            // 52932b68-2 4d4-4c9a-9 eb0-8cf414 51975dhand 18
             if (id.length() > 40) {
                 massive = id.substring(36, 40);
                 if ("hand".equals(massive)) {
