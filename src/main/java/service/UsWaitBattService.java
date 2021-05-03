@@ -75,10 +75,10 @@ public class UsWaitBattService {
         String idBattle = UUID.randomUUID().toString();
         Battle battle = new Battle(idBattle,
                 user1.getId(), user1.getLogin(), user1.getName(), user1.getRaceid(),
-                1, 1, 30, 30, 2, //2 ->30
+                1, 1, 3, 30, 2, //2 ->30
                 user1.getPoints(), user1.getMoney(), user1.getGold(), null, user1.getDeck(), null,
                 user2.getId(), user2.getLogin(), user2.getName(), user2.getRaceid(),
-                1, 1, 30, 30, 2, //2->30
+                1, 1, 3, 30, 2, //2->30
                 user2.getPoints(), user2.getMoney(), user2.getGold(), null, user2.getDeck(), null);
         battle.setDeckCollectionHero1(createDeckHeroBattle(user1.getDeck()));
         battle.setDeckCollectionHero2(createDeckHeroBattle(user2.getDeck()));
@@ -98,7 +98,13 @@ public class UsWaitBattService {
 
 
     public void removeUsBattle(String id) {
-        usBattle.remove(id);
+        Battle b = null;
+        for (Battle battle : usBattle) {
+            if ((battle.getIdBattle()).equals(id)) {
+                b = battle;
+            }
+        }
+        usBattle.remove(b);
     }
 
     public List<Integer> createDeckHeroBattle(String deck) {

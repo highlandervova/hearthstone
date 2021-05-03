@@ -672,8 +672,9 @@ public class BattleService {
             int point = abs(heroHp);
             if (numberOfHero == 2) {  //inverse Hero - Winner, looser - setting HeroHp
                 b.setWin(1);
+
                 b.setPointsHero1(point);
-                endOfBattleService.addListFinalBattle(battleId, b.getIdUserHero1(), b.getLoginHero1(), b.getNameHero1(), b.getRaceidHero1(), b.getPointsHero1() + point, b.getGoldHero1() + 1,
+                endOfBattleService.addListFinalBattle(battleId, b.getIdUserHero1(), b.getLoginHero1(), b.getNameHero1(), b.getRaceidHero1(), b.getPointsHero1(), b.getGoldHero1() + 1,
                         b.getIdUserHero2(), b.getLoginHero2(), b.getNameHero2(), b.getRaceIdHero2(), b.getPointsHero2(), b.getGoldHero2(), b.getWin());
                 User user1 = userService.getById(b.getIdUserHero1());
                 user1.setGold(user1.getGold() + 1);
@@ -683,7 +684,7 @@ public class BattleService {
                 b.setPointsHero2(point);
                 b.setWin(2);
                 endOfBattleService.addListFinalBattle(battleId, b.getIdUserHero1(), b.getLoginHero1(), b.getNameHero1(), b.getRaceidHero1(), b.getPointsHero1(), b.getGoldHero1(),
-                        b.getIdUserHero2(), b.getLoginHero2(), b.getNameHero2(), b.getRaceIdHero2(), b.getPointsHero2() + point, b.getGoldHero2() + 1, b.getWin());
+                        b.getIdUserHero2(), b.getLoginHero2(), b.getNameHero2(), b.getRaceIdHero2(), b.getPointsHero2() , b.getGoldHero2() + 1, b.getWin());
                 User user2 = userService.getById(b.getIdUserHero2());
                 user2.setGold(user2.getGold() + 1);
                 user2.setPoints(user2.getPoints() + point);

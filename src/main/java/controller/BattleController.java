@@ -82,11 +82,13 @@ public class BattleController {
              win = b.getWin();
             if (win > 0) {
                  if (onlyOneTime == 0) { //  for remove only time
-                usWaitBattService.removeUsBattle(idBattle);
-                     onlyOneTime =1;}
-                resp.sendRedirect("endOfBattle?id=" + idBattle);    //win
+                     onlyOneTime =1;
 
-                return out;
+                resp.sendRedirect("endOfBattle?id=" + idBattle);    //win
+                     usWaitBattService.removeUsBattle(idBattle);
+                     System.gc();
+                     onlyOneTime =1;
+                return out;}
             }
 
 
@@ -101,19 +103,11 @@ public class BattleController {
                 win = b.getWin();
                 if (win > 0) {
 
-//                    if (win == 1) {
-//                        User user1 = userService.getById(b.getIdUserHero1());
-//                        user1.setPoints((user1.getPoints() + b.getPointsHero1())); //set point Winner
-//                        user1.setGold((user1.getGold() + 1));  //set Gold+1 for Winner
-//                    } else {
-//                        User user2 = userService.getById(b.getIdUserHero2());
-//                        user2.setPoints((user2.getPoints() + b.getPointsHero2())); //set point Winner
-//                        user2.setGold((user2.getGold() + 1));  //set Gold+1 for Winner
-//                    }
 
                     if (onlyOneTime == 0) { //  for remove only time
+                        onlyOneTime =1;
                         usWaitBattService.removeUsBattle(idBattle);
-                        onlyOneTime =1;}
+                       System.gc(); }
                     resp.sendRedirect("endOfBattle?id=" + idBattle);    //win
                     return out;
                 }
@@ -365,19 +359,7 @@ public class BattleController {
 
                      win = b.getWin();
                     if (win > 0) {
-//
-//                        if (win == 1) {
-//                            User user1 = userService.getById(b.getIdUserHero1());
-//                            user1.setPoints((user1.getPoints() + b.getPointsHero1())); //set point Winner
-//                            user1.setGold((user1.getGold() + 1));  //set Gold+1 for Winner
-//                        } else {
-//                            User user2 = userService.getById(b.getIdUserHero2());
-//                            user2.setPoints((user2.getPoints() + b.getPointsHero2())); //set point Winner
-//                            user2.setGold((user2.getGold() + 1));  //set Gold+1 for Winner
-//                        }
-                        if (onlyOneTime == 0) { //  for remove only time
-                            usWaitBattService.removeUsBattle(idBattle);
-                            onlyOneTime =1;}
+
                         resp.sendRedirect("endOfBattle?id=" + batId);    //win
                         return out;
                     }

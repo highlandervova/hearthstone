@@ -28,9 +28,9 @@
     <th>
 
 
-<%--        <form action=${pathWaitBattle} method='GET'>--%>
-<%--            <input type='submit' class='buttonEnabled' value='START GAME'/>--%>
-<%--        </form>--%>
+        <form action=${pathWaitBattle} method='GET'>
+            <input type='submit' class='buttonEnabled' value='START GAME'/>
+        </form>
 
     </th>
 </table><br/><br/><br/>
