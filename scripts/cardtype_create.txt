@@ -82,7 +82,36 @@ WHERE id=7;
 UPDATE public.cardtype
 SET typecard=1, subtype=315, damage=3, hp=0, damageadd=0, hpadd=0
 WHERE id=8;
+--------------------------------
+INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
+(11,1,316, 0,0, 0,0);
+INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
+(12,1,311, 0,0, -1,0);
 
+INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
+(14,1,317, 0,0, -5,0);
 
+INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
+(15,2,318, 3,6, 0,0);
 
+INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
+(13,1,313, 1,1, 0,0);
 
+INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
+(21,2,1, 1,1, 0,0);
+
+INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
+(14,2,317, 2,3, 0,0);
+
+------------not check, not for use (prepeare):
+INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
+(16,1,312, 0,0, -5,0);
+
+INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
+(17,2,311, 5,1, 0,0);
+
+INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
+(18,2,317, 9,7, -5,0);
+
+INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
+(19,1,317, 0,0, 0,0);
