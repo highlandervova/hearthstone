@@ -54,4 +54,13 @@ public class CardTypeImpl implements CardTypeDao {
         s.close();
         return damage;
         }
+
+    @Override
+    public int getCardHp(int id) {
+        Session s = HibernateUtil.getSession();
+        CardType out = (CardType) s.createQuery(String.format("FROM CardType WHERE id='%d'", id)).uniqueResult();
+        int hp = out.getHp();
+        s.close();
+        return hp;
+    }
 }

@@ -31,11 +31,11 @@ HEARTHSTONE game project backlog:
          place that object to ServletContext collection 'battles', decide if we are player2 in battle - inverse all
          Battle's params between player1 and player2, then return MAV with battle page. Also create battle.jsp DEP-009+panarina
 
- DEV-011: Create end battle event with calculation and change user's lvl and points DEV-010;
+ +DEV-011: Create end battle event with calculation and change user's lvl and points DEV-010;+panarina
 
-+ DEV-ADDITIONAL - picture for deck (from 20 to 30 cards) to download from site as png or jpg
+ +DEV-ADDITIONAL - picture for deck (from 20 to 30 cards) to download from site as png or jpg
          +https://www.hearthstonetopdecks.com/card-category/class/ +panarina 20 cards(minion +spell)
 
-+DEV-012 you should implement auto-disconnect user when his session is destroying. To do this
+ +DEV-012 you should implement auto-disconnect user when his session is destroying. To do this
          auto-disconnect you should use interceptor, just try to search query: how to intercept web session
          destroying DEP-005;

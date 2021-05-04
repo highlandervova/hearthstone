@@ -15,5 +15,6 @@ public interface CardTypeDao {
 
     CardType getByCardType(int id);
     int getCardDamage(int id);
+    int getCardHp(int id);
 
 }
