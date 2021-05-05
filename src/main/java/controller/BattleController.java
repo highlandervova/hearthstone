@@ -402,6 +402,11 @@ public class BattleController {
                                         cardOneId = 0;
                                         mess = "spell applies"; //spell
                                         break;
+                                    case 319:
+                                        battleService.perfom(idCard, idCard, 1, batId, 319); // case 311
+                                        cardOneId = 0;
+                                        mess = "spell applies"; //spell
+                                        break;
                                 }
 
                             }
@@ -438,15 +443,11 @@ public class BattleController {
                                         cardOneId = 0;
                                         mess = "spell applies"; //spell
                                         break;
-//                                        case 2:
-//                                          //  battleService.perfom(cardOneId, -2, whoTurn, batId); //  case 104 target opponentHero
-//                                            cardOneId = 0;
-//                                            mess = "Attack";
-//                                            break;
-//                                        default:
-//                                            cardOneId = 0;
-//                                            mess = "Target erorr! Try one more!";
-//                                            break;
+                                    case 319:
+                                        battleService.perfom(idCard, idCard, 2, batId, 319); // case 311
+                                        cardOneId = 0;
+                                        mess = "spell applies"; //spell
+                                        break;
                                 }
                             }
 

@@ -314,6 +314,7 @@ public class BattleService {
           +316: spell falseTarget next turn
           +317: from hand cardMinion + Extra minion to table
           +318: falseTarget next turn , when Minion attack
+          +319: from 2 cards to hand
 
 
 
@@ -353,6 +354,9 @@ public class BattleService {
                     break;
                 case 317: // to wait target
                     subTypeCase = 317;
+                    break;
+                case 319: // to wait target
+                    subTypeCase = 319;
                     break;
 
             }
@@ -718,19 +722,14 @@ public class BattleService {
                             deckHeroFromDeckToHand(battleId, 1);
                         }
                     }
-
-
                 } else {
                     settingMinionHp(targetMinionHp, cardTargetId, battleId, 1);
                     removeHandCard(cardOneId, battleId, 2);
-                    removeHandCard(cardOneId, battleId, 1);
                     if (sizeHand(battleId, 2) < 1) {
                         if (sizeDeck(battleId, 2) > 0) {
                             deckHeroFromDeckToHand(battleId, 2);
                         }
                     }
-
-
                 }
                 break;
             case 315:
@@ -799,6 +798,31 @@ public class BattleService {
                     settingMinionHp(targetMinionHp, cardTargetId, battleId, 1);
                     setHadleActiveMinions(cardTargetId, battleId, 1);
                     setActiveMinions(cardOneId, battleId, 2);
+                }
+                break;
+            case 319: // 2 cards from deck to table
+
+                if (whoTurn == 1) {
+                    if (sizeDeck(battleId, 1) > 0) {
+                        deckHeroFromDeckToHand(battleId, 1);
+                    }
+                    removeHandCard(cardOneId, battleId, 1);
+
+                    if (sizeDeck(battleId, 1) > 0) {
+                        deckHeroFromDeckToHand(battleId, 1);
+                    }
+                    removeHandCard(cardOneId, battleId, 1);
+                } else {
+                    if (sizeDeck(battleId, 2) > 0) {
+                        deckHeroFromDeckToHand(battleId, 2);
+                    }
+                    removeHandCard(cardOneId, battleId, 2);
+
+                    if (sizeDeck(battleId, 2) > 0) {
+                        deckHeroFromDeckToHand(battleId, 2);
+                    }
+                    removeHandCard(cardOneId, battleId, 2);
+
                 }
                 break;
         }
@@ -1118,17 +1142,17 @@ public class BattleService {
             hp = cardTypeService.getByCardHp(cardId);
 
         } else {
-        if (numberOfHero == 1) {
-            array = battle.getTableCollectionHero1();
-        } else {
-            array = battle.getTableCollectionHero2();
-        }
-
-        if (array.size() > 0) {
-            for (CardType ct : array) {
-                if (ct.getId() == cardId) hp = ct.getHp();
+            if (numberOfHero == 1) {
+                array = battle.getTableCollectionHero1();
+            } else {
+                array = battle.getTableCollectionHero2();
             }
-        }
+
+            if (array.size() > 0) {
+                for (CardType ct : array) {
+                    if (ct.getId() == cardId) hp = ct.getHp();
+                }
+            }
         }
         return hp;
     }
@@ -1136,21 +1160,8 @@ public class BattleService {
 
     private int minionExtraHp(int cardId, String battleId, int numberOfHero) {
 
-        Battle battle = usWaitBattService.getBattleId(battleId);
-        ArrayList<CardType> array = new ArrayList<>();
-        int hpExtra = 0;
-        if (numberOfHero == 1) {
-            array = battle.getTableCollectionHero1();
-        } else {
-            array = battle.getTableCollectionHero2();
-        }
-
-        if (array.size() > 0) {
-            for (CardType ct : array) {
-                if (ct.getId() == cardId) hpExtra = ct.getHpadd();
-            }
-        }
-        return hpExtra;
+        CardType ct = cardTypeService.getByCardType(cardId);
+        return ct.getHpadd();
     }
 
 
