@@ -8,7 +8,7 @@
 
 
     <title>${title}</title>
-    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="/WEB-INF/jsp/css/style.css" type="text/css"/>
     <style> <%@include file="/WEB-INF/jsp/css/style.css"%>
     </style>
 

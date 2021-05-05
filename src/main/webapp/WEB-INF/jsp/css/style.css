@@ -1,6 +1,6 @@
 
 .first, .first2{
-     background: #b0e0e6 url("../image/fon.jpg");
+     background: #b0e0e6 url("../webapp/WEB-INF/jsp/image/fon.jpg");
 }
 /* #b0e0e6 background-image: url('fon.png') ; background-image:url('css/fon.png');}*/
 /*<%--    #b0e0e6  style type='text/css' --%>*/
