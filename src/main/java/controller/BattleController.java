@@ -195,6 +195,7 @@ public class BattleController {
             int currentMannaHero1 = b.getCurrentMannaHero1();
             int hpHero1 = b.getHpHero1();
             int maxHpHero1 = b.getMaxHpHero1();
+            boolean activateHero1 = b.isActiveHero1();
             int attackHero1 = b.getAttackHero1();
             int deckCardHero1 = battleService.deckHeroForBattleCount(b.getDeckCollectionHero1());
             List<Integer> deckCollectionHero1 = b.getDeckCollectionHero1();
@@ -207,6 +208,7 @@ public class BattleController {
             int currentMannaHero2 = b.getCurrentMannaHero2();
             int hpHero2 = b.getHpHero2();
             int maxHpHero2 = b.getMaxHpHero2();
+            boolean activateHero2 = b.isActiveHero2();
             int attackHero2 = b.getAttackHero2();
             int deckCardHero2 = battleService.deckHeroForBattleCount(b.getDeckCollectionHero2());
             List<Integer> deckCollectionHero2 = b.getDeckCollectionHero2();
@@ -223,6 +225,7 @@ public class BattleController {
             model.addAttribute("deckCardHero1", deckCardHero1);
             model.addAttribute("handCollectionHero1", handCollectionHero1);
             model.addAttribute("tableCollectionHero1", tableCollectionHero1);
+            model.addAttribute("activateHero1", activateHero1);
 
 
             model.addAttribute("idUser2", getIdUserHero2);
@@ -235,6 +238,7 @@ public class BattleController {
             model.addAttribute("deckCardHero2", deckCardHero2);
             model.addAttribute("handCollectionHero2", handCollectionHero2);
             model.addAttribute("tableCollectionHero2", tableCollectionHero2);
+            model.addAttribute("activateHero2", activateHero2);
 
 
             if (firstTurn == 0) { //Who is the First turn

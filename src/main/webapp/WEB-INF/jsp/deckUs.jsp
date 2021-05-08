@@ -1,4 +1,4 @@
-и  <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -20,7 +20,7 @@
         <c:choose>
             <c:when test="${mightSave  == 10 }">
 
-                <form  method='GET'>
+                <form method='GET'>
                     <input type='submit' class='buttonEnabled' name='id' value='SaveDeck'/>
                 </form>
 
@@ -28,7 +28,7 @@
         </c:choose>
     </th>
     <th>
-        <form action=${pathMain} method='GET' >
+        <form action=${pathMain} method='GET'>
             <input type='submit' value='Main Page'/>
         </form>
     </th>
@@ -50,14 +50,12 @@
             <th>
                 Yours deck
             </th>
-            <th> Main deck </th>
+            <th> Main deck</th>
             <tr border:none>
                 <td width:600px; height: 650px; border:none>
 
                     <div style="width:600px; height: 650px; overflow:auto; border:none">
-                        <table cellspacing="0" cellpadding="0" border:none  width="300px">
-
-
+                        <table cellspacing="0" cellpadding="0" border:none width="300px">
 
 
                             <c:forEach items="${cardForUs}" var="cardForUser">
@@ -70,7 +68,7 @@
 
                             <tr>
 
-                        </c:forEach>
+                                </c:forEach>
 
 
                         </table>
@@ -78,32 +76,29 @@
 
                 </td>
 
-                <td width:1200px; word-wrap: break-word; border:none>
-                    <div style="width:1200px; height: 650px; word-wrap: break-word; overflow:auto; border:none">
-<%--                    <div style="width:600px; height:90%; overflow:auto; border:none">--%>
+                <td width:1100px; word-wrap: break-word; border:none>
+                    <div style="width:1100px; height: 650px; overflow:auto; border:none">
+                            <%--  1200/    1200                  <div style="width:600px; height: 650px; overflow:auto; border:none">--%>
+                            <%--                            <table cellspacing="0" cellpadding="0" border:none  width="300px">--%>
+
+                            <%--                    <div style="width:600px; height:90%; overflow:auto; border:none">--%>
                         <table cellspacing="0" cellpadding="0" border:none width="300">
-                            <tr border:none>
+                                <%--                            <tr border:none>--%>
 
 
-                                       <c:forEach items="${cardForDeck}" var="cardFor">
+                            <c:forEach items="${cardForDeck}" var="cardFor">
 
 
+                                <tr>
+                                    <a href="${pathMainDeck}?id=${cardFor.id}mn">
+                                        <img src="${pathHead}/adImage/imageDisplay?id=${cardFor.id}" width="240"
+                                             height="300"/>
+                                    </a>
+                                </tr>
 
 
-
-                                            <td>
-                                        <a href="${pathMainDeck}?id=${cardFor.id}mn">
-                                            <img src="${pathHead}/adImage/imageDisplay?id=${cardFor.id}" width="240"
-                                                 height="300"/>
-                                        </a>
-                                    </td>
-
-
-
-
-
-                                </c:forEach>
-                            </tr>
+                            </c:forEach>
+                                <%--                            </tr>--%>
                             <tr>
 
                         </table>
@@ -117,84 +112,74 @@
 </c:choose>
 
 
-
-
-    <c:choose>
+<c:choose>
     <c:when test="${mightSave>9 }">
-    <br/>
-        <p>REMOVE CARD FROM YOURS DECK AND CHOOSE MORE<p>
-    <br/>
-    Now you have ${mightSave} cards
+        <br/>
+        <p>REMOVE CARD FROM YOURS DECK AND CHOOSE MORE
+        <p>
+            <br/>
+            Now you have ${mightSave} cards
 
-<table border:none>
-    <th>
-        Yours deck
-    </th>
-    <th> Main deck </th>
-    <tr border:none>
-        <td width:600px; height: 700px; border:none>
+        <table border:none>
+            <th>
+                Yours deck
+            </th>
+            <th> Main deck</th>
+            <tr border:none>
+                <td width:600px; height: 700px; border:none>
 
-            <div style="width:600px; height: 700px; overflow:auto; border:none">
-                <table cellspacing="0" cellpadding="0" border:none hidden=600px; width="300px">
-
-
-
-
-                    <c:forEach items="${cardForUs}" var="cardForUser">
-                    <tr>
-
-                        <a href="${pathMainDeck}?id=${cardForUser.id}us">
-                            <img src="${pathHead}/adImage/imageDisplay?id=${cardForUser.id}" width="240"
-                                 height="300"/>
-                        </a>
-
-                    <tr>
-
-                        </c:forEach>
+                    <div style="width:600px; height: 700px; overflow:auto; border:none">
+                        <table cellspacing="0" cellpadding="0" border:none hidden=600px; width="300px">
 
 
-                </table>
-            </div>
+                            <c:forEach items="${cardForUs}" var="cardForUser">
+                            <tr>
 
-        </td>
+                                <a href="${pathMainDeck}?id=${cardForUser.id}us">
+                                    <img src="${pathHead}/adImage/imageDisplay?id=${cardForUser.id}" width="240"
+                                         height="300"/>
+                                </a>
 
-        <td width:1200px; word-wrap: break-word; border:none>
-            <div style="width:1200px; height: 700px; word-wrap: break-word; overflow:auto; border:none">
-                    <%--                    <div style="width:600px; height:90%; overflow:auto; border:none">--%>
-                <table cellspacing="0" cellpadding="0" border:none width="300">
-                    <tr border:none>
+                            <tr>
 
-
-                        <c:forEach items="${cardForDeck}" var="cardFor">
+                                </c:forEach>
 
 
+                        </table>
+                    </div>
+
+                </td>
+
+                <td width:1100px; word-wrap: break-word; border:none>
+                    <div style="width:1100px; height: 700px; word-wrap: break-word; overflow:auto; border:none">
+                            <%--                    <div style="width:600px; height:90%; overflow:auto; border:none">--%>
+                        <table cellspacing="0" cellpadding="0" border:none width="300">
+                                <%--                    <tr border:none>--%>
 
 
+                            <c:forEach items="${cardForDeck}" var="cardFor">
 
 
-                            <td>
+                                <tr>
 
                                     <img src="${pathHead}/adImage/imageDisplay?id=${cardFor.id}" width="240"
                                          height="300"/>
 
-                            </td>
+                                </tr>
 
 
+                            </c:forEach>
+                                <%--                    </tr>--%>
+                            <tr>
 
+                        </table>
+                    </div>
 
+                </td>
+            </tr>
 
-                        </c:forEach>
-                    </tr>
-                    <tr>
-
-                </table>
-            </div>
-
-        </td>
-    </tr>
-
-</table>
-</c:when>
+        </table>
+    </c:when>
 </c:choose>
 
 <br/>

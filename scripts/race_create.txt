@@ -1,3 +1,5 @@
+drop table public.race  cascade;
+
 CREATE TABLE public.race
 (
     id integer NOT NULL,
@@ -14,16 +16,15 @@ ALTER TABLE public.race
     OWNER to postgres;
 
 
-   INSERT INTO public.race (id,"name") VALUES
-(1,'Warrior'),
-(2,'Magician'),
-(3,'Shaman'),
-(4,'Hunter');
+   INSERT INTO public.race (id,"name", pictype, avatar) VALUES
+(1,'Warrior', 'image/png', pg_read_binary_file('c:\Pic\war.png' ));
 
+ INSERT INTO public.race (id,"name", pictype, avatar) VALUES
+(2,'Magician', 'image/png', pg_read_binary_file('c:\Pic\mag.png' ));
 
+ INSERT INTO public.race (id,"name", pictype, avatar) VALUES
+(3,'Shaman', 'image/png', pg_read_binary_file('c:\Pic\shaman.png' ));
 
-update public.race set avatar = pg_read_binary_file('c:\Users\Public\Pictures\avatar_foto\war.png') ,
-pictype ='image/png'
-where race.id =1 --(1 -Warrior, 2 Magician, 3 Shaman, 4 Hunter)
-
+ INSERT INTO public.race (id,"name", pictype, avatar) VALUES
+(4,'Hunter', 'image/png', pg_read_binary_file('c:\Pic\hunter.png' ));
 

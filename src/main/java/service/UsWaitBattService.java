@@ -34,13 +34,13 @@ public class UsWaitBattService {
     }
 
 
-    private Map<String, User> waitBattle = new HashMap<>();
+    private final static Map<String, User> waitBattle = new HashMap<>();
 
     private static List<Battle> usBattle = new ArrayList<>();
 
     public boolean findUser(String id) {
         for (Map.Entry<String, User> item : waitBattle.entrySet()) {
-            if (item.getKey() == id) return false;
+            if (item.getKey().equals(id)) return false;
         }
         return true;
     }
@@ -57,7 +57,16 @@ public class UsWaitBattService {
     }
 
 
+    public void removeWaitBattle(String id, User user) {
+       waitBattle.size();
+        waitBattle.remove(id,user);
+        waitBattle.size();
+    }
+
+
+
     public boolean waitBattleEmpty() {
+        waitBattle.size();
         return waitBattle.isEmpty();
     }
 

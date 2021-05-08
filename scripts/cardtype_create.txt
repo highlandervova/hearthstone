@@ -1,9 +1,13 @@
+drop table public.cardtype  cascade;
+
 CREATE TABLE IF NOT EXISTS public.cardtype (
     id integer NOT NULL,
     typecard integer NOT NULL,
     subtype integer NOT NULL,
     damage integer,
     hp integer NOT NULL,
+    damageadd integer,
+        hpadd integer,
 
     CONSTRAINT cardtype_pkey PRIMARY KEY (id)
 )
@@ -12,111 +16,68 @@ TABLESPACE pg_default;
 ALTER TABLE public.cardtype
     OWNER to postgres;
 
----------------
- INSERT INTO public.cardtype (id, typecard, subtype, damage,hp) values --spell 1, minion 2
-(1,1, 0,2, 0 );
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp) values --spell 1, minion 2
-(2,2, 0,4, 5 );
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp) values --spell 1, minion 2
-(3,2, 0,1, 3 );
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp) values --spell 1, minion 2
-(4,2, 0,1, 1 );
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp) values --spell 1, minion 2
-(5,2, 0,2, 2 );
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp) values --spell 1, minion 2
-(6,2, 0,2, 1 );
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp) values --spell 1, minion 2
-(7,1, 0,6, 0 );
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp) values --spell 1, minion 2
-(8,1, 0,2, 0 );
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp) values --spell 1, minion 2
-(9,1, 0,3, 0 );
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp) values --spell 1, minion 2
-(10,2, 0,2, 3 );
+----------
 
--------------------
-update  public.cardtype set subtype = 1;
----------------------
-ALTER TABLE public.cardtype ADD COLUMN damageadd integer;
-ALTER TABLE public.cardtype ADD COLUMN hpadd integer;
--------------------------
-update  public.cardtype set damageadd = 1;
-update  public.cardtype set hpadd = 1;
----
-UPDATE public.cardtype
-SET typecard=2, subtype=1, damage=4, hp=5, damageadd=1, hpadd=1
-WHERE id=2;
-
-UPDATE public.cardtype
-SET typecard=2, subtype=1, damage=2, hp=3, damageadd=1, hpadd=1
-WHERE id=10;
-
-UPDATE public.cardtype
-SET typecard=2, subtype=1, damage=2, hp=2, damageadd=1, hpadd=1
-WHERE id=5;
-
-UPDATE public.cardtype
-SET typecard=2, subtype=1, damage=1, hp=3, damageadd=1, hpadd=1
-WHERE id=3;
-
-UPDATE public.cardtype
-SET typecard=2, subtype=311, damage=2, hp=1, damageadd=1, hpadd=1
-WHERE id=6;
-
-UPDATE public.cardtype
-SET typecard=2, subtype=311, damage=1, hp=1, damageadd=-1, hpadd=0
-WHERE id=4;
-
-UPDATE public.cardtype
-SET typecard=1, subtype=312, damage=2, hp=0, damageadd=0, hpadd=0
-WHERE id=1;
-
-UPDATE public.cardtype
-SET typecard=1, subtype=314, damage=3, hp=0, damageadd=0, hpadd=0
-WHERE id=9;
-
-UPDATE public.cardtype
-SET typecard=1, subtype=312, damage=6, hp=0, damageadd=0, hpadd=0
-WHERE id=7;
-
-UPDATE public.cardtype
-SET typecard=1, subtype=315, damage=3, hp=0, damageadd=0, hpadd=0
-WHERE id=8;
---------------------------------
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
-(11,1,316, 0,0, 0,0);
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
-(12,1,311, 0,0, -1,0);
-
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
-(14,1,317, 0,0, -5,0);
-
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
-(15,2,318, 3,6, 0,0);
-
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
-(13,1,313, 1,1, 0,0);
-
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
-(21,2,1, 1,1, 0,0);
-
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
-(14,2,317, 2,3, 0,0);
-
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
-(16,1,311, 0,0, -5,0);
-
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
-(17,2,1, 5,1, 0,0);
-
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
-(20,1,312, 10,0, 0,0);
-
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
-(18,2,311, 9,7, -4,0);
-
-INSERT INTO public.cardtype (id, typecard, subtype, damage,hp,damageadd,hpadd) values --spell 1, minion 2
-(19,1,319, 0,0, 0,0);
-
-------------not check, not for use (prepeare):
-
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(20, 1, 312, 10, 0, 0, 0);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(2, 2, 1, 4, 5, 1, 1);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(10, 2, 1, 2, 3, 1, 1);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(5, 2, 1, 2, 2, 1, 1);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(3, 2, 1, 1, 3, 1, 1);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(6, 2, 311, 2, 1, 1, 1);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(4, 2, 311, 1, 1, -1, 0);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(1, 1, 312, 2, 0, 0, 0);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(9, 1, 314, 3, 0, 0, 0);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(7, 1, 312, 6, 0, 0, 0);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(8, 1, 315, 3, 0, 0, 0);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(11, 1, 316, 0, 0, 0, 0);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(12, 1, 311, 0, 0, -1, 0);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(13, 1, 313, 1, 1, 0, 0);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(14, 2, 317, 2, 3, 0, 0);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(21, 2, 1, 1, 1, 0, 0);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(15, 2, 318, 3, 6, 0, 0);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(16, 1, 311, 0, 0, -5, 0);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(19, 1, 319, 0, 0, 0, 0);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(17, 2, 1, 5, 1, 0, 0);
+INSERT INTO public.cardtype
+(id, typecard, subtype, damage, hp, damageadd, hpadd)
+VALUES(18, 2, 311, 9, 7, -4, 0);
