@@ -82,6 +82,7 @@ public class BattleController {
         model.addAttribute("pathHead", RedirectPath.HEAD_PATH.getValue());
         model.addAttribute("pathBattle", RedirectPath.BATTLE_PAGE.getValue());
         model.addAttribute("mess", mess);
+        model.addAttribute("cardOneId",cardOneId);
         User userFromSession = (User) req.getSession(false).getAttribute(AUTHENTICATED.getValue());
         if (userFromSession != null) {
             String idBattle = null;
@@ -162,7 +163,7 @@ public class BattleController {
 
                 }
 
-
+                model.addAttribute("cardOneId",cardOneId);
                 resp.sendRedirect("battle?id=" + idBattle);
 
             }
@@ -239,7 +240,7 @@ public class BattleController {
             model.addAttribute("handCollectionHero2", handCollectionHero2);
             model.addAttribute("tableCollectionHero2", tableCollectionHero2);
             model.addAttribute("activateHero2", activateHero2);
-
+            model.addAttribute("cardOneId",cardOneId);
 
             if (firstTurn == 0) { //Who is the First turn
                 whoTurn = battleService.whoTurnFirst();
@@ -287,6 +288,7 @@ public class BattleController {
                             battleService.deckHeroFromDeckToHand(b.getDeckCollectionHero2(), b.getHandCollectionHero2(), idUser, 2);
                         }
                     }
+                    model.addAttribute("cardOneId",cardOneId);
                     resp.sendRedirect("battle?id=" + batId);
                 }
 
@@ -302,6 +304,7 @@ public class BattleController {
                             if (b.isActiveHero1()) {
                                 mess = "choose a target";
                                 cardOneId = -1; //hero
+
                             } else {
                                 mess = "hero is not active! Try one more...";
                                 cardOneId = 0;
@@ -325,6 +328,7 @@ public class BattleController {
                     } else {
 
                     }
+                    model.addAttribute("cardOneId",cardOneId);
                     resp.sendRedirect("battle?id=" + batId);
                 }
 
@@ -481,6 +485,7 @@ public class BattleController {
                         }
 
                     }
+                    model.addAttribute("cardOneId",cardOneId);
                     resp.sendRedirect("battle?id=" + batId);
                 }
 
@@ -507,6 +512,7 @@ public class BattleController {
                     } else {
                         mess = "card is not Active";
                     }
+                    model.addAttribute("cardOneId",cardOneId);
                     resp.sendRedirect("battle?id=" + batId);
                 }
 
@@ -553,6 +559,7 @@ public class BattleController {
         }
 //        model.addAttribute("deckCardHero2", 9);
 
+        model.addAttribute("cardOneId",cardOneId);
         return "battle";
     }
 
