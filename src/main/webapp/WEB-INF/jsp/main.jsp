@@ -8,7 +8,7 @@
 
 
     <title>${title}</title>
-    <link rel="stylesheet" href="/WEB-INF/jsp/css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
     <style> <%@include file="/WEB-INF/jsp/css/style.css"%>
     </style>
 
@@ -67,7 +67,11 @@
                 <b>
                     <th align="left">
                         <b>YOUR GOLD &nbsp ${gold} <br/>
-                            YOUR LEVEL &nbsp ${lvl} <br/>${dateNow}</b>
+
+                            YOUR LEVEL &nbsp; ${lvl} <br/>
+                            <b>YOUR POINTS &nbsp; ${point} <br/>
+                                <b>YOUR DATE REGISTRATION &nbsp; ${dateReg} <br/>
+                             Local time &nbsp;   ${dateNow}</b>
                         <br/><br/>
                         <form action=${pathEditUser} method='GET'>
                             <input type='submit' id='bold4' class='buttonEnabled' value='Edit Account'/>

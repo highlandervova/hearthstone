@@ -42,7 +42,7 @@ public class UserService {
         u.setLastname(lastname);
         u.setRaceid(raceId);
         u.setEmail(email);
-        u.setLvl(1);
+        u.setLvl(0);
         u.setPoints(0);
         u.setMoney(0);
         u.setGold(0);

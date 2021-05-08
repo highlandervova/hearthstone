@@ -53,11 +53,17 @@ public class AuthController {
         out.addObject("pathReg", pathReg);
         String pathAuth = RedirectPath.LOGIN_PAGE.getValue();
         out.addObject("pathAuth", pathAuth);
-       if (i>0){
+       if (i==1){
            UserStatus status = UserStatus.PASSWORD_INCORRECT;
            out.addObject("status", status);
            i=0;
        }
+
+        if (i>1){
+            UserStatus status = UserStatus.USER_ALREADY_REGISTER;
+            out.addObject("status", status);
+            i=0;
+        }
 
         return out;
     }
@@ -72,14 +78,22 @@ public class AuthController {
         
 
         if (validationService.validateAuthentication(login, pass)) {
-            req.getSession().setAttribute(AUTHENTICATED.getValue(), userService.getByLogin(login));
-            User user = (User) req.getSession().getAttribute(AUTHENTICATED.getValue());
-            userOnlineService.add(user);
+            if (userOnlineService.findUser(userService.getByLogin(login))) {
+                req.getSession().setAttribute(AUTHENTICATED.getValue(), userService.getByLogin(login));
+                User user = (User) req.getSession().getAttribute(AUTHENTICATED.getValue());
 
-             //add((User) req.getSession().getAttribute(AUTHENTICATED.getValue()));
+                userOnlineService.add(user);
 
-            resp.sendRedirect(RedirectPath.MAIN_REDIRECT.getValue());
+                //add((User) req.getSession().getAttribute(AUTHENTICATED.getValue()));
+
+                resp.sendRedirect(RedirectPath.MAIN_REDIRECT.getValue());
+            }else {
+                UserStatus status = UserStatus.USER_ALREADY_REGISTER;
+                out2.addObject("status", status);
+                i=2;
+                resp.sendRedirect(RedirectPath.LOGIN_PAGE.getValue());
             }
+        }
         else {
             UserStatus status = UserStatus.PASSWORD_INCORRECT;
             out2.addObject("status", status);
@@ -90,8 +104,8 @@ public class AuthController {
         String pathReg = RedirectPath.REG_PAGE.getValue();
         out2.addObject("pathMain", pathMain);
         out2.addObject("pathReg", pathReg);
-        UserStatus status = UserStatus.PASSWORD_INCORRECT;
-        out2.addObject("status", status.getValue());
+        //UserStatus status = UserStatus.PASSWORD_INCORRECT;
+        //out2.addObject("status", status.getValue());
 
         return out2;
 

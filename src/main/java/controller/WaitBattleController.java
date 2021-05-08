@@ -3,6 +3,7 @@ package controller;
 
 import data.User;
 import enums.RedirectPath;
+import enums.RequestParameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,6 +56,18 @@ public class WaitBattleController {
 
         User userFromSession = (User) req.getSession(false).getAttribute(AUTHENTICATED.getValue());
         if (userFromSession != null) {
+
+            if (req.getParameter(RequestParameter.MAIN.getValue()) != null) {
+                User user = (User) req.getSession(false).getAttribute(AUTHENTICATED.getValue());
+                if (usWaitBattService.getBattleIdForUser(user.getId()) == null) {
+                    usWaitBattService.removeWaitBattle(user.getId(), user);
+
+                }
+                // public String getBattleIdForUser(String idUser)  idBattle or null
+                //   removeWaitBattle(user1.getId());
+                resp.sendRedirect("main");
+                return out;
+            }
 
             String idBattle = usWaitBattService.getBattleIdForUser(userFromSession.getId());
             if (idBattle != null) { //my user already has waited for Battle

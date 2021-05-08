@@ -27,7 +27,7 @@ public class DeckUsController {
     private final CardService cardService;
     private final UserOnlineService userOnlineService;
     private final UserDeckService userDeckService;
-
+    //int firstDeck = 0;
 
     //private final TimerTask timerTask;
 
@@ -55,15 +55,27 @@ public class DeckUsController {
         out.addObject("pathReg", RedirectPath.REG_PAGE.getValue());
         out.addObject("pathHead", RedirectPath.HEAD_PATH.getValue());
         out.addObject("pathMainDeck", RedirectPath.DECKMAIN_PAGE.getValue());
+        int mightSave = userDeckService.getUsOwnDeckCount();
         out.addObject("cardForUs", userDeckService.getUsOwnDeck());
+        out.addObject("mightSave", mightSave);
+
+
         out.addObject("cardForDeck", userDeckService.getUsMainDeck());
         User userFromSession = (User) req.getSession(false).getAttribute(AUTHENTICATED.getValue());
+
         if (userFromSession != null) {
-            int mightSave = userDeckService.getUsOwnDeckCount();
+
+            mightSave = userDeckService.getUsOwnDeckCount();
+            out.addObject("cardForUs", userDeckService.getUsOwnDeck());
             out.addObject("mightSave", mightSave);
+
+            out.addObject("cardForDeck", userDeckService.getUsMainDeck());
+
             if (id != null) {
                 if (id.equals("all")) {
                     out.addObject("cardForDeck", userDeckService.getUsMainDeck());
+
+
                 }
 
                 String checkDeckFromMain = "mn";

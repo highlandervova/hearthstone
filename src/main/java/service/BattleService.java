@@ -862,26 +862,84 @@ public class BattleService {
                 b.setHpHero2(heroHp);
             }
         } else {
-            int point = abs(heroHp);
-            if (numberOfHero == 2) {  //inverse Hero - Winner, looser - setting HeroHp
-                b.setWin(1);
+            //   int point = abs(heroHp);
+            int pointWinner = 0;
+            int lvlWinner = 0;
+            int pointLooser = 0;
+            int lvlLooser = 0;
 
-                b.setPointsHero1(point);
-                addListFinalBattle(battleId, b.getIdUserHero1(), b.getLoginHero1(), b.getNameHero1(), b.getRaceidHero1(), b.getPointsHero1(), b.getGoldHero1() + 1,
-                        b.getIdUserHero2(), b.getLoginHero2(), b.getNameHero2(), b.getRaceIdHero2(), b.getPointsHero2(), b.getGoldHero2(), b.getWin());
+            if (numberOfHero == 2) {  //inverse Hero - Winner, looser - setting HeroHp
                 User user1 = userService.getById(b.getIdUserHero1());
-                user1.setGold(user1.getGold() + 1);
-                user1.setPoints(user1.getPoints() + point);
-                userService.update(user1);
-            } else {
-                b.setPointsHero2(point);
-                b.setWin(2);
-                addListFinalBattle(battleId, b.getIdUserHero1(), b.getLoginHero1(), b.getNameHero1(), b.getRaceidHero1(), b.getPointsHero1(), b.getGoldHero1(),
-                        b.getIdUserHero2(), b.getLoginHero2(), b.getNameHero2(), b.getRaceIdHero2(), b.getPointsHero2(), b.getGoldHero2() + 1, b.getWin());
                 User user2 = userService.getById(b.getIdUserHero2());
-                user2.setGold(user2.getGold() + 1);
-                user2.setPoints(user2.getPoints() + point);
+                b.setWin(1);
+                pointWinner =user1.getPoints() + 1;
+                lvlWinner = user1.getLvl();
+                if (pointWinner > 4) {
+                    pointWinner = 0;
+                    lvlWinner = lvlWinner + 1;
+                }  // 1 level = 5 points;
+                b.setPointsHero1(pointWinner);
+
+                pointLooser = user2.getPoints() - 1;
+                lvlLooser = user2.getLvl();
+                if (pointLooser < 0 ) {
+                    pointLooser = 4;
+                    lvlLooser = lvlLooser - 1;
+                }
+                 if (lvlLooser < 0) {
+                     pointLooser = 0;
+                     lvlLooser = 0;
+                 }
+                b.setPointsHero2(pointLooser);
+
+                addListFinalBattle(battleId, b.getIdUserHero1(), b.getLoginHero1(), b.getNameHero1(), b.getRaceidHero1(), b.getPointsHero1(), b.getGoldHero1(),
+                        b.getIdUserHero2(), b.getLoginHero2(), b.getNameHero2(), b.getRaceIdHero2(), b.getPointsHero2(), b.getGoldHero2(), b.getWin());
+
+                // user1.setGold(user1.getGold() + 1);
+                user1.setLvl(lvlWinner);
+                user1.setPoints(pointWinner);
+                userService.update(user1);
+
+                user2.setLvl(lvlLooser);
+                user2.setPoints(pointLooser);
                 userService.update(user2);
+            } else {
+
+                User user1 = userService.getById(b.getIdUserHero1());
+                User user2 = userService.getById(b.getIdUserHero2());
+                b.setWin(2);
+                pointWinner =user2.getPoints() + 1;
+                lvlWinner = user2.getLvl();
+                if (pointWinner > 4) {
+                    pointWinner = 0;
+                    lvlWinner = lvlWinner + 1;
+                }  // 1 level = 5 points;
+                b.setPointsHero2(pointWinner);
+
+                pointLooser = user1.getPoints() - 1;
+                lvlLooser = user1.getLvl();
+                if (pointLooser < 0 ) {
+                    pointLooser = 4;
+                    lvlLooser = lvlLooser - 1;
+                }
+                 if (lvlLooser < 0) {
+                     pointLooser = 0;
+                     lvlLooser = 0;
+                 }
+                b.setPointsHero1(pointLooser);
+
+                addListFinalBattle(battleId, b.getIdUserHero1(), b.getLoginHero1(), b.getNameHero1(), b.getRaceidHero1(), b.getPointsHero1(), b.getGoldHero1(),
+                        b.getIdUserHero2(), b.getLoginHero2(), b.getNameHero2(), b.getRaceIdHero2(), b.getPointsHero2(), b.getGoldHero2(), b.getWin());
+
+
+                user2.setLvl(lvlWinner);
+                user2.setPoints(pointWinner);
+                userService.update(user2);
+
+                user1.setLvl(lvlLooser);
+                user1.setPoints(pointLooser);
+                userService.update(user1);
+
             }
 
         }

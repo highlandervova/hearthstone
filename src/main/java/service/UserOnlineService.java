@@ -12,6 +12,14 @@ public class UserOnlineService {
 
     private static List<User> usOnline = new ArrayList<>();
 
+ public boolean findUser(User user){
+     if (!usOnline.contains(user)) {
+         return true;
+     }else{
+         return false;
+     }
+
+ }
 
     public static void add(User user) {
         if (!usOnline.contains(user)) {

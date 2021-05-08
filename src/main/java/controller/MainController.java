@@ -39,16 +39,14 @@ import static enums.SessionAttribute.valueOf;
 
 
 public class MainController  implements HttpSessionListener
-        //, ServerContextListener
+
+
         {
 
     private final RaceService raceService;
     private final UserService userService;
     private final UserOnlineService userOnlineService;
     private final UserDeckService userDeckService;
-
-    //private final TimerTask timerTask;
-
 
     @Autowired
     public MainController(
@@ -63,8 +61,6 @@ public class MainController  implements HttpSessionListener
         this.userService = userService;
         this.userOnlineService = userOnlineService;
         this.userDeckService = userDeckService;
-
-
     }
 
 
@@ -73,26 +69,32 @@ public class MainController  implements HttpSessionListener
         ModelAndView out = new ModelAndView("main");
         userDeckService.createUsMainDeck();
         userDeckService.clearUsOwnDeck();
+
         out.addObject("title", "HearthStone");
         out.addObject("pathEditUser", RedirectPath.EDIT_USER.getValue());
         out.addObject("pathHead", RedirectPath.HEAD_PATH.getValue());
-        // String pathReg = RedirectPath.REG_PAGE.getValue();
         out.addObject("pathReg", RedirectPath.REG_PAGE.getValue());
         out.addObject("pathHead", RedirectPath.HEAD_PATH.getValue());
         out.addObject("pathMain", RedirectPath.MAIN_PAGE.getValue());
         out.addObject("pathAuth", RedirectPath.LOGIN_PAGE.getValue());
         out.addObject("pathWaitBattle", RedirectPath.WAITBATTLE_PAGE.getValue());
         LocalDate date = LocalDate.now();
+
               String dateStr = new SimpleDateFormat("dd:MM:yyyy HH:mm").format(Calendar.getInstance().getTime());
+
         out.addObject("dateNow", dateStr);
         out.addObject("yesOnlineUser", String.valueOf(userOnlineService.getUsOnlineCount()));
         out.addObject("deck", 1);
         if ((req.getSession().getAttribute(AUTHENTICATED.getValue())) != null) {
-            User user = (User) req.getSession().getAttribute(AUTHENTICATED.getValue());
+           // User user = (User) req.getSession().getAttribute(AUTHENTICATED.getValue());
+            User user = (User) req.getSession(false).getAttribute(AUTHENTICATED.getValue());
+//            Date dateUser =
+            String dateReg = new SimpleDateFormat("dd MMMM yyyy").format(user.getCreationdate());
+            out.addObject("dateReg",dateReg);
             out.addObject("deck", userService.getByDeck(user));
             out.addObject("lvl", user.getLvl());
             out.addObject("gold", user.getGold());
-//width="120" height="80"
+            out.addObject("point", user.getPoints());
             out.addObject("idUser", user.getId());
             out.addObject("Login", user.getLogin());
         }
@@ -108,7 +110,16 @@ public class MainController  implements HttpSessionListener
 
         if (req.getParameter(RequestParameter.DECK.getValue()) != null) {
 
-            //resp.sendRedirect(RedirectPath.LOGIN_PAGE.getValue());
+            userDeckService.createUsMainDeck();
+            userDeckService.clearUsOwnDeck();
+
+            User user = (User) req.getSession().getAttribute(AUTHENTICATED.getValue());
+            if (user.getDeck() !=null ) {
+                userDeckService.getUsDeck(user);
+                if (userDeckService.getUserDeckCount() > 0) {
+                    userDeckService.createUsOwnDeckFromUserDeck();
+                }
+            }
             resp.sendRedirect("deckUs?id=all");
         }
 

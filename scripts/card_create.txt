@@ -1,3 +1,5 @@
+drop table public.card  cascade;
+
 CREATE TABLE IF NOT EXISTS public.card (
     id integer NOT NULL,
     name character varying COLLATE pg_catalog."default",
@@ -14,68 +16,68 @@ ALTER TABLE public.card
     OWNER to postgres;
 ------------
    INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(1,'ArcaneShot', 'Deal 2 damage',1,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\arcane-shot.png'));
-   INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(2,'ChillwindYeti', 'Deal 4 damage',4,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\chillwind-yeti.png' ));
-   INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(3,'DireMole', 'Deal 1 damage',1,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\dire-mole.png' ));
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(4,'ElvenAarcher', 'Deal 1 damage',1,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\elven-archer.png' ));
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(5,'Enchanted-Raven.png', 'Deal 2 damage',1,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\enchanted-raven.png' ));
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(6,'FallenSunCleric', 'Deal +1hp +1damage for frendly minion',2,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\fallen-sun-cleric.png' ));
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(7,'Fireball', 'Fireball',4,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\fireball.png' ));
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(8,'Frostbolt', 'Deal damage 3 and freezy',2,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\frostbolt.png' ));
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(9,'QuickShot', 'Deal damage 3 and draw card in hand',2,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\quickshot.png' ));
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(10,'River Crocolisk', 'Deal damage 2',2,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\river-crocolisk.png' ));
--------------
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(-1,'mana', 'mana',0,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\shirt\mana.png'));
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(0,'shirtDeck', 'shirtDeck',0,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\shirt\shirtDeck.png'));
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(-2,'shirt', 'shirt',0,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\shirt\shirt.png'));
-----
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(11,'Adaptation', 'set false next turn',1,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\adaptation.png' ));
+ (1,'ArcaneShot', 'Deal 2 damage',1,'image/png', pg_read_binary_file('c:\Pic\arcane-shot.png'));
+    INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (2,'ChillwindYeti', 'Deal 4 damage',4,'image/png', pg_read_binary_file('c:\Pic\chillwind-yeti.png' ));
+    INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (3,'DireMole', 'Deal 1 damage',1,'image/png', pg_read_binary_file('c:\Pic\dire-mole.png' ));
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (4,'ElvenAarcher', 'Deal 1 damage',1,'image/png', pg_read_binary_file('c:\Pic\elven-archer.png' ));
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (5,'Enchanted-Raven.png', 'Deal 2 damage',1,'image/png', pg_read_binary_file('c:\Pic\enchanted-raven.png' ));
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (6,'FallenSunCleric', 'Deal +1hp +1damage for frendly minion',2,'image/png', pg_read_binary_file('c:\Pic\fallen-sun-cleric.png' ));
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (7,'Fireball', 'Fireball',4,'image/png', pg_read_binary_file('c:\Pic\fireball.png' ));
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (8,'Frostbolt', 'Deal damage 3 and freezy',2,'image/png', pg_read_binary_file('c:\Pic\frostbolt.png' ));
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (9,'QuickShot', 'Deal damage 3 and draw card in hand',2,'image/png', pg_read_binary_file('c:\Pic\quickshot.png' ));
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (10,'River Crocolisk', 'Deal damage 2',2,'image/png', pg_read_binary_file('c:\Pic\river-crocolisk.png' ));
 
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(12,'ArcaneExplosion', 'all  target table 1 damage',2,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\arcane-explosion.png' ));
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (-1,'mana', 'mana',0,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\shirt\mana.png'));
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (0,'shirtDeck', 'shirtDeck',0,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\shirt\shirtDeck.png'));
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (-2,'shirt', 'shirt',0,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\shirt\shirt.png'));
 
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(15,'WaterElemental', 'damage 3 to target and freezy',4,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\water-elemental.png' ));
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (11,'Adaptation', 'set false next turn',1,'image/png', pg_read_binary_file('c:\Pic\adaptation.png' ));
 
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (12,'ArcaneExplosion', 'all  target table 1 damage',2,'image/png', pg_read_binary_file('c:\Pic\arcane-explosion.png' ));
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (13,'Polymorph', 'Sheep set attack = 1 and  hp = 1',4,'image/png', pg_read_binary_file('c:\Pic\polymorph.png' ));
 
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(13,'Polymorph', 'Sheep set attack = 1 and  hp = 1',4,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\polymorph.png' ));
-
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(21,'Boar', 'Extra Minion',1,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\boar.png' ));
-
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(14,'RazorfenHunter', 'razorfen-hunter',3,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\razorfen-hunter.png' ));
-
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(16,'Flamestrike', 'damage 5 to all target',7,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\flamestrike.png' ));
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (14,'RazorfenHunter', 'razorfen-hunter',3,'image/png', pg_read_binary_file('c:\Pic\razorfen-hunter.png' ));
 
 
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(17,'MagmaRager', 'minion',3,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\magma-rager.png' ));
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (15,'WaterElemental', 'damage 3 to target and freezy',4,'image/png', pg_read_binary_file('c:\Pic\water-elemental.png' ));
 
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(20,'Pyroblast', 'Demage 10',10,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\pyroblast.png' ));
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (16,'Flamestrike', 'damage 5 to all target',7,'image/png', pg_read_binary_file('c:\Pic\flamestrike.png' ));
 
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(18,'NorthSeaKraken', 'north-sea-kraken minion',9,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\north-sea-kraken.png' ));
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (17,'MagmaRager', 'minion',3,'image/png', pg_read_binary_file('c:\Pic\magma-rager.png' ));
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (18,'NorthSeaKraken', 'north-sea-kraken minion',9,'image/png', pg_read_binary_file('c:\Pic\north-sea-kraken.png' ));
 
-INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
-(19,'ArcaneIntellect', 'draw 2 cards',3,'image/png', pg_read_binary_file('c:\Users\Public\Pictures\PlayCards\arcane-intellect.png' ));
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (19,'ArcaneIntellect', 'draw 2 cards',3,'image/png', pg_read_binary_file('c:\Pic\arcane-intellect.png' ));
 
---------------not check, not for use (prepeare):
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (20,'Pyroblast', 'Demage 10',10,'image/png', pg_read_binary_file('c:\Pic\pyroblast.png' ));
 
-(boar??)  north sea kraken-target
+ INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
+ (21,'Boar', 'Extra Minion',1,'image/png', pg_read_binary_file('c:\Pic\boar.png' ));
+
+
+
+
+
+
+

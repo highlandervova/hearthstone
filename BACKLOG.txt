@@ -40,26 +40,26 @@ HEARTHSTONE game project backlog:
          auto-disconnect you should use interceptor, just try to search query: how to intercept web session
          destroying DEP-005;
 
- DEV-013: Review all zip files and scripts to remove paths User/Public etc. to C://Pic/...;
+ +DEV-013: Review all zip files and scripts to remove paths User/Public etc. to C://Pic/...;
 
- DEV-014: Show points on main screen and implement logic: if we have for example lvl2 points4 and we won - it means
+ *DEV-014: Show points on main screen and implement logic: if we have for example lvl2 points4 and we won - it means
          that we will update level to 3 and points to 0; Do not increase gold or money, it not needs yet;
 
- DEV-015: Show creation date on main page below current time;
+ +DEV-015: Show creation date on main page below current time;
 
- DEV-016: Compose all cards just like in deck to prevent scroll usage;
+ +DEV-016: Compose all cards just like in deck to prevent scroll usage;
 
- DEV-017: When 'Change Deck' pushed - you should show your previous deck;
+ +DEV-017: When 'Change Deck' pushed - you should show your previous deck;
 
- DEV-018: On wait battle page you should have 'Leave Wait List' button. When you try to leave this page using any
+*DEV-018: On wait battle page you should have 'Leave Wait List' button. When you try to leave this page using any
          other way - you should be redirected to wait page;
 
- DEV-020: Prevent user to enter in account from different browsers;
+ +DEV-020: Prevent user to enter in account from different browsers;
 
  DEV-021: You should use red border for selected card;
 
- DEV-022: You should use blue border for freezed cards and not active cards;
+ *DEV-022: You should use blue border for freezed cards and not active cards;
 
- DEV-023: On EndBattle page you should show only LEVEL and POINTS after calculation;
+ *DEV-023: On EndBattle page you should show only LEVEL and POINTS after calculation;
 
- DEV-024: Update user in session after battle ends (not only in DB);
+ *DEV-024: Update user in session after battle ends (not only in DB);
