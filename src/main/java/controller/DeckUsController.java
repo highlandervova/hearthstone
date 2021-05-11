@@ -32,6 +32,7 @@ import static enums.SessionAttribute.AUTHENTICATED;
 
 
 @Controller
+@Scope("session")
 @RequestMapping("deckUs")
 public class DeckUsController {
     private final CardService cardService;

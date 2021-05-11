@@ -4,9 +4,11 @@ package service;
 import data.Card;
 import data.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+
 
 @Service
 public class UserDeckService {
