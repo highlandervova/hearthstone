@@ -30,7 +30,7 @@
         </b>
         <br/>
 <form method='GET'>
-    <input type='submit' class='buttonEnabled' name='main' value='MainPage'/>
+    <input type='submit' class='buttonEnabled' name='main' value='Leave Wait List'/>
 </form>
 
 

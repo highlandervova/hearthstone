@@ -25,7 +25,6 @@ import static enums.SessionAttribute.AUTHENTICATED;
 
 
 @Controller
-//@RequestMapping("battle")
 public class BattleController {
     private final CardService cardService;
     private final UserOnlineService userOnlineService;
@@ -33,7 +32,7 @@ public class BattleController {
     private final UsWaitBattService usWaitBattService;
     private final UserService userService;
     private final CardTypeService cardTypeService;
-    // private final EndOfBattleService endOfBattleService;
+
     int currentHero = 0;
     int cardOneId = 0;
     int onlyOneTime = 0;
@@ -57,31 +56,27 @@ public class BattleController {
             final BattleService battleService,
             final UsWaitBattService usWaitBattService,
             final UserService userService
-            //         final EndOfBattleService endOfBattleService
-    ) {
+                ) {
         this.cardService = cardService;
         this.userOnlineService = userOnlineService;
         this.battleService = battleService;
         this.usWaitBattService = usWaitBattService;
         this.userService = userService;
         this.cardTypeService = cardTypeService;
-        //   this.endOfBattleService = endOfBattleService;
-    }
+            }
 
 
     @RequestMapping(value = "/battle", method = RequestMethod.GET)
-    //public String FianlOfBatt (ModelMap model,
-    public String Battl(ModelMap model, HttpServletRequest req, HttpServletResponse resp,
+        public String Battl(ModelMap model, HttpServletRequest req, HttpServletResponse resp,
                         @RequestParam(name = "id", required = true) String id) throws ServletException, IOException {
 
-        //  ModelAndView out = new ModelAndView("battle");
-        //model.addAttribute()
         model.addAttribute("title", "Battle page");
         model.addAttribute("pathMain", RedirectPath.MAIN_PAGE.getValue());
         model.addAttribute("pathReg", RedirectPath.REG_PAGE.getValue());
         model.addAttribute("pathHead", RedirectPath.HEAD_PATH.getValue());
         model.addAttribute("pathBattle", RedirectPath.BATTLE_PAGE.getValue());
         model.addAttribute("mess", mess);
+        model.addAttribute("cardOneId",cardOneId);
         User userFromSession = (User) req.getSession(false).getAttribute(AUTHENTICATED.getValue());
         if (userFromSession != null) {
             String idBattle = null;
@@ -162,7 +157,7 @@ public class BattleController {
 
                 }
 
-
+                model.addAttribute("cardOneId",cardOneId);
                 resp.sendRedirect("battle?id=" + idBattle);
 
             }
@@ -239,7 +234,7 @@ public class BattleController {
             model.addAttribute("handCollectionHero2", handCollectionHero2);
             model.addAttribute("tableCollectionHero2", tableCollectionHero2);
             model.addAttribute("activateHero2", activateHero2);
-
+            model.addAttribute("cardOneId",cardOneId);
 
             if (firstTurn == 0) { //Who is the First turn
                 whoTurn = battleService.whoTurnFirst();
@@ -287,6 +282,7 @@ public class BattleController {
                             battleService.deckHeroFromDeckToHand(b.getDeckCollectionHero2(), b.getHandCollectionHero2(), idUser, 2);
                         }
                     }
+                    model.addAttribute("cardOneId",cardOneId);
                     resp.sendRedirect("battle?id=" + batId);
                 }
 
@@ -302,6 +298,7 @@ public class BattleController {
                             if (b.isActiveHero1()) {
                                 mess = "choose a target";
                                 cardOneId = -1; //hero
+
                             } else {
                                 mess = "hero is not active! Try one more...";
                                 cardOneId = 0;
@@ -325,6 +322,7 @@ public class BattleController {
                     } else {
 
                     }
+                    model.addAttribute("cardOneId",cardOneId);
                     resp.sendRedirect("battle?id=" + batId);
                 }
 
@@ -481,6 +479,7 @@ public class BattleController {
                         }
 
                     }
+                    model.addAttribute("cardOneId",cardOneId);
                     resp.sendRedirect("battle?id=" + batId);
                 }
 
@@ -507,6 +506,7 @@ public class BattleController {
                     } else {
                         mess = "card is not Active";
                     }
+                    model.addAttribute("cardOneId",cardOneId);
                     resp.sendRedirect("battle?id=" + batId);
                 }
 
@@ -553,6 +553,7 @@ public class BattleController {
         }
 //        model.addAttribute("deckCardHero2", 9);
 
+        model.addAttribute("cardOneId",cardOneId);
         return "battle";
     }
 
@@ -605,6 +606,7 @@ public class BattleController {
                 model.addAttribute("login", login);
                 model.addAttribute("gold", gold);
                 model.addAttribute("point", point);
+                model.addAttribute("lvl", (userService.getById((userFromSession.getId())).getLvl()));
 
             }
 
@@ -613,7 +615,8 @@ public class BattleController {
             resp.sendRedirect(RedirectPath.LOGIN_PAGE.getValue());
         }
 
-
+        firstTurn=0;
+        mess = "";
         return "finalOfBattle";
     }
 

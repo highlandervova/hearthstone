@@ -1,6 +1,7 @@
 package controller;
 
 
+import data.Card;
 import data.User;
 import enums.RedirectPath;
 import enums.RequestParameter;
@@ -67,9 +68,6 @@ public class MainController  implements HttpSessionListener
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView mainGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ModelAndView out = new ModelAndView("main");
-        userDeckService.createUsMainDeck();
-        userDeckService.clearUsOwnDeck();
-
         out.addObject("title", "HearthStone");
         out.addObject("pathEditUser", RedirectPath.EDIT_USER.getValue());
         out.addObject("pathHead", RedirectPath.HEAD_PATH.getValue());
@@ -86,9 +84,9 @@ public class MainController  implements HttpSessionListener
         out.addObject("yesOnlineUser", String.valueOf(userOnlineService.getUsOnlineCount()));
         out.addObject("deck", 1);
         if ((req.getSession().getAttribute(AUTHENTICATED.getValue())) != null) {
-           // User user = (User) req.getSession().getAttribute(AUTHENTICATED.getValue());
-            User user = (User) req.getSession(false).getAttribute(AUTHENTICATED.getValue());
-//            Date dateUser =
+          User userSes = (User) req.getSession(false).getAttribute(AUTHENTICATED.getValue());
+
+            User user = userService.getById(userSes.getId());
             String dateReg = new SimpleDateFormat("dd MMMM yyyy").format(user.getCreationdate());
             out.addObject("dateReg",dateReg);
             out.addObject("deck", userService.getByDeck(user));
@@ -102,6 +100,7 @@ public class MainController  implements HttpSessionListener
         if (req.getParameter(RequestParameter.LOGOFF.getValue()) != null) {
             User user = (User) req.getSession().getAttribute(AUTHENTICATED.getValue());
             userOnlineService.remove(user);
+            userDeckService.removeListDeck(user.getId());
             req.getSession().invalidate();
             int i = userOnlineService.getUsOnlineCount();
             out.addObject("Login", "");
@@ -109,17 +108,6 @@ public class MainController  implements HttpSessionListener
         }
 
         if (req.getParameter(RequestParameter.DECK.getValue()) != null) {
-
-            userDeckService.createUsMainDeck();
-            userDeckService.clearUsOwnDeck();
-
-            User user = (User) req.getSession().getAttribute(AUTHENTICATED.getValue());
-            if (user.getDeck() !=null ) {
-                userDeckService.getUsDeck(user);
-                if (userDeckService.getUserDeckCount() > 0) {
-                    userDeckService.createUsOwnDeckFromUserDeck();
-                }
-            }
             resp.sendRedirect("deckUs?id=all");
         }
 

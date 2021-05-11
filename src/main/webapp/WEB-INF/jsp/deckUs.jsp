@@ -12,7 +12,7 @@
 <body class="first">
 <br/>
 <h2>CREATE YOURS DECK</h2>
-
+<c:if test="${not empty sessionScope.authenticated}">
 
 <table width="20%" align="center">
 
@@ -181,6 +181,8 @@
         </table>
     </c:when>
 </c:choose>
+
+</c:if>
 
 <br/>
 <br/>

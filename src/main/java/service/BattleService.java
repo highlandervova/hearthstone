@@ -21,7 +21,7 @@ public class BattleService {
     private UserOnlineService userOnlineService;
     private UsWaitBattService usWaitBattService;
     private CardTypeService cardTypeService;
-    //  final EndOfBattleServiceOld endOfBattleService;
+
 
 
     @Autowired
@@ -30,14 +30,12 @@ public class BattleService {
             final UserService userService,
             UserOnlineService userOnlineService,
             CardTypeService cardTypeService
-            //    EndOfBattleServiceOld endOfBattleService
-    ) {
+            ) {
         this.usWaitBattService = usWaitBattService;
         this.userService = userService;
         this.userOnlineService = userOnlineService;
         this.cardTypeService = cardTypeService;
-        // this.endOfBattleService = endOfBattleService;
-    }
+  }
 
 
     public void addListFinalBattle(

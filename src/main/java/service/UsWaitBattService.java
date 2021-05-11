@@ -16,10 +16,6 @@ public class UsWaitBattService {
 
     private UserService userService;
     private UserOnlineService userOnlineService;
-//    private BattleService battleService;
-//    private final List<Integer> deckHeroForBattle = new ArrayList<>();
-//    private final List<Integer> handHeroForBattle = new ArrayList<>();
-//    private final List<Integer> tableHeroForBattle = new ArrayList<>();
 
 
     @Autowired
@@ -84,10 +80,10 @@ public class UsWaitBattService {
         String idBattle = UUID.randomUUID().toString();
         Battle battle = new Battle(idBattle,
                 user1.getId(), user1.getLogin(), user1.getName(), user1.getRaceid(),
-                1, 1, 30, 2, 2, //2 ->30
+                1, 1, 3, 2, 2, //2 ->30
                 user1.getPoints(), user1.getMoney(), user1.getGold(), null, user1.getDeck(), null,
                 user2.getId(), user2.getLogin(), user2.getName(), user2.getRaceid(),
-                1, 1, 30, 2, 2, //2->30
+                1, 1, 3, 2, 2, //2->30
                 user2.getPoints(), user2.getMoney(), user2.getGold(), null, user2.getDeck(), null);
         battle.setDeckCollectionHero1(createDeckHeroBattle(user1.getDeck()));
         battle.setDeckCollectionHero2(createDeckHeroBattle(user2.getDeck()));

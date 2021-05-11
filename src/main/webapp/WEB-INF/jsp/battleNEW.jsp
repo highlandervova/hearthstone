@@ -16,9 +16,11 @@
             /*  background: gradient(to bottom, #00bfff )*/;
         }
 
-
+        a:hover img {
+            border: 3px solid #f26522; /* Рамка при наведении на ссылку курсора мыши */
+        }
     </style>
-    <meta http-equiv="Refresh" content="5"/>
+    <meta http-equiv="Refresh" content="15"/>
     <%--    <title>${title}</title>--%>
     <br/>
     <center>
@@ -204,11 +206,11 @@
                     <td>
 
                         <c:choose>
-                        <c:when test="${whoTurn==2}">
+                            <c:when test="${whoTurn==2}">
 
-                        <a href="${pathBattle}?id=${idBattle}target1${cardForTable1.id}">
+                            <a href="${pathBattle}?id=${idBattle}target1${cardForTable1.id}">
                             </c:when>
-                            </c:choose>
+                        </c:choose>
 
 
 
@@ -307,24 +309,17 @@
                             </c:choose>
 
 
-                            <c:if test="${cardForTable1.active == false}">
-                                <img src="${pathHead}/adImage/imageDisplay?id=${cardForTable1.id}" width="140"
-                                     height="180" border="3px" solid = "#000080" />
+                         <c:if test="${cardForTable1.active == false}">
+                            <img src="${pathHead}/adImage/imageDisplay?id=${cardForTable1.id}" width="140"
+                                 height="180" border="3px" solid = "#000080" />
 
-                            </c:if>
+                         </c:if>
 
-                            <c:if test="${cardForTable1.active != false}">
-                                <c:if test="${cardForTable1.id == cardOneId}">
-                                <img src="${pathHead}/adImage/imageDisplay?id=${cardForTable1.id}" width="140"
-                                     height="180" border="3px" solid = "#f26522"/>
-                                </c:if>
-
-                                <c:if test="${cardForTable1.id != cardOneId}">
+                                <c:if test="${cardForTable1.active == true}">
                                     <img src="${pathHead}/adImage/imageDisplay?id=${cardForTable1.id}" width="140"
-                                         height="180" border:none  />
-                                </c:if>
+                                         height="180" />
 
-                            </c:if>
+                                </c:if>
                             <c:choose>
                             <c:when test="${whoTurn==1}">
 
@@ -332,7 +327,7 @@
 
                         </c:when>
                         </c:choose>
-                        <br/> Active:&nbsp;    ${cardForTable1.active}<br/>
+                            <br/> Active:&nbsp;    ${cardForTable1.active}<br/>
                         <br/>
                         <b>Attack:&nbsp; ${cardForTable1.damage}&nbsp; </b> <b>HP:&nbsp; ${cardForTable1.hp}&nbsp; </b>
                     </td>
@@ -363,25 +358,8 @@
                             </c:when>
                             </c:choose>
 
-                                <c:if test="${activateHero1 == false}">
-
                             <img src="${pathHead}/adImage/imageDisplay?id=${idUser1}" width="90" height="110px"
-                                 style="border-radius:100%" border="3px" solid = "#000080"/>
-
-                                </c:if>
-
-                                <c:if test="${activateHero1 != false}">
-
-                                <c:if test="${cardOneId == -1}">
-                                    <img src="${pathHead}/adImage/imageDisplay?id=${idUser1}" width="90" height="110px"
-                                         style="border-radius:100%" border="3px" solid = "#f26522"/>
-                                </c:if>
-
-                                    <c:if test="${cardOneId != -1}">
-                                        <img src="${pathHead}/adImage/imageDisplay?id=${idUser1}" width="90" height="110px"
-                                             style="border-radius:100%" border:none/>
-                                    </c:if>
-                                </c:if>
+                                 style="border-radius:100%"/>
 
                             <c:choose>
                             <c:when test="${whoTurn==1}">
@@ -414,15 +392,10 @@
                             </c:when>
                             </c:choose>
 
-                                <c:if test="${cardOneId == cardForHand1.intValue()}">
-                            <img src="${pathHead}/adImage/imageDisplay?id=${cardForHand1.intValue()}" width="140"
-                                 height="180" border="3px" solid = "#f26522" />
-                                </c:if>
 
-                                <c:if test="${cardOneId != cardForHand1.intValue()}">
-                                    <img src="${pathHead}/adImage/imageDisplay?id=${cardForHand1.intValue()}" width="140"
-                                         height="180" border:none />
-                                </c:if>
+                            <img src="${pathHead}/adImage/imageDisplay?id=${cardForHand1.intValue()}" width="140"
+                                 height="180"/>
+
                             <c:choose>
                             <c:when test="${whoTurn==1}">
 
@@ -469,20 +442,14 @@
 
                             </c:when>
                             </c:choose>
-                            <c:if test="${cardForTable2.active == false}">
-                                <img src="${pathHead}/adImage/imageDisplay?id=${cardForTable2.id}" width="140"
-                                     height="180" border="3px" solid="#000080"/>
-                            </c:if>
-                            <c:if test="${cardForTable2.active != false}">
-                                <c:if test="${cardOneId == cardForTable2.id}">
-                                <img src="${pathHead}/adImage/imageDisplay?id=${cardForTable2.id}" width="140"
-                                     height="180" border="3px" solid="#f26522"/>
+                                <c:if test="${cardForTable2.active == false}">
+                            <img src="${pathHead}/adImage/imageDisplay?id=${cardForTable2.id}" width="140"
+                                 height="180" border="3px" solid="#000080"/>
                                 </c:if>
-                                <c:if test="${cardOneId != cardForTable2.id}">
+                                <c:if test="${cardForTable2.active == true}">
                                     <img src="${pathHead}/adImage/imageDisplay?id=${cardForTable2.id}" width="140"
-                                         height="180" border:none/>
+                                         height="180"/>
                                 </c:if>
-                            </c:if>
 
                             <c:choose>
                             <c:when test="${whoTurn==2}">
@@ -492,7 +459,7 @@
                         </c:when>
                         </c:choose>
                         <br/>
-                            ${cardForTable2.active}<br/>
+                                ${cardForTable2.active}<br/>
                         <b>Attack:&nbsp; ${cardForTable2.damage}&nbsp; </b> <b>HP:&nbsp; ${cardForTable2.hp}&nbsp; </b>
 
                     </td>
@@ -518,33 +485,15 @@
                     <center>
                         <b>${idUser2Login}</b>
                         <c:choose>
-                        <c:when test="${whoTurn==2}">
+                            <c:when test="${whoTurn==2}">
                         <a href="${pathBattle}?id=${idBattle}avatarHero2">
 
 
                             </c:when>
-                            </c:choose>
+                        </c:choose>
 
-                                <c:if test="${activateHero1 == false}">
-
-
-                                    <img src="${pathHead}/adImage/imageDisplay?id=${idUser2}" width="90" height="110px"
-                                         style="border-radius:100%" border="3px" solid="#000080"/>
-                                </c:if>
-
-                                <c:if test="${activateHero1 != false}">
-
-                                <c:if test="${cardOneId == -1}">
                             <img src="${pathHead}/adImage/imageDisplay?id=${idUser2}" width="90" height="110px"
-                                 style="border-radius:100%" border="3px" solid="#f26522"/>
-                                </c:if>
-
-                                <c:if test="${cardOneId != -1}">
-                                    <img src="${pathHead}/adImage/imageDisplay?id=${idUser2}" width="90" height="110px"
-                                         style="border-radius:100%" border:none />
-                                </c:if>
-                                </c:if>
-
+                                 style="border-radius:100%"/>
                             <c:choose>
                             <c:when test="${whoTurn==2}">
                         </a>
@@ -553,7 +502,7 @@
                         </c:when>
                         </c:choose>
                         <br/>
-                        Activate: ${activateHero2}<br/>
+                             Activate: ${activateHero2}<br/>
                         <b>Attack:&nbsp; ${attackHero2}&nbsp; </b> <b>HP:&nbsp; ${hpHero2}&nbsp; </b>
                     </center>
 
@@ -571,17 +520,11 @@
 
                             </c:when>
                             </c:choose>
-                                <c:if test="${cardOneId == cardForHand2.intValue()}">
+
 
                             <img src="${pathHead}/adImage/imageDisplay?id=${cardForHand2.intValue()}" width="140"
-                                 height="180" border="3px" solid="#f26522"/>
-                                </c:if>
-                                <c:if test="${cardOneId != cardForHand2.intValue()}">
-
-                                    <img src="${pathHead}/adImage/imageDisplay?id=${cardForHand2.intValue()}" width="140"
-                                         height="180" border:none />
-                                </c:if>
-                                <c:choose>
+                                 height="180"/>
+                            <c:choose>
                             <c:when test="${whoTurn==2}">
                         </a>
 
