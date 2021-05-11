@@ -23,19 +23,18 @@ public class BattleService {
     private CardTypeService cardTypeService;
 
 
-
     @Autowired
     public BattleService(
             final UsWaitBattService usWaitBattService,
             final UserService userService,
             UserOnlineService userOnlineService,
             CardTypeService cardTypeService
-            ) {
+    ) {
         this.usWaitBattService = usWaitBattService;
         this.userService = userService;
         this.userOnlineService = userOnlineService;
         this.cardTypeService = cardTypeService;
-  }
+    }
 
 
     public void addListFinalBattle(
@@ -409,7 +408,15 @@ public class BattleService {
             } else {
                 if (cardTypeService.getByTypeCard(cardOneId) == 2) //minion
                 {
-                    subTypeCase = 104; //minion to hero
+                    int subCaseCard = cardTypeService.getBySubTypeCard(cardOneId);
+                    switch (subCaseCard) {
+                        case 318:
+                            subTypeCase = 118;//minion attack tgHero+ tgHero false
+                            break;
+                        default:
+                            subTypeCase = 104; //minion attack to tgHero
+                            break;
+                    } //minion to hero
                 }
                 if (cardTypeService.getByTypeCard(cardOneId) == 1) { //spell
                     int subCaseCard = cardTypeService.getBySubTypeCard(cardOneId);
@@ -645,6 +652,30 @@ public class BattleService {
                     removeHandCard(cardOneId, battleId, 2);
                 }
                 break;
+            case 118: //minion attack to tgHero +tgHero false
+                if (whoTurn == 1) {
+                    minionsAttack = minionAttack(cardOneId, battleId, 1);
+                    targetHeroHp = heroesHp(battleId, 2);
+
+                } else {
+                    minionsAttack = minionAttack(cardOneId, battleId, 2);
+                    targetHeroHp = heroesHp(battleId, 1);
+                }
+
+                targetHeroHp = targetHeroHp - minionsAttack;
+
+
+                if (whoTurn == 1) {  //minion to targetHero
+                    //set Hp Hero  HeroHp-attack, minion , minion is false
+                    setHeroHp(targetHeroHp, battleId, 2);
+                    setActiveHandFalseHero(battleId, 2);
+                    setActiveMinions(cardOneId, battleId, 1);
+                } else {
+                    setHeroHp(targetHeroHp, battleId, 1);
+                    setActiveHandFalseHero(battleId, 1);
+                    setActiveMinions(cardOneId, battleId, 2);
+                }
+                break;
             case 311:
                 if (whoTurn == 1) { ////hero is whose hand/card
                     minionsAttack = minionExtraAttack(cardOneId, battleId, 1);
@@ -870,7 +901,7 @@ public class BattleService {
                 User user1 = userService.getById(b.getIdUserHero1());
                 User user2 = userService.getById(b.getIdUserHero2());
                 b.setWin(1);
-                pointWinner =user1.getPoints() + 1;
+                pointWinner = user1.getPoints() + 1;
                 lvlWinner = user1.getLvl();
                 if (pointWinner > 4) {
                     pointWinner = 0;
@@ -880,14 +911,14 @@ public class BattleService {
 
                 pointLooser = user2.getPoints() - 1;
                 lvlLooser = user2.getLvl();
-                if (pointLooser < 0 ) {
+                if (pointLooser < 0) {
                     pointLooser = 4;
                     lvlLooser = lvlLooser - 1;
                 }
-                 if (lvlLooser < 0) {
-                     pointLooser = 0;
-                     lvlLooser = 0;
-                 }
+                if (lvlLooser < 0) {
+                    pointLooser = 0;
+                    lvlLooser = 0;
+                }
                 b.setPointsHero2(pointLooser);
 
                 addListFinalBattle(battleId, b.getIdUserHero1(), b.getLoginHero1(), b.getNameHero1(), b.getRaceidHero1(), b.getPointsHero1(), b.getGoldHero1(),
@@ -906,7 +937,7 @@ public class BattleService {
                 User user1 = userService.getById(b.getIdUserHero1());
                 User user2 = userService.getById(b.getIdUserHero2());
                 b.setWin(2);
-                pointWinner =user2.getPoints() + 1;
+                pointWinner = user2.getPoints() + 1;
                 lvlWinner = user2.getLvl();
                 if (pointWinner > 4) {
                     pointWinner = 0;
@@ -916,14 +947,14 @@ public class BattleService {
 
                 pointLooser = user1.getPoints() - 1;
                 lvlLooser = user1.getLvl();
-                if (pointLooser < 0 ) {
+                if (pointLooser < 0) {
                     pointLooser = 4;
                     lvlLooser = lvlLooser - 1;
                 }
-                 if (lvlLooser < 0) {
-                     pointLooser = 0;
-                     lvlLooser = 0;
-                 }
+                if (lvlLooser < 0) {
+                    pointLooser = 0;
+                    lvlLooser = 0;
+                }
                 b.setPointsHero1(pointLooser);
 
                 addListFinalBattle(battleId, b.getIdUserHero1(), b.getLoginHero1(), b.getNameHero1(), b.getRaceidHero1(), b.getPointsHero1(), b.getGoldHero1(),
@@ -1290,7 +1321,7 @@ public class BattleService {
     private void minionToTable(int idCard, String battleId, int numberOfHero) {
         Battle battle = usWaitBattService.getBattleId(battleId);
         CardType ct = cardTypeService.getByCardType(idCard);
-        ct.setActive(false);
+        ct.setActive(true);
         ct.setActivate(1);
         ArrayList<CardType> array = new ArrayList<>();
         if (numberOfHero == 1) {
