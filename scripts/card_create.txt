@@ -14,7 +14,7 @@ TABLESPACE pg_default;
 
 ALTER TABLE public.card
     OWNER to postgres;
-------------
+
    INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
  (1,'ArcaneShot', 'Deal 2 damage',1,'image/png', pg_read_binary_file('c:\Pic\arcane-shot.png'));
     INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
