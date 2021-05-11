@@ -39,7 +39,7 @@ ALTER TABLE public.card
  INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
  (-1,'mana', 'mana',0,'image/png', pg_read_binary_file('c:\Pic\mana.png'));
  INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
- (0,'shirtDeck', 'shirtDeck',0,'image/png', pg_read_binary_file('c:\Pic\shirtDeck.png'));
+ (0,'shirtDeck', 'shirtDeck',0,'image/png', pg_read_binary_file('c:\Pic\deckshirt.png'));
  INSERT INTO public.card (id,"name", descr, mana, pictype, pic) VALUES
  (-2,'shirt', 'shirt',0,'image/png', pg_read_binary_file('c:\Pic\shirt.png'));
 
