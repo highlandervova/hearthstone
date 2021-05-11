@@ -11,6 +11,6 @@ import javax.servlet.http.HttpSessionListener;
 public class SessionDestroyedListener implements HttpSessionListener {
     public void sessionDestroyed(HttpSessionEvent se) {
         UserOnlineService.remove((User) se.getSession().getAttribute(SessionAttribute.AUTHENTICATED.getValue()));
-       // UserDeckService.remove((User) ((User) se.getSession().getAttribute(SessionAttribute.AUTHENTICATED.getValue())).getId());
+        UserDeckService.removeListDeck(((User) se.getSession().getAttribute(SessionAttribute.AUTHENTICATED.getValue())).getId());
     }
 }

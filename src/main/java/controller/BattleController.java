@@ -25,7 +25,6 @@ import static enums.SessionAttribute.AUTHENTICATED;
 
 
 @Controller
-//@RequestMapping("battle")
 public class BattleController {
     private final CardService cardService;
     private final UserOnlineService userOnlineService;
@@ -33,7 +32,7 @@ public class BattleController {
     private final UsWaitBattService usWaitBattService;
     private final UserService userService;
     private final CardTypeService cardTypeService;
-    // private final EndOfBattleService endOfBattleService;
+
     int currentHero = 0;
     int cardOneId = 0;
     int onlyOneTime = 0;
@@ -57,25 +56,20 @@ public class BattleController {
             final BattleService battleService,
             final UsWaitBattService usWaitBattService,
             final UserService userService
-            //         final EndOfBattleService endOfBattleService
-    ) {
+                ) {
         this.cardService = cardService;
         this.userOnlineService = userOnlineService;
         this.battleService = battleService;
         this.usWaitBattService = usWaitBattService;
         this.userService = userService;
         this.cardTypeService = cardTypeService;
-        //   this.endOfBattleService = endOfBattleService;
-    }
+            }
 
 
     @RequestMapping(value = "/battle", method = RequestMethod.GET)
-    //public String FianlOfBatt (ModelMap model,
-    public String Battl(ModelMap model, HttpServletRequest req, HttpServletResponse resp,
+        public String Battl(ModelMap model, HttpServletRequest req, HttpServletResponse resp,
                         @RequestParam(name = "id", required = true) String id) throws ServletException, IOException {
 
-        //  ModelAndView out = new ModelAndView("battle");
-        //model.addAttribute()
         model.addAttribute("title", "Battle page");
         model.addAttribute("pathMain", RedirectPath.MAIN_PAGE.getValue());
         model.addAttribute("pathReg", RedirectPath.REG_PAGE.getValue());
@@ -612,6 +606,7 @@ public class BattleController {
                 model.addAttribute("login", login);
                 model.addAttribute("gold", gold);
                 model.addAttribute("point", point);
+                model.addAttribute("lvl", (userService.getById((userFromSession.getId())).getLvl()));
 
             }
 
@@ -620,7 +615,8 @@ public class BattleController {
             resp.sendRedirect(RedirectPath.LOGIN_PAGE.getValue());
         }
 
-
+        firstTurn=0;
+        mess = "";
         return "finalOfBattle";
     }
 

@@ -27,8 +27,8 @@ public class UserDeckService {
     }
 
 
-    private Map<String, ArrayList> mainDeck = new HashMap<>();   // Set<Card> usMainDeck;// = new LinkedHashSet<>();
-    private Map<String, ArrayList> ownDeck = new HashMap<>();//idUser ???
+    private static Map<String, ArrayList> mainDeck = new HashMap<>();   // Set<Card> usMainDeck;// = new LinkedHashSet<>();
+    private static Map<String, ArrayList> ownDeck = new HashMap<>();//idUser ???
     private Map<String, ArrayList> userDeck = new HashMap<>();  // from user.getDeck
 
 
@@ -114,7 +114,7 @@ public class UserDeckService {
     }
 
 
-    public void removeListDeck(String userId) {
+    public static void  removeListDeck(String userId) {
         ownDeck.remove(userId);
         mainDeck.remove(userId);
     }
