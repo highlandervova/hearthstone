@@ -69,8 +69,8 @@ public class DeckUsController {
                 User user = (User) req.getSession().getAttribute(AUTHENTICATED.getValue());
 
                 if (user.getDeck() != null) {
-                  userDeckService.createOwnDeckFromUserDeck(userFromSession);
-                         }
+                    userDeckService.createOwnDeckFromUserDeck(userFromSession);
+                }
                 usId = userFromSession.getId();
                 resp.sendRedirect("deckUs?id=all");
                 return out;

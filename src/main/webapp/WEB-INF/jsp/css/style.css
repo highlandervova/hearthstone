@@ -2,6 +2,8 @@
 .first, .first2{
      background: #b0e0e6 url("../webapp/WEB-INF/jsp/image/fon.jpg");
 }
-/* #b0e0e6 background-image: url('fon.png') ; background-image:url('css/fon.png');}*/
-/*<%--    #b0e0e6  style type='text/css' --%>*/
+/* #b0e0e6 background-image: url('fon.png') ;
+background: #b0e0e6 url("http://i.piccy.info/i9/b8003200426b876c9aaadefcfd4d6eac/1620783130/349684/1428802/fon.jpg");
+background-image:url('css/fon.png');}*/
+/*background: #b0e0e6 url("../webapp/WEB-INF/jsp/image/fon.jpg");*/
 

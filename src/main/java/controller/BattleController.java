@@ -401,11 +401,13 @@ public class BattleController {
                                 switch (battleService.subTypeCaseToPerfom(massive, idCard)) { //  always First card for start
                                     case 311:
                                         battleService.perfom(idCard, idCard, 1, batId, 311); // case 311
+                                        if (cardType == 1){  //spell
+                                        b.setCurrentMannaHero1((b.getCurrentMannaHero1() - cardService.getByMana(idCard)));}
                                         cardOneId = 0;
                                         mess = "spell applies"; //spell
                                         break;
                                     case 319:
-                                        battleService.perfom(idCard, idCard, 1, batId, 319); // case 311
+                                        battleService.perfom(idCard, idCard, 1, batId, 319); // case 319
                                         b.setCurrentMannaHero1((b.getCurrentMannaHero1() - cardService.getByMana(idCard)));
                                         cardOneId = 0;
                                         mess = "spell applies"; //spell
@@ -443,6 +445,8 @@ public class BattleController {
                                 switch (battleService.subTypeCaseToPerfom(massive, idCard)) { //  addExtra action
                                     case 311:
                                         battleService.perfom(idCard, idCard, 2, batId, 311); // case 311
+                                        if (cardType == 1){ // spell
+                                        b.setCurrentMannaHero2((b.getCurrentMannaHero2() - cardService.getByMana(idCard)));}
                                         cardOneId = 0;
                                         mess = "spell applies"; //spell
                                         break;
@@ -529,6 +533,16 @@ public class BattleController {
                         battleService.perfom(cardOneId, idCard, whoTurn, batId, subCase);
                         mess = "attack";
                         switch (subCase) {
+                            case 311:
+                                if (cardTypeService.getByTypeCard(idCard) == 1) { // if spell
+                                    if (whoTurn == 1) {
+                                        b.setCurrentMannaHero1((b.getCurrentMannaHero1() - cardService.getByMana(cardOneId))); //How is mana,  current -mana
+                                    } else {
+                                        b.setCurrentMannaHero2((b.getCurrentMannaHero2() - cardService.getByMana(cardOneId))); //How is mana,  current -mana
+                                    }
+                                    cardOneId = 0;
+                                }
+                                break;
                             case 312:
                             case 314:
                             case 313:
