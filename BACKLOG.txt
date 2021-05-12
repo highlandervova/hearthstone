@@ -56,9 +56,9 @@ HEARTHSTONE game project backlog:
 
  +DEV-020: Prevent user to enter in account from different browsers;
 
- *DEV-021: You should use red border for selected card;
+ +DEV-021: You should use red border for selected card;
 
- *DEV-022: You should use blue border for freezed cards and not active cards;
+ +DEV-022: You should use blue border for freezed cards and not active cards;
 
  +DEV-023: On EndBattle page you should show only LEVEL and POINTS after calculation;
 
