@@ -11,7 +11,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 import service.*;
 
 import javax.servlet.ServletException;
@@ -56,18 +55,18 @@ public class BattleController {
             final BattleService battleService,
             final UsWaitBattService usWaitBattService,
             final UserService userService
-                ) {
+    ) {
         this.cardService = cardService;
         this.userOnlineService = userOnlineService;
         this.battleService = battleService;
         this.usWaitBattService = usWaitBattService;
         this.userService = userService;
         this.cardTypeService = cardTypeService;
-            }
+    }
 
 
     @RequestMapping(value = "/battle", method = RequestMethod.GET)
-        public String Battl(ModelMap model, HttpServletRequest req, HttpServletResponse resp,
+    public String Battl(ModelMap model, HttpServletRequest req, HttpServletResponse resp,
                         @RequestParam(name = "id", required = true) String id) throws ServletException, IOException {
 
         model.addAttribute("title", "Battle page");
@@ -76,7 +75,7 @@ public class BattleController {
         model.addAttribute("pathHead", RedirectPath.HEAD_PATH.getValue());
         model.addAttribute("pathBattle", RedirectPath.BATTLE_PAGE.getValue());
         model.addAttribute("mess", mess);
-        model.addAttribute("cardOneId",cardOneId);
+        model.addAttribute("cardOneId", cardOneId);
         User userFromSession = (User) req.getSession(false).getAttribute(AUTHENTICATED.getValue());
         if (userFromSession != null) {
             String idBattle = null;
@@ -157,7 +156,7 @@ public class BattleController {
 
                 }
 
-                model.addAttribute("cardOneId",cardOneId);
+                model.addAttribute("cardOneId", cardOneId);
                 resp.sendRedirect("battle?id=" + idBattle);
 
             }
@@ -234,7 +233,7 @@ public class BattleController {
             model.addAttribute("handCollectionHero2", handCollectionHero2);
             model.addAttribute("tableCollectionHero2", tableCollectionHero2);
             model.addAttribute("activateHero2", activateHero2);
-            model.addAttribute("cardOneId",cardOneId);
+            model.addAttribute("cardOneId", cardOneId);
 
             if (firstTurn == 0) { //Who is the First turn
                 whoTurn = battleService.whoTurnFirst();
@@ -282,7 +281,7 @@ public class BattleController {
                             battleService.deckHeroFromDeckToHand(b.getDeckCollectionHero2(), b.getHandCollectionHero2(), idUser, 2);
                         }
                     }
-                    model.addAttribute("cardOneId",cardOneId);
+                    model.addAttribute("cardOneId", cardOneId);
                     resp.sendRedirect("battle?id=" + batId);
                 }
 
@@ -322,7 +321,7 @@ public class BattleController {
                     } else {
 
                     }
-                    model.addAttribute("cardOneId",cardOneId);
+                    model.addAttribute("cardOneId", cardOneId);
                     resp.sendRedirect("battle?id=" + batId);
                 }
 
@@ -352,6 +351,7 @@ public class BattleController {
                             case 112:
                             case 114:
                             case 115:
+                            case 118:
                                 battleService.perfom(cardOneId, -1, whoTurn, batId, subCase); // minion attack thHero
                                 mess = "attack";
                                 if (whoTurn == 1) {
@@ -406,6 +406,7 @@ public class BattleController {
                                         break;
                                     case 319:
                                         battleService.perfom(idCard, idCard, 1, batId, 319); // case 311
+                                        b.setCurrentMannaHero1((b.getCurrentMannaHero1() - cardService.getByMana(idCard)));
                                         cardOneId = 0;
                                         mess = "spell applies"; //spell
                                         break;
@@ -446,7 +447,8 @@ public class BattleController {
                                         mess = "spell applies"; //spell
                                         break;
                                     case 319:
-                                        battleService.perfom(idCard, idCard, 2, batId, 319); // case 311
+                                        battleService.perfom(idCard, idCard, 2, batId, 319);
+                                        b.setCurrentMannaHero2((b.getCurrentMannaHero2() - cardService.getByMana(idCard)));
                                         cardOneId = 0;
                                         mess = "spell applies"; //spell
                                         break;
@@ -479,7 +481,7 @@ public class BattleController {
                         }
 
                     }
-                    model.addAttribute("cardOneId",cardOneId);
+                    model.addAttribute("cardOneId", cardOneId);
                     resp.sendRedirect("battle?id=" + batId);
                 }
 
@@ -506,7 +508,7 @@ public class BattleController {
                     } else {
                         mess = "card is not Active";
                     }
-                    model.addAttribute("cardOneId",cardOneId);
+                    model.addAttribute("cardOneId", cardOneId);
                     resp.sendRedirect("battle?id=" + batId);
                 }
 
@@ -553,7 +555,7 @@ public class BattleController {
         }
 //        model.addAttribute("deckCardHero2", 9);
 
-        model.addAttribute("cardOneId",cardOneId);
+        model.addAttribute("cardOneId", cardOneId);
         return "battle";
     }
 
@@ -615,7 +617,7 @@ public class BattleController {
             resp.sendRedirect(RedirectPath.LOGIN_PAGE.getValue());
         }
 
-        firstTurn=0;
+        firstTurn = 0;
         mess = "";
         return "finalOfBattle";
     }
